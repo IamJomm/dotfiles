@@ -10,6 +10,15 @@ super + Return
 super + @space
 	rofi -show drun
 
+super + x
+	betterlockscreen -l blur
+
+super + shift + x
+	rofi -show p -modi p:/usr/bin/rofi-power-menu
+
+super + v
+	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
 # thunar
 super + e
 	thunar
@@ -126,9 +135,11 @@ super + {Left,Down,Up,Right}
 
 # audio
 XF86Audio{Raise,Lower}Volume
-	wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-}
+	pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
+# wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-}
 XF86AudioMute
-	wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+# wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # brightness
 XF86MonBrightness{Up,Down}
