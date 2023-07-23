@@ -13,16 +13,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+		},
+	},
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
 		},
 	},
 	"nvim-treesitter/nvim-treesitter",
@@ -49,4 +49,12 @@ require("lazy").setup({
 	"mg979/vim-visual-multi",
 	"gcmt/wildfire.vim",
 	"tpope/vim-surround",
+	{
+		"goolord/alpha-nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = function()
+			return require("p-alpha").config
+		end,
+	},
 })
