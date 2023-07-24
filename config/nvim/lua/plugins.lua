@@ -44,11 +44,24 @@ require("lazy").setup({
 			"BurntSushi/ripgrep",
 		},
 	},
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/nvim-cmp",
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
+
 	"rmagatti/alternate-toggler",
 	"windwp/nvim-autopairs",
 	"mg979/vim-visual-multi",
 	"gcmt/wildfire.vim",
 	"tpope/vim-surround",
+
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 	{
 		"goolord/alpha-nvim",
 		event = "VimEnter",
