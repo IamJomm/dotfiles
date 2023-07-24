@@ -5,7 +5,7 @@ picom -fb &
 nitrogen --restore &
 lxsession &
 xsetroot -cursor_name left_ptr &
-polybar &
+sh ~/.config/polybar/launch.sh &
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 

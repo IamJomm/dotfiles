@@ -32,9 +32,13 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 	},
+	--	{
+	--		"rose-pine/neovim",
+	--		name = "rose-pine",
+	--	},
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"navarasu/onedark.nvim",
+		name = "onedark",
 	},
 	{
 		"nvim-telescope/telescope.nvim",
