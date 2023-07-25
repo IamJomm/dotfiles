@@ -1,5 +1,6 @@
+This is my first rice so it may not be perfect.
 <div align="center">
+    <img src="https://i.imgur.com/YNQIXZO.png">
     <img src="https://i.imgur.com/FcbXXfq.png">
-    <img src="https://i.imgur.com/QpgvHlQ.png">
-    <img src="https://i.imgur.com/Iyp5X7X.png">
+    <img src="https://i.imgur.com/Rqrz65g.png">
 </div>
