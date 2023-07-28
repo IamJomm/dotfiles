@@ -1,0 +1,58 @@
+* {
+    font-family: "Source Code Pro", "Font Awesome 6 Free";
+    font-size: 15px;
+}
+
+window#waybar {
+    background-color: rgba(00, 00, 00, 0);
+    margin-top: 10px;
+}
+
+#disk,
+#memory,
+#cpu,
+#battery,
+#window,
+#language,
+#pulseaudio,
+#network,
+#clock {
+    padding: 5px 15px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.modules-left * {
+    margin-left: 10px;
+}
+.modules-right * {
+    margin-right: 10px
+}
+
+#disk {
+
+}
+#memory {
+
+}
+#cpu {
+
+}
+#battery {
+
+}
+#window {
+
+}
+#language {
+
+}
+#pulseaudio {
+
+}
+#network {
+
+}
+#clock {
+
+} 
