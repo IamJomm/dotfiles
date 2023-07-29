@@ -8,6 +8,11 @@
     xdg.portal.enable = true;
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
+    programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+    };
+
     imports = [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
     ];
@@ -91,6 +96,7 @@
 	    nodejs
 	    playerctl
 	    p7zip
+        qbittorrent
 	    rofi
         steam
 	    swaybg
@@ -101,6 +107,7 @@
 		    })
 	    )
     	wine
+        winetricks
 	    xfce.thunar
     ];
     fonts.packages = with pkgs; [
