@@ -1,6 +1,7 @@
 local opt = vim.opt
 
 opt.number = true
+opt.cursorline = true
 
 vim.scriptencoding = "utf-8"
 opt.encoding = "utf-8"

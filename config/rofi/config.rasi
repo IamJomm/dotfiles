@@ -1,0 +1,95 @@
+configuration {
+    font: "Source Code Pro Medium 12";
+    drun {
+        display-name: " ";
+    }
+
+    run {
+        display-name: " ";
+    }
+
+    window {
+        display-name: " ";
+    }
+}
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+
+    bg: #191724;
+	cur: #1f1d2e;
+	fgd: #e0def4;
+	cmt: #6e6a86;
+	cya: #9ccfd8;
+	grn: #31748f;
+	ora: #ebbcba;
+	pur: #c4a7e7;
+	red: #eb6f92;
+	yel: #f6c177;
+}
+
+window {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px;
+    width: 700px;
+    spacing: 10px;
+}
+
+mainbox{
+    spacing: 10px;
+}
+
+inputbar {
+    background-color: @bg;
+    padding: 10px;
+    border: 2px;
+    border-color: @ora;
+    border-radius: 5px;
+    children: [prompt, entry];
+    spacing: 10px;
+}
+prompt {
+    text-color: @fgd;
+    padding: 0px 0px 0px 10px;
+}
+entry {
+    text-color: @fgd;
+}
+listview {
+    background-color: @bg;
+    padding: 10px;
+    border: 2px;
+    border-color: @ora;
+    border-radius: 5px;
+    lines: 5;
+    spacing: 5px;
+}
+scrollbar {
+    handle-width: 5px;
+    handle-color: @ora;
+    background-color: rgba(0, 0, 0, 0);
+}
+element {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    padding: 10px;
+    children: [element-icon, element-text];
+}
+element normal.normal {
+    background-color: rgba(0, 0, 0, 0);
+}
+element alternate.normal {
+    background-color: rgba(0, 0, 0, 0);
+}
+element-text {
+    text-color: @fgd;
+}
+element selected.normal {
+    background-color: @ora;
+}
+element-text selected {
+    text-color: @bg;
+}

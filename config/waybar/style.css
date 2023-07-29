@@ -1,6 +1,7 @@
 * {
   font-family: "Source Code Pro", "Font Awesome 6 Free";
   font-size: 15px;
+  color: #e0def4;
 }
 
 window#waybar {
@@ -18,7 +19,7 @@ window#waybar {
 #network,
 #clock {
   padding: 5px 15px;
-  background-color: white;
+  background-color: rgba(38, 35, 58, 0.5);
   border-radius: 5px;
 }
 
