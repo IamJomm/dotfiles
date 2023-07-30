@@ -13,7 +13,7 @@ window#waybar {
 #memory,
 #cpu,
 #battery,
-#window,
+#workspaces,
 #language,
 #pulseaudio,
 #network,
@@ -30,21 +30,9 @@ window#waybar {
   margin-right: 10px;
 }
 
-#disk {
+#workspaces {
+  padding: 0px;
 }
-#memory {
-}
-#cpu {
-}
-#battery {
-}
-#window {
-}
-#language {
-}
-#pulseaudio {
-}
-#network {
-}
-#clock {
+#workspaces button {
+  padding: 0px 5px;
 }

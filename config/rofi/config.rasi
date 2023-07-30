@@ -19,16 +19,11 @@ configuration {
     padding: 0;
     spacing: 0;
 
-    bg: #191724;
+    bg: rgba(38, 35, 58, 0.8);
 	cur: #1f1d2e;
 	fgd: #e0def4;
-	cmt: #6e6a86;
-	cya: #9ccfd8;
-	grn: #31748f;
 	ora: #ebbcba;
-	pur: #c4a7e7;
 	red: #eb6f92;
-	yel: #f6c177;
 }
 
 window {
@@ -91,5 +86,5 @@ element selected.normal {
     background-color: @ora;
 }
 element-text selected {
-    text-color: @bg;
+    text-color: @cur;
 }

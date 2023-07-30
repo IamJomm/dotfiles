@@ -2,7 +2,7 @@
     "layer": "top",
     "margin-top": 10,
     "modules-left": ["disk", "memory", "cpu", "battery"],
-    "modules-center": ["hyprland/window"],
+    "modules-center": ["wlr/workspaces"],
     "modules-right": [ "hyprland/language", "pulseaudio", "network", "clock"],
     "disk": {
         "format": " {free}"
@@ -18,6 +18,9 @@
     "battery": {
         "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""]
+    },
+    "wlr/workspaces": {
+        "format": "{icon}",
     },
     "hyprland/language": {
         "format": " {short}"
