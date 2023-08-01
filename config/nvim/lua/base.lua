@@ -3,6 +3,8 @@ local opt = vim.opt
 opt.number = true
 opt.cursorline = true
 
+opt.clipboard:append("unnamedplus")
+
 vim.scriptencoding = "utf-8"
 opt.encoding = "utf-8"
 opt.fileencoding = "utd-8"
