@@ -19,6 +19,18 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 		},
 	},
+
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"mfussenegger/nvim-dap",
+		},
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = "mfussenegger/nvim-dap",
+	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		dependencies = {

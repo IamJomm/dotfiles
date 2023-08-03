@@ -1,8 +1,5 @@
 require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = {
-        "lua_ls",
-        "clangd",
-        "pyright",
-    }
+require("mason-lspconfig").setup()
+require("mason-nvim-dap").setup({
+	handlers = {},
 })
