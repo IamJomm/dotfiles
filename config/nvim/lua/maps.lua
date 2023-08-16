@@ -10,3 +10,11 @@ keymap.set("n", "<leader>dr", "<cmd>DapContinue<cr>")
 keymap.set("n", "<leader>ds", function()
 	require("dap").step_over()
 end)
+keymap.set("n", "<leader>lf", function()
+	vim.lsp.buf.code_action({
+		filter = function(a)
+			return a.isPreferred
+		end,
+		apply = true,
+	})
+end)
