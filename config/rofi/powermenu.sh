@@ -8,7 +8,9 @@ case "$chosen" in
         if [[ "$chosen" == "Yes" ]]; then
             poweroff
         fi ;;
-    "Suspend") systemctl suspend ;;
+    "Suspend")
+        sh ~/.config/swaylock/lock.sh &
+        systemctl suspend ;;
     "Hibernate") systemctl hibernate ;;
     "Restart")
         chosen=$(printf "Yes\nNo" | rofi -dmenu -p "Are you sure?")
