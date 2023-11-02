@@ -6,7 +6,7 @@ swaylock --clock \
     --screenshot \
     --effect-blur 7x3 \
     --effect-vignette 0.5:0.5 \
-    --text-color "#e0def4" \
+    --text-color "#908caa" \
     --ring-color "#908caa" \
     --key-hl-color "#ebbcba" \
     --line-color "#191724" \
