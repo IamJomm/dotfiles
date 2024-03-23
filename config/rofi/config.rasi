@@ -19,7 +19,7 @@ configuration {
     padding: 0;
     spacing: 0;
 
-    bg: rgba(38, 35, 58, 0.85);
+    bg: rgba(38, 35, 58, 0.8);
 	cur: #1f1d2e;
 	fgd: #e0def4;
 	ora: #ebbcba;
