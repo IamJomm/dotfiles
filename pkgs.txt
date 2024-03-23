@@ -1,0 +1,1 @@
+exa slurp dunst xdg-desktop-portal-hyprland cliphist swaybg nautilus rofi grim playerctl brightnessctl waybar fish kitty npm pyenv ripgrep ttf-nerd-fonts-symbols ttf-font-awesome sxiv mpv neofetch swaylock-effects-git
