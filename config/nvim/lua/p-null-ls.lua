@@ -1,6 +1,9 @@
 return {
     "jose-elias-alvarez/null-ls.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "jay-babu/mason-null-ls.nvim",
+    },
     config = function()
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         local null_ls = require("null-ls")

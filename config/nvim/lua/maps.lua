@@ -59,6 +59,9 @@ return {
         },
         b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
         c = { "<cmd>DapContinue<cr>", "Continue" },
+        s = { "<cmd>DapStepOver<cr>", "Step Over" },
+        i = { "<cmd>DapStepInto<cr>", "Step Into" },
+        o = { "<cmd>DapStepOut<cr>", "Step Out" },
         r = {
             function()
                 dapui.open({ reset = true })
