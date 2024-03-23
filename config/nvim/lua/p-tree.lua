@@ -1,7 +1,11 @@
-require("nvim-tree").setup({
-	sort_by = "case_sensitive",
-	actions = {
-		open_file = { quit_on_open = true },
-	},
-})
-vim.keymap.set("n", "<c-e>", "<cmd>NvimTreeToggle<cr>")
+return {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = function()
+        require("nvim-tree").setup({
+            actions = {
+                open_file = { quit_on_open = true },
+            },
+        })
+    end,
+}
