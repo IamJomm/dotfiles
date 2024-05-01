@@ -26,33 +26,6 @@ return {
 		end,
 	},
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("nvim-tree").setup({
-				actions = {
-					open_file = { quit_on_open = true },
-				},
-			})
-		end,
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"BurntSushi/ripgrep",
-		},
-	},
-	{
 		"rcarriga/nvim-notify",
 		opts = {
 			timeout = 5000,

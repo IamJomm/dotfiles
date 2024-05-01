@@ -32,8 +32,11 @@ return {
 				g = { builtin.live_grep, "Live Grep" },
 				o = { builtin.oldfiles, "Old Files" },
 			},
-			l = {
-				g = { "<cmd>LazyGit<cr>", "Open LazyGit" },
+			g = {
+				name = "Git",
+				d = { "<cmd>DiffviewOpen<cr>", "Open Diff View" },
+				D = { "<cmd>DiffviewClose<cr>", "Close Diff View" },
+				l = { "<cmd>LazyGit<cr>", "Open LazyGit" },
 			},
 			t = {
 				name = "Trouble",
@@ -69,6 +72,7 @@ return {
 				s = { "<cmd>DapStepOver<cr>", "Step Over" },
 				i = { "<cmd>DapStepInto<cr>", "Step Into" },
 				o = { "<cmd>DapStepOut<cr>", "Step Out" },
+				q = { "<cmd>DapTerminate<cr>", "Terminate" },
 				r = {
 					function()
 						dapui.open({ reset = true })

@@ -60,32 +60,21 @@ return {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"jay-babu/mason-null-ls.nvim",
-		},
+		"stevearc/conform.nvim",
+		dependencies = "WhoIsSethDaniel/mason-tool-installer.nvim",
 		config = function()
-			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.clang_format,
-					null_ls.builtins.formatting.black,
-					null_ls.builtins.formatting.beautysh,
+			local conform = require("conform")
+			conform.setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					cpp = { "clang_format" },
+					python = { "black" },
+					bash = { "beautysh" },
 				},
-				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ async = false })
-							end,
-						})
-					end
+			})
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				callback = function(args)
+					conform.format({ bufnr = args.buf })
 				end,
 			})
 		end,
@@ -134,6 +123,13 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup()
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup()
 		end,
 	},
 	{

@@ -5,7 +5,7 @@ return {
 	},
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = "jay-babu/mason-nvim-dap.nvim",
+		dependencies = "WhoIsSethDaniel/mason-tool-installer.nvim",
 		config = function()
 			local dap = require("dap")
 			dap.adapters.gdb = {
@@ -30,9 +30,7 @@ return {
 	{
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-		},
+		dependencies = "mfussenegger/nvim-dap",
 		config = function()
 			require("dap-python").setup("/home/jomm/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 		end,
