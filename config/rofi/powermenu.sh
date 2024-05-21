@@ -9,7 +9,7 @@ case "$chosen" in
             poweroff
         fi ;;
     "Suspend")
-        sh ~/.config/swaylock/lock.sh &
+        hyprlock &
         systemctl suspend ;;
     "Hibernate") systemctl hibernate ;;
     "Restart")
