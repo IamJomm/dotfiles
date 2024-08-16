@@ -1,10 +1,7 @@
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
-	init = function()
-		vim.o.timeout = true
-		vim.o.timeoutlen = 300
-	end,
+	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
 		vim.g.mapleader = " "
 		vim.g.maplocalleader = " "
@@ -19,67 +16,56 @@ return {
 			ls.jump(-1)
 		end, { silent = true })
 
-		local trouble = require("trouble")
 		local builtin = require("telescope.builtin")
 		local dapui = require("dapui")
-		local wk = require("which-key")
-		wk.register({
-			w = { "<cmd>w<cr>", "Save File" },
-			q = { "<cmd>q<cr>", "Quit" },
-			f = {
-				name = "File",
-				f = { builtin.find_files, "Find File" },
-				g = { builtin.live_grep, "Live Grep" },
-				o = { builtin.oldfiles, "Old Files" },
+		require("which-key").add({
+			{ "<leader>w", "<cmd>w<cr>", desc = "Save File" },
+			{ "<leader>q", "<cmd>q<cr>", desc = "Quit" },
+			{ "<leader>f", group = "File" },
+			{ "<leader>ff", builtin.find_files, desc = "Find File" },
+			{ "<leader>fg", builtin.live_grep, desc = "Live Grep" },
+			{ "<leader>fo", builtin.oldfiles, desc = "Old Files" },
+			{ "<leader>g", group = "Git" },
+			{ "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Open Diff View" },
+			{ "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
+			{ "<leader>gl", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+			{ "<leader>t", group = "Trouble" },
+			{
+				"<leader>tt",
+				"<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
+				desc = "Diagnostics",
 			},
-			g = {
-				name = "Git",
-				d = { "<cmd>DiffviewOpen<cr>", "Open Diff View" },
-				D = { "<cmd>DiffviewClose<cr>", "Close Diff View" },
-				l = { "<cmd>LazyGit<cr>", "Open LazyGit" },
+			{
+				"<leader>tw",
+				"<cmd>Trouble diagnostics toggle focus=true<cr>",
+				desc = "Workspace Diagnostics",
 			},
-			t = {
-				name = "Trouble",
-				t = {
-					function()
-						trouble.toggle("document_diagnostics")
-					end,
-					"Document Diagnostics",
-				},
-				w = {
-					function()
-						trouble.toggle("workspace_diagnostics")
-					end,
-					"Workspace Diagnostics",
-				},
-				q = {
-					function()
-						trouble.toggle("quickfix")
-					end,
-					"Quick Fix",
-				},
+			{
+				"<leader>tq",
+				"<cmd>Trouble qflist toggle focus=true<cr>",
+				desc = "Quick Fix",
 			},
-			d = {
-				name = "Dap",
-				t = {
-					function()
-						dapui.toggle()
-					end,
-					"Toggle UI",
-				},
-				b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
-				c = { "<cmd>DapContinue<cr>", "Continue" },
-				s = { "<cmd>DapStepOver<cr>", "Step Over" },
-				i = { "<cmd>DapStepInto<cr>", "Step Into" },
-				o = { "<cmd>DapStepOut<cr>", "Step Out" },
-				q = { "<cmd>DapTerminate<cr>", "Terminate" },
-				r = {
-					function()
-						dapui.open({ reset = true })
-					end,
-					"Reset UI",
-				},
+			{ "<leader>d", group = "Dap" },
+			{
+				"<leader>dt",
+				function()
+					dapui.toggle()
+				end,
+				desc = "Toggle UI",
 			},
-		}, { prefix = "<leader>" })
+			{ "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle Breakpoint" },
+			{ "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue" },
+			{ "<leader>ds", "<cmd>DapStepOver<cr>", desc = "Step Over" },
+			{ "<leader>di", "<cmd>DapStepInto<cr>", desc = "Step Into" },
+			{ "<leader>do", "<cmd>DapStepOut<cr>", desc = "Step Out" },
+			{ "<leader>dq", "<cmd>DapTerminate<cr>", desc = "Terminate" },
+			{
+				"<leader>dr",
+				function()
+					dapui.open({ reset = true })
+				end,
+				desc = "Reset UI",
+			},
+		})
 	end,
 }
