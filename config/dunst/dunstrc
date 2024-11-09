@@ -34,6 +34,9 @@
 
     origin = top-center
 
+    corner_radius = 5
+    gap_size = 5
+
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
 

@@ -9,6 +9,7 @@ alias vim 'nvim'
 alias ll 'exa -l -g --icons'
 alias lla 'll -a'
 alias llt 'll --tree'
+alias update 'sudo pacman -Syu'
 
 fish_config theme choose "Rosé Pine"
 
