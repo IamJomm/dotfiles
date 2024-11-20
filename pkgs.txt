@@ -1,1 +1,1 @@
-hyprland fish neovim lazygit exa slurp dunst xdg-desktop-portal-hyprland cliphist hyprpaper nautilus grim playerctl brightnessctl waybar fish kitty npm pyenv ripgrep gdb ttf-nerd-fonts-symbols ttf-font-awesome sxiv mpv neofetch hyprlock rofi-lbonn-wayland
+brightnessctl cliphist dunst exa fish gdb git grim hyprland hyprlock hyprpaper kitty lazygit mpv neofetch neovim npm playerctl pyenv ripgrep rofi-lbonn-wayland slurp sxiv ttf-font-awesome ttf-nerd-fonts-symbols waybar xdg-desktop-portal-hyprland yazi
