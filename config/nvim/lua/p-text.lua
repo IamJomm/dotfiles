@@ -70,6 +70,14 @@ return {
 					cpp = { "clang_format" },
 					python = { "black" },
 					bash = { "beautysh" },
+					html = { "prettier" },
+					css = { "prettier" },
+					scss = { "prettier" },
+					js = { "prettier" },
+					json = { "prettier" },
+					jsonc = { "prettier" },
+					typescript = { "prettier" },
+					typescriptreact = { "prettier" },
 				},
 			})
 			vim.api.nvim_create_autocmd("BufWritePre", {

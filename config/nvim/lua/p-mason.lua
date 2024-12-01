@@ -15,10 +15,15 @@ return {
 					"clangd",
 					"pyright",
 					"bash-language-server",
+					"typescript-language-server",
+					"css-lsp",
+					--
 					"stylua",
 					"clang-format",
 					"black",
 					"beautysh",
+					"prettier",
+					--
 					"debugpy",
 				},
 			})

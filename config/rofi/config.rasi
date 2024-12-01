@@ -1,76 +1,60 @@
 configuration {
-    font: "Source Code Pro Medium 12";
+    font: "Noto Sans 12";
     drun {
-        display-name: " ";
+        display-name: "Search:";
     }
-
     run {
-        display-name: " ";
+        display-name: "Run:";
     }
-
+    ssh {
+        display-name: "SSH:";
+    }
     window {
-        display-name: " ";
+        display-name: "Window:";
     }
 }
-
 * {
     border: 0;
     margin: 0;
     padding: 0;
     spacing: 0;
-
     bg: rgba(38, 35, 58, 0.8);
-	cur: #1f1d2e;
-	fgd: #e0def4;
-	ora: #ebbcba;
-	red: #eb6f92;
+	  cur: #1f1d2e;
+	  fgd: #e0def4;
+	  red: #eb6f92;
+    border: 0px solid;
+    separatorcolor: transparent;
 }
-
 window {
-    background-color: rgba(0, 0, 0, 0);
-    border: 0px;
-    width: 700px;
-    spacing: 10px;
-}
-
-mainbox{
-    spacing: 10px;
-}
-
-inputbar {
+    fullscreen: true;
+    padding: 350px 100px;
     background-color: @bg;
-    padding: 10px;
-    border: 2px;
-    border-color: @ora;
-    border-radius: 5px;
+    spacing: 10px;
+}
+inputbar {
+    padding: 5px 10px;
     children: [prompt, entry];
     spacing: 10px;
 }
 prompt {
     text-color: @fgd;
-    padding: 0px 0px 0px 10px;
 }
 entry {
     text-color: @fgd;
 }
 listview {
-    background-color: @bg;
-    padding: 10px;
-    border: 2px;
-    border-color: @ora;
-    border-radius: 5px;
     lines: 5;
     spacing: 5px;
 }
 scrollbar {
-    handle-width: 5px;
-    handle-color: @ora;
+    handle-width: 0px;
+    handle-color: @fgd;
     background-color: rgba(0, 0, 0, 0);
 }
 element {
     background-color: rgba(0, 0, 0, 0);
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px 10px;
     children: [element-icon, element-text];
 }
 element normal.normal {
@@ -79,11 +63,11 @@ element normal.normal {
 element alternate.normal {
     background-color: rgba(0, 0, 0, 0);
 }
+element selected.normal {
+    background-color: @fgd;
+}
 element-text {
     text-color: @fgd;
-}
-element selected.normal {
-    background-color: @ora;
 }
 element-text selected {
     text-color: @cur;
