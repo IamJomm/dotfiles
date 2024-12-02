@@ -1,14 +1,12 @@
 configuration {
     font: "Noto Sans 12";
+    modi: "drun,run,window";
     drun {
         display-name: "Search:";
     }
     run {
         display-name: "Run:";
-    }
-    ssh {
-        display-name: "SSH:";
-    }
+    } 
     window {
         display-name: "Window:";
     }
@@ -27,27 +25,45 @@ configuration {
 }
 window {
     fullscreen: true;
-    padding: 350px 100px;
+    padding: 350px 200px;
     background-color: @bg;
     spacing: 10px;
 }
 inputbar {
-    padding: 5px 10px;
-    children: [prompt, entry];
+    children: [prompt, entry, mode-switcher];
     spacing: 10px;
 }
 prompt {
+    padding: 5px 10px;
     text-color: @fgd;
 }
 entry {
+    padding: 5px 10px;
+    text-color: @fgd;
+}
+mode-switcher{
+    spacing: 5px;
+}
+button{
+    border-radius: 5px;
+    padding: 5px 15px;
+    width: 125px;
+    background-color: rgba(0, 0, 0, 0);
+    text-color: @fgd;
+}
+button selected{ 
+    background-color: @fgd;
+    text-color: @cur;
+}
+textbox {
     text-color: @fgd;
 }
 listview {
-    lines: 5;
     spacing: 5px;
+    columns: 3;
 }
 scrollbar {
-    handle-width: 0px;
+    handle-width: 5px;
     handle-color: @fgd;
     background-color: rgba(0, 0, 0, 0);
 }
@@ -63,12 +79,24 @@ element normal.normal {
 element alternate.normal {
     background-color: rgba(0, 0, 0, 0);
 }
+element normal.active {
+    background-color: @fgd;
+}
+element alternate.active {
+    background-color: @fgd;
+}
 element selected.normal {
+    background-color: @fgd;
+}
+element selected.active {
     background-color: @fgd;
 }
 element-text {
     text-color: @fgd;
 }
 element-text selected {
+    text-color: @cur;
+}
+element-text active {
     text-color: @cur;
 }
