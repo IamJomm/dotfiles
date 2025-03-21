@@ -1,7 +1,7 @@
 * {
   font-family: "Noto Sans", "Font Awesome 6 Free";
   font-size: 15px;
-  color: #e0def4;
+  color: #161616;
 }
 
 window#waybar {
@@ -19,7 +19,7 @@ window#waybar {
 #network,
 #clock {
   padding: 5px 15px;
-  background-color: rgba(38, 35, 58, 0.8);
+  background-color: rgba(225, 225, 225, 0.8);
   border-radius: 5px;
 }
 

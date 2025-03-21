@@ -16,10 +16,10 @@ configuration {
     margin: 0;
     padding: 0;
     spacing: 0;
-    bg: rgba(38, 35, 58, 0.8);
-	  cur: #1f1d2e;
-	  fgd: #e0def4;
-	  red: #eb6f92;
+    bg: rgba(16, 16, 16, 0.7);
+	  cur: #1f1f1f;
+	  fgd: #e1e1e1;
+	  red: #989898;
     border: 0px solid;
     separatorcolor: transparent;
 }

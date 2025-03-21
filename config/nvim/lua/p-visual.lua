@@ -3,6 +3,30 @@ return {
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
+			require("rose-pine").setup({
+				palette = {
+					main = {
+						_nc = "#151515", --"#16141f"
+						base = "#101010", --"#191724" custom
+						surface = "#1f1f1f", --#1f1d2e"
+						overlay = "#262626", --"#26233a"
+						muted = "#6e6e6e", --"#6e6a86",
+						subtle = "#909090", --"#908caa",
+						text = "#e1e1e1", --"#e0def4",
+						love = "#989898", --"#eb6f92",
+						gold = "#c8c8c8", --,"#f6c177",
+						rose = "#c9c9c9", --"#ebbcba",
+						pine = "#636363", --"#31748f",
+						foam = "#c0c0c0", --"#9ccfd8",
+						iris = "#b6b6b6", --"#c4a7e7",
+						leaf = "#a8a8a8", --"#95b1ac",
+						highlight_low = "#212121", --"#21202e",
+						highlight_med = "#404040", --"#403d52",
+						highlight_high = "#525252", --"#524f67",
+						none = "NONE",
+					},
+				},
+			})
 			vim.cmd("colorscheme rose-pine")
 		end,
 	},

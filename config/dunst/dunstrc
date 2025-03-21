@@ -31,7 +31,7 @@
     frame_width = 2
 
     # Defines color of the frame around the notification window.
-    frame_color = "#e0def4"
+    frame_color = "#e1e1e1"
 
     # Sort messages by urgency.
     sort = yes
@@ -77,18 +77,18 @@
 
 [urgency_low]
     msg_urgency = low
-    background = "#26233aee"
-	  foreground = "#e0def4"
+    background = "#262626ee"
+	  foreground = "#e1e1e1"
 	  timeout= 4 
 
 [urgency_normal]
 	  msg_urgency = normal
-	  background = "#26233aee"
-	  foreground = "#e0def4"
+	  background = "#262626ee"
+	  foreground = "#e1e1e1"
 	  timeout = 4 
 
 [urgency_critical]
 	  msg_urgency = critical
-	  background = "#26233a"
-	  foreground = "#eb6f92"
+	  background = "#262626"
+	  foreground = "#989898"
 	  timeout = 0 
