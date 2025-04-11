@@ -27,6 +27,8 @@ slurp
 sxiv
 ttf-font-awesome
 ttf-nerd-fonts-symbols
+udiskie
+udisks2
 waybar
 xdg-desktop-portal-hyprland-git
 yazi
