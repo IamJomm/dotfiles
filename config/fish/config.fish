@@ -1,9 +1,6 @@
 set fish_greeting
 set fish_prompt_pwd_dir_length 0
-
-set GTK_IM_MODULE fcitx
-set QT_IM_MODULE fcitx
-set XMODIFIERS @im=fcitx
+set -gx TERM xterm-256color
 
 alias vim 'nvim'
 alias ll 'exa -l -g --icons'

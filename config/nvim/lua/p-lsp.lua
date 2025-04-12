@@ -8,7 +8,7 @@ return {
 		lspconfig.clangd.setup({ capabilities = capabilities })
 		lspconfig.pyright.setup({ capabilities = capabilities })
 		lspconfig.bashls.setup({ capabilities = capabilities })
-		lspconfig.tsserver.setup({ capabilities = capabilities })
+		lspconfig.ts_ls.setup({ capabilities = capabilities })
 		lspconfig.cssls.setup({ capabilities = capabilities })
 	end,
 }
