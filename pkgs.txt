@@ -1,7 +1,6 @@
 brightnessctl
 chafa
 cliphist
-dunst
 exa
 fish
 gdb
@@ -24,6 +23,7 @@ pyenv
 ripgrep
 rofi-lbonn-wayland-git
 slurp
+swaync
 sxiv
 ttf-font-awesome
 ttf-nerd-fonts-symbols
