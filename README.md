@@ -11,7 +11,7 @@
 - **WM / Compositor** - Hyprland
 - **Wallpapers** - Hyprpaper
 - **Lockscreen** - Hyprlock
-- **Notifications** - Dunst
+- **Notifications** - SwayNotificationCenter
 - **App Launcher** - Rofi
 - **File Manager** - Yazi
 - **Terminal** - kitty
