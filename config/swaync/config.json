@@ -26,5 +26,9 @@
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
-  "script-fail-notify": false
+  "script-fail-notify": false,
+  "widgets": ["title", "mpris", "dnd", "notifications"],
+  "widget-config": {
+    "mpris": { "image-size": 100, "image-radius": 5 }
+  }
 }

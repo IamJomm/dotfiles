@@ -35,6 +35,6 @@
        "interval": 3
     },
     "clock": {
-        "format": " {:%I:%M %m-%d-%Y}"
+        "format": " {:%I:%M %d/%m/%Y}"
     }
 }
