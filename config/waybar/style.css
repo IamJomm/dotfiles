@@ -1,32 +1,37 @@
 * {
   font-family: "Noto Sans", "Font Awesome 6 Free";
+  margin: 0px;
+  padding: 0px;
   font-size: 15px;
-  color: #161616;
+  color: @text;
 }
+
+@define-color background #161616;
+@define-color text #e1e1e1;
 
 window#waybar {
-  background-color: rgba(00, 00, 00, 0);
-  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-#disk,
-#memory,
-#cpu,
-#battery,
-#workspaces,
-#language,
-#pulseaudio,
-#network,
-#clock {
+.module {
   padding: 5px 15px;
-  background-color: rgba(225, 225, 225, 0.8);
+  background-color: @background;
   border-radius: 5px;
+  border: 1px solid @text;
 }
 
-.modules-left * {
+#workspaces,
+#cpu,
+#memory,
+#custom-uptime {
   margin-left: 10px;
 }
-.modules-right * {
+#traygroup,
+#tray,
+#pulseaudio.microphone,
+#network,
+#clock,
+#clock.date {
   margin-right: 10px;
 }
 
@@ -34,5 +39,29 @@ window#waybar {
   padding: 0px;
 }
 #workspaces button {
-  padding: 0px 5px;
+  padding: 0px;
+  margin: 0px 5px 0px 5px;
+}
+#workspaces button.visible {
+  font-weight: bold;
+}
+
+#memory,
+#pulseaudio.volume,
+#network.download {
+  border-radius: 5px 0px 0px 5px;
+  margin-right: 0px;
+}
+#disk,
+#pulseaudio.microphone,
+#network.upload {
+  border-radius: 0px 5px 5px 0px;
+  border-left: 0px solid transparent;
+  margin-left: 0px;
+}
+#temperature.cpu,
+#temperature.gpu {
+  border-radius: 0px;
+  border-left: 0px solid transparent;
+  margin: 0px;
 }

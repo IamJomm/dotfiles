@@ -1,4 +1,3 @@
-brightnessctl
 chafa
 cliphist
 exa
@@ -6,10 +5,10 @@ fish
 gdb
 git
 grim
-hypridle-git
-hyprland-git
-hyprlock-git
-hyprpaper-git
+hypridle
+hyprland
+hyprlock
+hyprpaper
 kitty
 lazygit
 mediainfo
@@ -23,6 +22,7 @@ pyenv
 ripgrep
 rofi-lbonn-wayland-git
 slurp
+swayosd
 swaync
 sxiv
 ttf-font-awesome
@@ -30,5 +30,5 @@ ttf-nerd-fonts-symbols
 udiskie
 udisks2
 waybar
-xdg-desktop-portal-hyprland-git
+xdg-desktop-portal-hyprland
 yazi
