@@ -15,7 +15,7 @@
     "hyprland/workspaces": {
 			"format": "<span>{icon}</span>",
 			"persistent-workspaces": { "*": 10 },
-			"format-icons": { "active": "\uf111", "default": "\uf111" }
+			"format-icons": { "active": "\uf111", "default": "\uf10c", "empty": "\uf10c" }
 		},
 
     "group/monitoring": {
@@ -40,7 +40,7 @@
 
     "temperature#cpu": {
 			// Please enter your hwmon path for the desired device here.
-			"hwmon-path": "",
+			"hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
 			"format": "CPU:  <span>\uf2cb</span>  {temperatureC}°C",
 			"interval": 1,
 			"tooltip": false
@@ -48,7 +48,7 @@
 
 		"temperature#gpu": {
 			// Please enter your hwmon path for the desired device here.
-			"hwmon-path": "",
+			"hwmon-path": "/sys/class/hwmon/hwmon1/temp2_input",
 			"format": "GPU:  <span>\uf2cb</span>  {temperatureC}°C",
 			"interval": 1,
 			"tooltip": false

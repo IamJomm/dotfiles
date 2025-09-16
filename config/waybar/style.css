@@ -8,16 +8,18 @@
 
 @define-color background #161616;
 @define-color text #e1e1e1;
+@define-color border #6e6e6e;
 
 window#waybar {
   background-color: rgba(0, 0, 0, 0);
 }
 
 .module {
+  margin-top: 5px;
   padding: 5px 15px;
   background-color: @background;
   border-radius: 5px;
-  border: 1px solid @text;
+  border: 1px solid @border;
 }
 
 #workspaces,
@@ -41,8 +43,6 @@ window#waybar {
 #workspaces button {
   padding: 0px;
   margin: 0px 5px 0px 5px;
-}
-#workspaces button.visible {
   font-weight: bold;
 }
 
@@ -63,5 +63,5 @@ window#waybar {
 #temperature.gpu {
   border-radius: 0px;
   border-left: 0px solid transparent;
-  margin: 0px;
+  margin-right: 0px;
 }
