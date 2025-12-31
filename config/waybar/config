@@ -34,14 +34,14 @@
 
 		"memory": {
 			"interval": 1,
-			"format": "RAM:  <span>\uf1c0</span>  {used:0.1f}GiB",
+			"format": "RAM <span>\uf1c0</span> : {used:0.1f}GiB",
 			"tooltip-format": "RAM: {used:0.1f}GiB\nZRAM: {swapUsed:0.1f}GiB"
 		},
 
     "temperature#cpu": {
 			// Please enter your hwmon path for the desired device here.
-			"hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
-			"format": "CPU:  <span>\uf2cb</span>  {temperatureC}°C",
+			"hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+			"format": "CPU <span>\uf2cb</span> : {temperatureC}°C",
 			"interval": 1,
 			"tooltip": false
 		},
@@ -49,13 +49,13 @@
 		"temperature#gpu": {
 			// Please enter your hwmon path for the desired device here.
 			"hwmon-path": "/sys/class/hwmon/hwmon1/temp2_input",
-			"format": "GPU:  <span>\uf2cb</span>  {temperatureC}°C",
+			"format": "GPU <span>\uf2cb</span> : {temperatureC}°C",
 			"interval": 1,
 			"tooltip": false
 		},	
 
     "disk": {
-        "format": "Disk: <span>\uf0a0</span>  {free}"
+        "format": "Disk <span>\uf0a0</span> : {free}"
     },
 
     "custom/uptime": {
