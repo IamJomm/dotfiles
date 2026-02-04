@@ -31,20 +31,11 @@ PanelWindow {
 
     BarModule {
       id: timeModule
-      Process {
-        id: timeProc
-        command: ["date"]
-        running: true
-        stdout: StdioCollector {
-          onStreamFinished: timeModule.contentText = this.text.trim()
-        }
+      SystemClock {
+        id: clock
+        precision: SystemClock.Seconds
       }
-      Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: timeProc.running = true
-      }
+      contentText: Qt.formatDateTime(clock.date, "\uf017  hh:mm:ss dd/MM/yyyy")
     }
   } 
 }

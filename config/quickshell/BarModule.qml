@@ -7,19 +7,21 @@ Rectangle {
   property alias contentText: content.text
   signal activated()
 
-  implicitHeight: 30
-  implicitWidth: content.implicitWidth + 15
-  color: "blue"
+  implicitHeight: 35
+  implicitWidth: content.implicitWidth + 20
+  color: Theme.background
   radius: 5
   border {
-    color: "red"
+    color: Theme.border
     width: 1
   }
 
   Text {
     id: content
     anchors.centerIn: module 
-    color: "green"
+    font.family: Theme.font
+    font.pixelSize: Theme.fontSize
+    color: Theme.text
   }
   MouseArea {
     anchors.fill: module
