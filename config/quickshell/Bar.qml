@@ -1,5 +1,8 @@
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
+import Quickshell.Services.Pipewire
+import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 
@@ -21,7 +24,12 @@ PanelWindow {
       margins: 10
     } 
     
-    
+    BarModule {
+      id: titleModule 
+      contentText: Hyprland.activeToplevel?.title.length > 60 ?
+        `...${Hyprland.activeToplevel?.title.slice(-60)}` :
+        Hyprland.activeToplevel?.title
+    }
 
     Item { Layout.fillWidth: true }
 
@@ -30,6 +38,17 @@ PanelWindow {
     Item { Layout.fillWidth: true }
 
     BarModule {
+      id: trayModule
+
+    }
+    BarModule {
+      id: soundModule
+      PwObjectTracker {
+    		objects: [ Pipewire.defaultAudioSink ]
+    	}	
+      contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
+    }
+    BarModule {
       id: timeModule
       SystemClock {
         id: clock
@@ -37,5 +56,13 @@ PanelWindow {
       }
       contentText: Qt.formatDateTime(clock.date, "\uf017  hh:mm:ss dd/MM/yyyy")
     }
-  } 
+    BarModule {
+      id: quickSettings
+      contentText: "\uf0c9"
+      areaHover: true
+      implicitHeight: 35
+      implicitWidth: 35
+      onActivated: {}
+    }
+  }
 }
