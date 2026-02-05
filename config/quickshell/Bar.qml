@@ -12,8 +12,17 @@ PanelWindow {
     left: true
     right: true
   }
-  height: content.implicitHeight + 10
+  implicitHeight: content.implicitHeight + 10
   color: "transparent"
+
+  WorkspacesModule {
+    anchors {
+      top: parent.top
+      horizontalCenter: parent.horizontalCenter
+      topMargin: 10
+    }
+  }
+
   RowLayout {
     id: content
     spacing: 10
@@ -29,18 +38,12 @@ PanelWindow {
       contentText: Hyprland.activeToplevel?.title.length > 60 ?
         `...${Hyprland.activeToplevel?.title.slice(-60)}` :
         Hyprland.activeToplevel?.title
-    }
+    } 
 
     Item { Layout.fillWidth: true }
 
+    TrayModule {}
 
-
-    Item { Layout.fillWidth: true }
-
-    BarModule {
-      id: trayModule
-
-    }
     BarModule {
       id: soundModule
       PwObjectTracker {
@@ -48,6 +51,7 @@ PanelWindow {
     	}	
       contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
     }
+
     BarModule {
       id: timeModule
       SystemClock {
@@ -56,6 +60,7 @@ PanelWindow {
       }
       contentText: Qt.formatDateTime(clock.date, "\uf017  hh:mm:ss dd/MM/yyyy")
     }
+
     BarModule {
       id: quickSettings
       contentText: "\uf0c9"
