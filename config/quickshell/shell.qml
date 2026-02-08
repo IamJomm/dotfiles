@@ -4,5 +4,6 @@ import Quickshell
 
 ShellRoot {
   Osd {}
+  NotificationPopup {}
   Bar {}
 }

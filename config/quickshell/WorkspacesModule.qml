@@ -24,8 +24,10 @@ Rectangle {
         Text {
           anchors.centerIn: parent
           text: modelData.id
-          font.family: Theme.font
-          font.pixelSize: Theme.fontSize
+          font {
+            family: Theme.font
+            pixelSize: Theme.fontSize
+          }
           color: modelData.active ? Theme.text : Theme.border
         }
         MouseArea {

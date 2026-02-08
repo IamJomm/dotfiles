@@ -15,6 +15,12 @@ PanelWindow {
   implicitHeight: content.implicitHeight + 10
   color: "transparent"
 
+  LazyLoader {
+    id: quickSettingsLoader
+    loading: true
+    QuickSettings {}
+  }
+
   WorkspacesModule {
     anchors {
       top: parent.top
@@ -34,7 +40,6 @@ PanelWindow {
     } 
     
     BarModule {
-      id: titleModule 
       contentText: Hyprland.activeToplevel?.title.length > 60 ?
         `...${Hyprland.activeToplevel?.title.slice(-60)}` :
         Hyprland.activeToplevel?.title
@@ -45,7 +50,6 @@ PanelWindow {
     TrayModule {}
 
     BarModule {
-      id: soundModule
       PwObjectTracker {
     		objects: [ Pipewire.defaultAudioSink ]
     	}	
@@ -53,7 +57,6 @@ PanelWindow {
     }
 
     BarModule {
-      id: timeModule
       SystemClock {
         id: clock
         precision: SystemClock.Seconds
@@ -62,12 +65,11 @@ PanelWindow {
     }
 
     BarModule {
-      id: quickSettings
       contentText: "\uf0c9"
       areaHover: true
       implicitHeight: 35
       implicitWidth: 35
-      onActivated: {}
+      onTriggered: quickSettingsLoader.item.visible = !quickSettingsLoader.item.visible
     }
   }
 }

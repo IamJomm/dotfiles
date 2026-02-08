@@ -2,11 +2,9 @@ import Quickshell
 import QtQuick
 
 Rectangle {
-  id: module
-
   property alias contentText: content.text
   property alias areaHover: area.hoverEnabled
-  signal activated()
+  signal triggered()
 
   implicitHeight: 35
   implicitWidth: content.implicitWidth + 20
@@ -19,17 +17,18 @@ Rectangle {
 
   Text {
     id: content
-    anchors.centerIn: module 
-    font.family: Theme.font
-    font.pixelSize: Theme.fontSize
+    anchors.centerIn: parent
+    font {
+      family: Theme.font
+      pixelSize: Theme.fontSize
+    }
     color: Theme.text
   }
 
   MouseArea {
     id: area
-    anchors.fill: module
-    hoverEnabled: false
+    anchors.fill: parent
     cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-    onClicked: module.activated()
+    onClicked: triggered()
   }
 }

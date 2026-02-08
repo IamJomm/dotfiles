@@ -55,8 +55,10 @@ Scope {
 
           Text {
             color: Theme.text
-            font.pixelSize: Theme.fontSize
-            font.family: Theme.font
+            font {
+              pixelSize: Theme.fontSize
+              family: Theme.font
+            }
             text: `${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
           }
 

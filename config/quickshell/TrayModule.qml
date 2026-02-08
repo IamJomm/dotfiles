@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
@@ -24,7 +25,7 @@ Rectangle {
         implicitHeight: trayModule.implicitHeight
         implicitWidth: trayModule.implicitHeight
         color: "transparent"
-        Image {
+        IconImage {
           id: icon
           height: parent.implicitHeight - 15
           width: parent.implicitHeight - 15
