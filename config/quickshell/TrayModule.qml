@@ -7,6 +7,13 @@ import Qt5Compat.GraphicalEffects
 
 Rectangle {
   id: trayModule
+
+  QsMenuAnchor {
+    id: menuAnchor
+    anchor.window: QsWindow.window
+    anchor.gravity: Edges.Bottom | Edges.Left
+  }
+
   visible: apps.children.length
   implicitHeight: 35
   implicitWidth: apps.implicitWidth
@@ -22,6 +29,7 @@ Rectangle {
     Repeater {
       model: SystemTray.items
       Rectangle {
+        id: app
         implicitHeight: trayModule.implicitHeight
         implicitWidth: trayModule.implicitHeight
         color: "transparent"
@@ -36,15 +44,16 @@ Rectangle {
           anchors.fill: icon
           source: icon
           desaturation: 1
-        }
+        } 
         MouseArea {
           anchors.fill: parent
           hoverEnabled: true
           cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-          onClicked: function(mouse) {
-            if(modelData.hasMenu){
-              modelData.display(trayModule, mouse.x, mouse.y)
-            }
+          onClicked: if(modelData.hasMenu) {
+            var globalCoordinares = app.mapToItem(QsWindow.parent, 0, 0)
+            menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.implicitWidth, globalCoordinares.y + app.implicitHeight, 0, 0)
+            menuAnchor.menu = modelData.menu
+            menuAnchor.open()
           }
         }
       }

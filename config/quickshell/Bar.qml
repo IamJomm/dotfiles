@@ -21,6 +21,11 @@ PanelWindow {
     QuickSettings {}
   }
 
+  IpcHandler {
+    target: "quickSettingsLoader"
+    function toggle() { quickSettingsLoader.item.visible = !quickSettingsLoader.item.visible }
+  }
+
   WorkspacesModule {
     anchors {
       top: parent.top
