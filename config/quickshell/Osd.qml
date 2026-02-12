@@ -6,19 +6,16 @@ import QtQuick.Layouts
 
 Scope {
 	id: root
-
-	PwObjectTracker {
-		objects: [ Pipewire.defaultAudioSink ]
-	}
+	
 	Connections {
-		target: Pipewire.defaultAudioSink?.audio
+		target: Services
 		function onVolumeChanged() {
 			root.shouldShowOsd = true;
 			hideTimer.restart();
 		}
 	}
 
-	property bool shouldShowOsd: false
+  property bool shouldShowOsd: false
 
 	Timer {
 		id: hideTimer

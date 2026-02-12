@@ -36,7 +36,7 @@ PanelWindow {
 
   RowLayout {
     id: content
-    spacing: 10
+    spacing: 5
     anchors {
       top: parent.top
       left: parent.left
@@ -45,9 +45,8 @@ PanelWindow {
     } 
     
     BarModule {
-      contentText: Hyprland.activeToplevel?.title.length > 60 ?
-        `...${Hyprland.activeToplevel?.title.slice(-60)}` :
-        Hyprland.activeToplevel?.title
+      contentElide: Text.ElideLeft
+      contentText: Hyprland.activeToplevel?.title
     } 
 
     Item { Layout.fillWidth: true }
@@ -55,9 +54,6 @@ PanelWindow {
     TrayModule {}
 
     BarModule {
-      PwObjectTracker {
-    		objects: [ Pipewire.defaultAudioSink ]
-    	}	
       contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
     }
 

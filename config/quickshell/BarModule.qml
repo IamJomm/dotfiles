@@ -3,11 +3,12 @@ import QtQuick
 
 Rectangle {
   property alias contentText: content.text
+  property alias contentElide: content.elide
   property alias areaHover: area.hoverEnabled
   signal triggered()
 
   implicitHeight: 35
-  implicitWidth: content.implicitWidth + 20
+  implicitWidth: content.width + 20
   color: areaHover && area.containsMouse ? Theme.border : Theme.background
   radius: 5
   border {
@@ -17,6 +18,7 @@ Rectangle {
 
   Text {
     id: content
+    width: Math.min(implicitWidth, 400)
     anchors.centerIn: parent
     font {
       family: Theme.font

@@ -50,6 +50,7 @@ Rectangle {
           hoverEnabled: true
           cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
           onClicked: if(modelData.hasMenu) {
+            if(menuAnchor.visible) menuAnchor.close()
             var globalCoordinares = app.mapToItem(QsWindow.parent, 0, 0)
             menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.implicitWidth, globalCoordinares.y + app.implicitHeight, 0, 0)
             menuAnchor.menu = modelData.menu
