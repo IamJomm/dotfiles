@@ -20,7 +20,7 @@ PanelWindow {
       right: parent.right
       top: parent.top
       bottom: parent.bottom
-      margins: 10
+      margins: Theme.spacing
     } 
     width: switches.implicitWidth + Theme.spacing * 2
     color: Theme.background
@@ -36,7 +36,10 @@ PanelWindow {
       }
       spacing: Theme.spacing
       SwitchesGrid { id: switches }
-      NotificationList {}
+      NotificationList {
+          Layout.fillHeight: true
+          Layout.fillWidth: true
+      }
       Rectangle {
         Layout.fillWidth: true
         height: 100

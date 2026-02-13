@@ -14,8 +14,6 @@ Rectangle {
     }
   }
 
-  Layout.fillHeight: true
-  Layout.fillWidth: true
   color: "transparent"
   Text {
     id: notificationsTitle
@@ -45,7 +43,9 @@ Rectangle {
     }
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
     ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+    clip: true
     ListView {
+      id: listView
       anchors {
         left: parent.left
         right: parent.right
@@ -53,12 +53,12 @@ Rectangle {
       spacing: Theme.spacing
       model: notificationList
       delegate: NotificationCard {
-        maxCardWidth: parent.width
-        minCardWidth: parent.width
+        maxCardWidth: listView.width
+        minCardWidth: listView.width
         iconSource: icon
         titleText: title
         bodyText: body
       }
     }
   } 
-      }
+}
