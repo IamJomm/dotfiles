@@ -1,17 +1,22 @@
 import Quickshell
 import Quickshell.Services.Notifications
 import QtQuick
+import ".."
 
 Scope {
   id: root
-
-  property Notification currentNotification
+  
+  property string iconSource
+  property string titleText
+  property string bodyText
   property bool shouldShowNotification: false
 
   Connections {
     target: Services
-    function onNewNotification(notification) {
-      root.currentNotification = notification
+    function onNewNotification(iconSource, titleText, bodyText) {
+      root.iconSource = iconSource
+      root.titleText = titleText
+      root.bodyText = bodyText
       root.shouldShowNotification = true
       hideTimer.restart()
     }
@@ -29,12 +34,17 @@ Scope {
       anchors.top: true
       margins.top: screen.height / 20
       exclusiveZone: 0
-      implicitWidth: card.implicitWidth
-      implicitHeight: card.implicitHeight
+      implicitWidth: card.width
+      implicitHeight: card.height
       color: "transparent"
       NotificationCard { 
         id: card
+        iconSource: root.iconSource
+        titleText: root.titleText
+        bodyText: root.bodyText
         notification: root.currentNotification
+        onFocused: hideTimer.stop()
+        onFocusLost: hideTimer.start()
       }
     }
   }

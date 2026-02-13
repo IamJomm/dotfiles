@@ -7,12 +7,12 @@ import QtQuick
 
 Item {
   signal volumeChanged()
-  signal newNotification(notification: Notification)
+  signal newNotification(iconSource: string, titleText: string, bodyText: string)
  
   Connections {
     target: NotificationServer {}
     function onNotification(n) {
-      newNotification(n)
+      newNotification(n.image, `${n.appName} ${n.summary}`,  n.body)
     }
   }
 

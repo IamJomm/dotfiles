@@ -1,16 +1,17 @@
 import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
+import ".."
 
 Rectangle {
   id: workspacesModule
   implicitHeight: 35
   implicitWidth: workspaces.implicitWidth
   color: Theme.background
-  radius: 5
+  radius: Theme.borderRadius
   border {
-    color: Theme.border
-    width: 1
+    color: Theme.borderColor
+    width: Theme.borderWidth
   }
   RowLayout {
     id: workspaces
@@ -28,7 +29,7 @@ Rectangle {
             family: Theme.font
             pixelSize: Theme.fontSize
           }
-          color: modelData.active ? Theme.text : Theme.border
+          color: modelData.active ? Theme.textColor : Theme.borderColor
         }
         MouseArea {
           anchors.fill: parent

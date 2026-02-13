@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import ".."
 
 Rectangle {
   property alias contentText: content.text
@@ -9,11 +10,11 @@ Rectangle {
 
   implicitHeight: 35
   implicitWidth: content.width + 20
-  color: areaHover && area.containsMouse ? Theme.border : Theme.background
-  radius: 5
+  color: areaHover && area.containsMouse ? Theme.borderColor : Theme.background
+  radius: Theme.borderRadius
   border {
-    color: Theme.border
-    width: 1
+    color: Theme.borderColor
+    width: Theme.borderWidth
   }
 
   Text {
@@ -24,7 +25,7 @@ Rectangle {
       family: Theme.font
       pixelSize: Theme.fontSize
     }
-    color: Theme.text
+    color: Theme.textColor
   }
 
   MouseArea {

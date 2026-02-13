@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import ".."
 
 Rectangle {
   property alias iconGlyph: icon.text
@@ -10,17 +11,17 @@ Rectangle {
 
   implicitWidth: 100
   implicitHeight: 65
-  color: active ? Theme.border : Theme.background
-  radius: 5
+  color: active ? Theme.borderColor : Theme.background
+  radius: Theme.borderRadius
   border {
-    color: Theme.border
-    width: 1
+    color: Theme.borderColor
+    width: Theme.borderWidth
   }
   Text {
     id: icon
     anchors.centerIn: parent
     font.pixelSize: parent.implicitHeight * 0.5
-    color: active ? Theme.background : Theme.border
+    color: active ? Theme.background : Theme.borderColor
   } 
   MouseArea {
     anchors.fill: parent

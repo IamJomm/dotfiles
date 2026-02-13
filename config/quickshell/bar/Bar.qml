@@ -5,6 +5,8 @@ import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
+import "../quicksettings"
+import ".."
 
 PanelWindow {
   anchors {
@@ -26,7 +28,7 @@ PanelWindow {
     function toggle() { quickSettingsLoader.item.visible = !quickSettingsLoader.item.visible }
   }
 
-  WorkspacesModule {
+  Workspaces {
     anchors {
       top: parent.top
       horizontalCenter: parent.horizontalCenter
@@ -36,7 +38,7 @@ PanelWindow {
 
   RowLayout {
     id: content
-    spacing: 5
+    spacing: Theme.spacing
     anchors {
       top: parent.top
       left: parent.left
@@ -44,20 +46,20 @@ PanelWindow {
       margins: 10
     } 
     
-    BarModule {
+    Module {
       contentElide: Text.ElideLeft
       contentText: Hyprland.activeToplevel?.title
     } 
 
     Item { Layout.fillWidth: true }
 
-    TrayModule {}
+    Tray {}
 
-    BarModule {
+    Module {
       contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
     }
 
-    BarModule {
+    Module {
       SystemClock {
         id: clock
         precision: SystemClock.Seconds
@@ -65,7 +67,7 @@ PanelWindow {
       contentText: Qt.formatDateTime(clock.date, "\uf017  hh:mm:ss dd/MM/yyyy")
     }
 
-    BarModule {
+    Module {
       contentText: "\uf0c9"
       areaHover: true
       implicitHeight: 35

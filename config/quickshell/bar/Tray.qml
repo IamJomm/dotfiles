@@ -4,6 +4,7 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
+import ".."
 
 Rectangle {
   id: trayModule
@@ -18,10 +19,10 @@ Rectangle {
   implicitHeight: 35
   implicitWidth: apps.implicitWidth
   color: Theme.background
-  radius: 5
+  radius: Theme.borderRadius
   border {
-    color: Theme.border
-    width: 1
+    color: Theme.borderColor
+    width: Theme.borderWidth
   }
   RowLayout {
     id: apps

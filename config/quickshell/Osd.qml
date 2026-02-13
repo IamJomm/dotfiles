@@ -6,6 +6,8 @@ import QtQuick.Layouts
 
 Scope {
 	id: root
+  
+  property bool shouldShowOsd: false
 	
 	Connections {
 		target: Services
@@ -14,8 +16,6 @@ Scope {
 			hideTimer.restart();
 		}
 	}
-
-  property bool shouldShowOsd: false
 
 	Timer {
 		id: hideTimer
@@ -37,21 +37,21 @@ Scope {
 			Rectangle {
 				anchors.fill: parent
         color: Theme.background
-        radius: 5
+        radius: Theme.borderRadius
 				border {
-          color: Theme.border
-          width: 1
+          color: Theme.borderColor
+          width: Theme.borderWidth
         }
 
 				RowLayout {
 					anchors {
             fill: parent
-            leftMargin: 10
-            rightMargin: 10
+            leftMargin: Theme.spacing
+            rightMargin: Theme.spacing
           }
 
           Text {
-            color: Theme.text
+            color: Theme.textColor
             font {
               pixelSize: Theme.fontSize
               family: Theme.font
@@ -62,8 +62,8 @@ Scope {
 					Rectangle {
 						Layout.fillWidth: true
 						implicitHeight: 10
-						radius: 5
-						color: Theme.border
+						radius: Theme.borderRadius
+						color: Theme.borderColor
 
 						Rectangle {
 							anchors {
@@ -72,7 +72,7 @@ Scope {
 								bottom: parent.bottom
               }
 							radius: parent.radius
-              color: Theme.text
+              color: Theme.textColor
 							implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
 						}
 					}
@@ -81,4 +81,3 @@ Scope {
 		}
 	}
 }
-
