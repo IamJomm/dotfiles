@@ -10,6 +10,10 @@ import ".."
 
 Scope {
   QuickSettings { id: quickSettings}
+  IpcHandler {
+      target: "quickSettings"
+      function toggle() { quickSettings.visible = !quickSettings.visible }
+  }
   PanelWindow {
     anchors {
       top: true
@@ -17,12 +21,7 @@ Scope {
       right: true
     }
     implicitHeight: content.implicitHeight + Theme.spacing
-    color: "transparent" 
-  
-    IpcHandler {
-      target: "quickSettings"
-      function toggle() { quickSettings.visible = !quickSettings.visible }
-    }
+    color: "transparent"
   
     Workspaces {
       anchors {
@@ -54,11 +53,7 @@ Scope {
       Module { contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%` }
   
       Module {
-        SystemClock {
-          id: clock
-          precision: SystemClock.Seconds
-        }
-        contentText: Qt.formatDateTime(clock.date, "\uf017  hh:mm:ss dd/MM/yyyy")
+        contentText: `\uf017  ${Services.time}`
       }
   
       Module {

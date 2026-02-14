@@ -11,5 +11,5 @@ Singleton {
   readonly property int fontSize: 17
   readonly property int spacing: 10
   readonly property int borderWidth: 1
-  readonly property int borderRadius: 5
+  readonly property int borderRadius: 10
 }
