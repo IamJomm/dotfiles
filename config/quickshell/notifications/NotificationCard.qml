@@ -23,7 +23,7 @@ Rectangle {
   width: content.width + Theme.spacing * 2
   radius: Theme.borderRadius
   border {
-    color: Theme.borderColor
+    color: Theme.secondary
     width: Theme.borderWidth
   }
   color: Theme.background
@@ -75,7 +75,7 @@ Rectangle {
           family: Theme.font
           pixelSize: Theme.fontSize
         }
-        color: Theme.textColor
+        color: Theme.primary
       }
       Text {
         id: body
@@ -86,7 +86,7 @@ Rectangle {
           family: Theme.font
           pixelSize: Theme.fontSize
         }
-        color: Theme.borderColor
+        color: Theme.primary
       }
     }
     Rectangle{
@@ -99,7 +99,7 @@ Rectangle {
         id: expandIcon
         anchors.centerIn: parent
         font.pixelSize: Theme.fontSize
-        color: Theme.borderColor
+        color: Theme.secondary
         text: "\uf107"
       }
     }

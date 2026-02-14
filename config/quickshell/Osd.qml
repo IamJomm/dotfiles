@@ -39,7 +39,7 @@ Scope {
         color: Theme.background
         radius: Theme.borderRadius
 				border {
-          color: Theme.borderColor
+          color: Theme.secondary
           width: Theme.borderWidth
         }
 
@@ -51,7 +51,7 @@ Scope {
           }
 
           Text {
-            color: Theme.textColor
+            color: Theme.primary
             font {
               pixelSize: Theme.fontSize
               family: Theme.font
@@ -63,7 +63,7 @@ Scope {
 						Layout.fillWidth: true
 						implicitHeight: 10
 						radius: Theme.borderRadius
-						color: Theme.borderColor
+						color: Theme.secondary
 
 						Rectangle {
 							anchors {
@@ -72,7 +72,7 @@ Scope {
 								bottom: parent.bottom
               }
 							radius: parent.radius
-              color: Theme.textColor
+              color: Theme.primary
 							implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
 						}
 					}

@@ -21,7 +21,7 @@ Rectangle {
   color: Theme.background
   radius: Theme.borderRadius
   border {
-    color: Theme.borderColor
+    color: Theme.secondary
     width: Theme.borderWidth
   }
   RowLayout {

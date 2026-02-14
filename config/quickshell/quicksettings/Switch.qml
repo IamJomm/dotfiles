@@ -11,17 +11,17 @@ Rectangle {
 
   implicitWidth: 100
   implicitHeight: 65
-  color: active ? Theme.borderColor : Theme.background
+  color: active ? Theme.secondary : Theme.background
   radius: Theme.borderRadius
   border {
-    color: Theme.borderColor
+    color: Theme.secondary
     width: Theme.borderWidth
   }
   Text {
     id: icon
     anchors.centerIn: parent
     font.pixelSize: parent.implicitHeight * 0.5
-    color: active ? Theme.background : Theme.borderColor
+    color: active ? Theme.background : Theme.secondary
   } 
   MouseArea {
     anchors.fill: parent

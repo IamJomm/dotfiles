@@ -10,7 +10,7 @@ Rectangle {
   color: Theme.background
   radius: Theme.borderRadius
   border {
-    color: Theme.borderColor
+    color: Theme.secondary
     width: Theme.borderWidth
   }
   RowLayout {
@@ -29,7 +29,7 @@ Rectangle {
             family: Theme.font
             pixelSize: Theme.fontSize
           }
-          color: modelData.active ? Theme.textColor : Theme.borderColor
+          color: modelData.active ? Theme.primary : Theme.secondary
         }
         MouseArea {
           anchors.fill: parent

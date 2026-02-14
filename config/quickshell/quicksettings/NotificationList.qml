@@ -19,9 +19,9 @@ Rectangle {
     id: notificationsTitle
     font {
       family: Theme.font
-      pixelSize: 20
+      pixelSize: Theme.fontSize * 1.75
     }
-    color: Theme.textColor
+    color: Theme.primary
     text: "Notifications"
   } 
   Rectangle {
@@ -31,7 +31,7 @@ Rectangle {
       right: parent.right
     }
     height: Theme.borderWidth
-    color: Theme.borderColor
+    color: Theme.secondary
   } 
   ScrollView {
     anchors {
@@ -42,7 +42,21 @@ Rectangle {
       topMargin: 10
     }
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-    ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+    ScrollBar.vertical: ScrollBar {
+      policy: ScrollBar.AlwaysOn
+      anchors {
+        top: parent.top
+        bottom: parent.bottom
+        right: parent.right
+      }
+      padding: 0
+      contentItem: Rectangle {
+        id: scrollBar
+        implicitWidth: 5
+        radius: this.implicitWidth / 2
+        color: Theme.primary
+      }
+    }
     clip: true
     ListView {
       id: listView
@@ -53,8 +67,8 @@ Rectangle {
       spacing: Theme.spacing
       model: notificationList
       delegate: NotificationCard {
-        maxCardWidth: listView.width
-        minCardWidth: listView.width
+        maxCardWidth: listView.width - scrollBar.width - Theme.spacing
+        minCardWidth: listView.width - scrollBar.width - Theme.spacing
         iconSource: icon
         titleText: title
         bodyText: body

@@ -14,6 +14,7 @@ Scope {
   Connections {
     target: Services
     function onNewNotification(iconSource, titleText, bodyText) {
+      if(!Settings.notifications) return
       root.iconSource = iconSource
       root.titleText = titleText
       root.bodyText = bodyText

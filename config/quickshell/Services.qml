@@ -12,7 +12,7 @@ Item {
   Connections {
     target: NotificationServer {}
     function onNotification(n) {
-      newNotification(n.image, `${n.appName} ${n.summary}`,  n.body)
+      newNotification(n.image, n.summary,  n.body)
     }
   }
 

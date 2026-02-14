@@ -10,10 +10,10 @@ Rectangle {
 
   implicitHeight: 35
   implicitWidth: content.width + 20
-  color: areaHover && area.containsMouse ? Theme.borderColor : Theme.background
+  color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
   radius: Theme.borderRadius
   border {
-    color: Theme.borderColor
+    color: Theme.secondary
     width: Theme.borderWidth
   }
 
@@ -25,7 +25,7 @@ Rectangle {
       family: Theme.font
       pixelSize: Theme.fontSize
     }
-    color: Theme.textColor
+    color: Theme.primary
   }
 
   MouseArea {
