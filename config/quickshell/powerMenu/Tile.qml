@@ -1,11 +1,12 @@
 import Quickshell
+import Quickshell.Io
 import QtQuick
 import ".."
 
 Rectangle {
   property alias iconGlyph: icon.text
   signal triggered()
-
+    
   implicitWidth: 200
   implicitHeight: 100
   color: area.containsMouse ? Theme.secondary : Theme.background

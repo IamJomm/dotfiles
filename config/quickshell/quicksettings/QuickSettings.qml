@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import ".."
+import "../mpris"
 
 PanelWindow {
   anchors {
@@ -36,14 +37,19 @@ PanelWindow {
       }
       spacing: Theme.spacing
       SwitchesGrid { id: switches }
-      NotificationList {
-          Layout.fillHeight: true
-          Layout.fillWidth: true
+      Connections {
+        target: Services
+        function onTrackChanged(player) {
+          trackCard.player = player 
+        }
       }
-      Rectangle {
+      TrackCard { 
+        id: trackCard
+        cardSize: parent.width
+      }
+      NotificationList {
+        Layout.fillHeight: true
         Layout.fillWidth: true
-        height: 100
-        color: "darkblue"
       }
     }
   }

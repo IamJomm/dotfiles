@@ -61,8 +61,8 @@ Rectangle {
       readonly property real lineHeight: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2 + title.font.pixelSize + (body.contentHeight / body.lineCount - body.font.pixelSize) / 2 + body.font.pixelSize
       Layout.alignment: Qt.AlignTop
       Layout.topMargin: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2
-      implicitHeight: lineHeight
-      implicitWidth: lineHeight
+      height: lineHeight
+      width: lineHeight
     }
     ColumnLayout {
       spacing: 0
