@@ -6,13 +6,11 @@ import ".."
 Scope {
   id: root
   
-  property MprisPlayer player
   property bool shouldShowTrack: false
 
   Connections {
     target: Services
-    function onTrackChanged(player) {
-      root.player = player
+    function onCurrentTrackChanged() {
       root.shouldShowTrack = true
       hideTimer.restart()
     }
@@ -33,9 +31,9 @@ Scope {
       implicitWidth: card.width
       implicitHeight: card.height
       color: "transparent"
-      TrackCard {
+      PlayerCard {
         id: card
-        player: root.player
+        cardWidth: 350
         onFocused: hideTimer.stop()
         onFocusLost: hideTimer.start()
       }

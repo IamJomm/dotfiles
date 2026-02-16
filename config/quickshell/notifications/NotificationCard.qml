@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -9,10 +8,9 @@ import ".."
 Rectangle {
   id: root
 
-  property Notification notification
   property bool expanded: false
   property int maxCardWidth: 300
-  property int minCardWidth: 0
+  property int minCardWidth: 100
   property alias iconSource: icon.source
   property alias titleText: title.text
   property alias bodyText: body.text
@@ -90,10 +88,10 @@ Rectangle {
       }
     }
     Rectangle{
-      visible: root.width == maxCardWidth
+      visible: body.implicitWidth >= content.width - icon.width - Theme.spacing
       Layout.alignment: Qt.AlignTop
-      implicitHeight: 20
-      implicitWidth: 20
+      height: 20
+      width: 20
       color: "transparent"
       Text {
         id: expandIcon

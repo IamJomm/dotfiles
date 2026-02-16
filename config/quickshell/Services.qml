@@ -8,16 +8,18 @@ import QtQuick
 
 Item {
   readonly property string time: Qt.formatDateTime(clock.date, "hh:mm:ss dd/MM/yyyy")
+  property ListModel notificationList: ListModel{}
   property MprisPlayer currentPlayer
   signal volumeChanged()
-  signal newNotification(iconSource: string, titleText: string, bodyText: string)
-  signal trackChanged(player: MprisPlayer)
+  signal newNotification()
+  signal currentTrackChanged()
   signal trackPositionChanged()
  
   Connections {
     target: NotificationServer {}
-    function onNotification(n) {
-      newNotification(n.image, n.summary,  n.body)
+    function onNotification(notification) {
+      notificationList.insert(0, {"icon": notification.image, "title": notification.summary, "body": notification.body})
+      newNotification()
     }
   }
 
@@ -32,7 +34,7 @@ Item {
   }
 
   Timer {
-    running: currentPlayer.playbackState == MprisPlaybackState.Playing
+    running: currentPlayer && currentPlayer.playbackState == MprisPlaybackState.Playing
     interval: 1000
     repeat: true
     onTriggered: trackPositionChanged()
@@ -44,8 +46,8 @@ Item {
       Connections {
         target: modelData
         function onTrackChanged() { 
-          trackChanged(modelData)
           currentPlayer = modelData
+          currentTrackChanged()
         }
       }
     }

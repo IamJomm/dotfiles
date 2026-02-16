@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Hyprland
+import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -12,6 +13,7 @@ Scope {
   id: root
 
   property bool shouldShowLockScreen: false
+  property string currentTrack: "Nothing is playing."
   property string focusedTitle
 
   IpcHandler {
@@ -20,7 +22,7 @@ Scope {
       if(Hyprland.activeToplevel) root.focusedTitle = Hyprland.activeToplevel.title
       root.shouldShowLockScreen = true
     }
-  }
+  } 
 
   LazyLoader {
     active: root.shouldShowLockScreen
@@ -55,7 +57,7 @@ Scope {
             TextField {
               id: passwordField
               Layout.alignment: Qt.AlignHCenter
-              implicitWidth: 300
+              implicitWidth: 250
               implicitHeight: 35
               leftPadding: 20
               rightPadding: 20
@@ -91,25 +93,41 @@ Scope {
             }
             spacing: Theme.spacing
             Text {
+              id: trackTitle
               Layout.alignment: Qt.AlignHCenter
               font {
                 family: Theme.font
                 pixelSize: Theme.fontSize * 1.5
               }
               color: Theme.primary
-              text: "aaa"
+              text: `${Services.currentPlayer.trackTitle} - ${Services.currentPlayer.identity}`
+            }
+            Process {
+              id: upProcess
+              running: true
+              command: ["uptime", "-p"]
+              stdout: StdioCollector {
+                onStreamFinished: uptime.text = this.text
+              }
+            }
+            Timer {
+              running: true
+              interval: 60000
+              repeat: true
+              onTriggered: upProcess.running = true
             }
             Text {
+              id: uptime
               Layout.alignment: Qt.AlignHCenter
               font {
                 family: Theme.font
                 pixelSize: Theme.fontSize
               }
               color: Theme.primary
-              text: "aaa"
             }
           }
         }
+        //Test button
         Button {
           visible: false
           text: "unlock me"

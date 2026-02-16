@@ -31,51 +31,71 @@ Grid {
   spacing: Theme.spacing
   Switch {
     id: wifi
-    active: true
+    active: Settings.wifi
     iconGlyph: "\uf1eb"
     onActivated: {
       enableWifi.running = true
+      Settings.wifi = true
       airplane.active = false
+      Settings.airplane = false
     }
-    onDeactivated: disableWifi.running = true
+    onDeactivated: {
+      disableWifi.running = true
+      Settings.wifi = false
+    }
   }
   Switch {
     id: bluetooth
-    active: true
+    active: Settings.bluetooth
     iconGlyph: "\uf294"
     onActivated: {
       enableBluetooth.running = true
+      Settings.bluetooth = true
       airplane.active = false
+      Settings.airplane = false
     }
-    onDeactivated: disableBluetooth.running = true
+    onDeactivated: {
+      disableBluetooth.running = true
+      Settings.bluetooth = false
+    }
   }
   Switch {
     id: airplane
+    active: Settings.airplane
     iconGlyph: "\uf072"
     onActivated: {
       enableAirplane.running = true
+      Settings.airplane = true
       wifi.active = false
+      Settings.wifi = false
       bluetooth.active = false
+      Settings.bluetooth = false
     }
     onDeactivated: {
       disableAirplane.running = true
+      Settings.airplane = false
       wifi.active = true
+      Settings.wifi = true
       bluetooth.active = true
+      Settings.bluetooth = true
     }
   }
   Switch {
+    active: Settings.dnd
     iconGlyph: "\uf1f6"
-    onActivated: Settings.notifications = false
-    onDeactivated: Settings.notifications = true
+    onActivated: Settings.dnd = true
+    onDeactivated: Settings.dnd = false
   }
   Switch {
+    active: Settings.sunset
     iconGlyph: "\uf185"
-    onActivated: {}
-    onDeactivated: {}
+    onActivated: Settings.sunset = true
+    onDeactivated: Settings.sunset = false
   }
   Switch {
+    active: Settings.idk
     iconGlyph: ""
-    onActivated: {}
-    onDeactivated: {}
+    onActivated: Settings.idk = true
+    onDeactivated: Settings.idk = false
   }
 }

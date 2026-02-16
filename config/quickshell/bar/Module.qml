@@ -8,7 +8,7 @@ Rectangle {
   property alias areaHover: area.hoverEnabled
   signal triggered()
 
-  implicitHeight: 35
+  height: 35
   implicitWidth: content.width + 20
   color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
   radius: Theme.borderRadius

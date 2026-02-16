@@ -9,11 +9,16 @@ import "../quicksettings"
 import ".."
 
 Scope {
-  QuickSettings { id: quickSettings}
-  IpcHandler {
-      target: "quickSettings"
-      function toggle() { quickSettings.visible = !quickSettings.visible }
+  LazyLoader {
+    id: quickSettingsLoader
+    active: false
+    QuickSettings {}
   }
+  IpcHandler {
+    target: "quickSettings"
+    function toggle() { quickSettingsLoader.active = !quickSettingsLoader.active }
+  }
+
   PanelWindow {
     anchors {
       top: true
@@ -22,15 +27,14 @@ Scope {
     }
     implicitHeight: content.implicitHeight + Theme.spacing
     color: "transparent"
-  
+
     Workspaces {
       anchors {
         top: parent.top
-        horizontalCenter: parent.horizontalCenter
         topMargin: Theme.spacing
+        horizontalCenter: parent.horizontalCenter
       }
     }
-  
     RowLayout {
       id: content
       spacing: Theme.spacing
@@ -43,9 +47,9 @@ Scope {
       
       Module {
         contentElide: Text.ElideLeft
-        contentText: Hyprland.activeToplevel?.title
-      } 
-  
+        contentText: Hyprland.activeToplevel ? Hyprland.activeToplevel.title : "Empty"
+      }
+ 
       Item { Layout.fillWidth: true }
   
       Tray {}
@@ -59,9 +63,8 @@ Scope {
       Module {
         contentText: "\uf0c9"
         areaHover: true
-        implicitHeight: 35
-        implicitWidth: 35
-        onTriggered: quickSettings.visible = !quickSettings.visible
+        width: 35
+        onTriggered: quickSettingsLoader.active = !quickSettingsLoader.active
       }
     }
   }

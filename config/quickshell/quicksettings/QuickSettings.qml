@@ -7,49 +7,42 @@ import "../mpris"
 
 PanelWindow {
   anchors {
-    right: true
     top: true
     bottom: true
+    right: true
+  }
+  margins {
+    top: Theme.spacing
+    bottom: Theme.spacing
+    right: Theme.spacing
   }
   exclusiveZone: 0
-  visible: false
+  implicitWidth: container.width + Theme.spacing
   color: "transparent"
-  implicitWidth: container.width + container.anchors.margins
   Rectangle {
     id: container
     anchors {
-      right: parent.right
       top: parent.top
       bottom: parent.bottom
-      margins: Theme.spacing
-    } 
-    width: switches.implicitWidth + Theme.spacing * 2
-    color: Theme.background
+      right: parent.right
+    }
+    width: content.implicitWidth + Theme.spacing * 2
     radius: Theme.borderRadius
     border {
       color: Theme.secondary
       width: Theme.borderWidth
     }
+    color: Theme.background
     ColumnLayout {
-      anchors {
-        fill: parent
-        margins: Theme.spacing
-      }
+      id: content
+      anchors.centerIn: parent
+      height: parent.height - Theme.spacing * 2
       spacing: Theme.spacing
-      SwitchesGrid { id: switches }
-      Connections {
-        target: Services
-        function onTrackChanged(player) {
-          trackCard.player = player 
-        }
-      }
-      TrackCard { 
-        id: trackCard
-        cardSize: parent.width
-      }
+      SwitchesGrid {}
+      PlayerCard { Layout.fillWidth: true }
       NotificationList {
-        Layout.fillHeight: true
         Layout.fillWidth: true
+        Layout.fillHeight: true
       }
     }
   }

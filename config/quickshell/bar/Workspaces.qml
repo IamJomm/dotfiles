@@ -5,7 +5,7 @@ import ".."
 
 Rectangle {
   id: workspacesModule
-  implicitHeight: 35
+  height: 35
   implicitWidth: workspaces.implicitWidth
   color: Theme.background
   radius: Theme.borderRadius
@@ -19,8 +19,8 @@ Rectangle {
     Repeater {
       model: Hyprland.workspaces
       Rectangle {
-        implicitHeight: workspacesModule.implicitHeight
-        implicitWidth: workspacesModule.implicitHeight
+        height: workspacesModule.height
+        width: workspacesModule.height
         color: "transparent"
         Text {
           anchors.centerIn: parent
@@ -35,9 +35,7 @@ Rectangle {
           anchors.fill: parent
           hoverEnabled: true
           cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-          onClicked: {
-            modelData.activate()
-          }
+          onClicked: modelData.activate()
         }
       }
     }

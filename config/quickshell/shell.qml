@@ -8,7 +8,7 @@ import "bar"
 
 ShellRoot {
   NotificationPopup {}
-  TrackPopup {}
+  PlayerPopup {}
   LockScreen {}
   PowerMenu {}
   Bar {}

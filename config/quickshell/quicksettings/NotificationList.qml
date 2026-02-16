@@ -6,14 +6,6 @@ import "../notifications"
 import ".."
 
 Rectangle {
-  ListModel{ id: notificationList }
-  Connections {
-    target: Services
-    function onNewNotification(iconSource, titleText, bodyText) {
-      notificationList.insert(0, {"icon": iconSource, "title": titleText, "body": bodyText})
-    }
-  }
-
   color: "transparent"
   Text {
     id: notificationsTitle
@@ -65,7 +57,7 @@ Rectangle {
         right: parent.right
       }
       spacing: Theme.spacing
-      model: notificationList
+      model: Services.notificationList
       delegate: NotificationCard {
         maxCardWidth: listView.width - scrollBar.width - Theme.spacing
         minCardWidth: listView.width - scrollBar.width - Theme.spacing

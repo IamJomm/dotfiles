@@ -16,7 +16,7 @@ Rectangle {
   }
 
   visible: apps.children.length
-  implicitHeight: 35
+  height: 35
   implicitWidth: apps.implicitWidth
   color: Theme.background
   radius: Theme.borderRadius
@@ -31,13 +31,13 @@ Rectangle {
       model: SystemTray.items
       Rectangle {
         id: app
-        implicitHeight: trayModule.implicitHeight
-        implicitWidth: trayModule.implicitHeight
+        height: trayModule.height
+        width: trayModule.height
         color: "transparent"
         IconImage {
           id: icon
-          height: parent.implicitHeight - 15
-          width: parent.implicitHeight - 15
+          height: parent.height - 15
+          width: parent.height - 15
           anchors.centerIn: parent
           source: modelData.icon
         } 
@@ -53,7 +53,7 @@ Rectangle {
           onClicked: if(modelData.hasMenu) {
             if(menuAnchor.visible) menuAnchor.close()
             var globalCoordinares = app.mapToItem(QsWindow.parent, 0, 0)
-            menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.implicitWidth, globalCoordinares.y + app.implicitHeight, 0, 0)
+            menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.width, globalCoordinares.y + app.height, 0, 0)
             menuAnchor.menu = modelData.menu
             menuAnchor.open()
           }

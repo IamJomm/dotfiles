@@ -6,18 +6,18 @@ import ".."
 Scope {
   id: root
   
-  property string iconSource
-  property string titleText
-  property string bodyText
+  property string icon
+  property string title
+  property string body
   property bool shouldShowNotification: false
 
   Connections {
     target: Services
-    function onNewNotification(iconSource, titleText, bodyText) {
-      if(!Settings.notifications) return
-      root.iconSource = iconSource
-      root.titleText = titleText
-      root.bodyText = bodyText
+    function onNewNotification() {
+      if(Settings.dnd) return
+      root.icon = Services.notificationList.get(0).icon
+      root.title = Services.notificationList.get(0).title
+      root.body = Services.notificationList.get(0).body
       root.shouldShowNotification = true
       hideTimer.restart()
     }
@@ -40,10 +40,9 @@ Scope {
       color: "transparent"
       NotificationCard { 
         id: card
-        iconSource: root.iconSource
-        titleText: root.titleText
-        bodyText: root.bodyText
-        notification: root.currentNotification
+        iconSource: root.icon
+        titleText: root.title
+        bodyText: root.body
         onFocused: hideTimer.stop()
         onFocusLost: hideTimer.start()
       }
