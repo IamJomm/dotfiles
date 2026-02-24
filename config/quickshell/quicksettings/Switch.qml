@@ -11,11 +11,17 @@ Rectangle {
 
   implicitWidth: 100
   implicitHeight: 65
-  color: active ? Theme.secondary : Theme.background
   radius: Theme.borderRadius
   border {
     color: Theme.secondary
     width: Theme.borderWidth
+  }
+  color: active ? Theme.secondary : Theme.background
+  Behavior on color {
+    ColorAnimation {
+      duration: animationSpeed
+      easing.type: Easing.OutCubic
+    }
   }
   Text {
     id: icon

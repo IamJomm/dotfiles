@@ -45,6 +45,14 @@ Scope {
         bodyText: root.body
         onFocused: hideTimer.stop()
         onFocusLost: hideTimer.start()
+        opacity: 0
+        NumberAnimation on opacity {
+          id: cardAnimation
+          running: false
+          to: 1; duration: Theme.animationSpeed
+          easing.type: Easing.OutCubic
+        }
+        Component.onCompleted: { cardAnimation.running = true }
       }
     }
   }

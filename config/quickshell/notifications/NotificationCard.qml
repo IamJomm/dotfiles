@@ -18,7 +18,14 @@ Rectangle {
   signal focusLost()
 
   height: content.height + Theme.spacing * 2
+  Behavior on height {
+    NumberAnimation {
+      duration: animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
   width: content.width + Theme.spacing * 2
+  clip: true
   radius: Theme.borderRadius
   border {
     color: Theme.secondary

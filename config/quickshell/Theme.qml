@@ -12,4 +12,5 @@ Singleton {
   readonly property int spacing: 10
   readonly property int borderWidth: 1
   readonly property int borderRadius: 10
+  readonly property int animationSpeed: 300
 }
