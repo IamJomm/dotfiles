@@ -15,15 +15,22 @@ Rectangle {
     anchor.gravity: Edges.Bottom | Edges.Left
   }
 
-  visible: apps.children.length
+  visible: apps.children.length > 1
   height: 35
   implicitWidth: apps.implicitWidth
-  color: Theme.background
+  Behavior on implicitWidth {
+    NumberAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
+  clip: true
   radius: Theme.borderRadius
   border {
     color: Theme.secondary
     width: Theme.borderWidth
   }
+  color: Theme.background
   RowLayout {
     id: apps
     spacing: 0

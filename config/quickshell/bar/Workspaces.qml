@@ -7,12 +7,19 @@ Rectangle {
   id: workspacesModule
   height: 35
   implicitWidth: workspaces.implicitWidth
-  color: Theme.background
+  Behavior on implicitWidth {
+    NumberAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
+  clip: true
   radius: Theme.borderRadius
   border {
     color: Theme.secondary
     width: Theme.borderWidth
   }
+  color: Theme.background
   RowLayout {
     id: workspaces
     spacing: 0

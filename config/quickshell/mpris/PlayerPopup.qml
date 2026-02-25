@@ -28,8 +28,8 @@ Scope {
       anchors.top: true
       margins.top: screen.height / 20
       exclusiveZone: 0
-      implicitWidth: card.width
-      implicitHeight: card.height
+      implicitWidth: card.implicitWidth
+      implicitHeight: card.implicitHeight
       color: "transparent"
       PlayerCard {
         id: card

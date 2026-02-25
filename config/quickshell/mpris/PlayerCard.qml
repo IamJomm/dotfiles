@@ -9,11 +9,11 @@ import ".."
 Rectangle {
   id: root
 
-  property alias cardWidth : root.width
+  property alias cardWidth: root.implicitWidth
   signal focused()
   signal focusLost()
 
-  height: content.height + Theme.spacing * 2
+  implicitHeight: content.implicitHeight + Theme.spacing * 2
   color: Theme.background
   radius: Theme.borderRadius
   border {
@@ -32,8 +32,8 @@ Rectangle {
     width: parent.width - Theme.spacing * 2
     spacing: Theme.spacing 
     Item {
-      width: details.implicitHeight
-      height: details.implicitHeight
+      implicitWidth: details.implicitHeight
+      implicitHeight: details.implicitHeight
       Image {
         id: art
         anchors.fill: parent
@@ -137,17 +137,17 @@ Rectangle {
               width: trackSlider.availableWidth
               implicitHeight: 6
               height: implicitHeight
-              radius: this.implicitHeight / 2
+              radius: height / 2
               color: Theme.secondary
               Rectangle {
                 width: trackSlider.visualPosition * parent.width
                 height: parent.height
-                radius: this.height
+                radius: height / 2
                 color: Theme.primary
               }
             }
             handle: Item {}
-            onMoved: Services.currentPlayer.seek(this.value - Services.currentPlayer.position)
+            onMoved: Services.currentPlayer.seek(value - Services.currentPlayer.position)
           }
           Text {
             id: trackLength

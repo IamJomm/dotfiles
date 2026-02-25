@@ -19,7 +19,7 @@ Rectangle {
   color: active ? Theme.secondary : Theme.background
   Behavior on color {
     ColorAnimation {
-      duration: animationSpeed
+      duration: Theme.animationSpeed
       easing.type: Easing.OutCubic
     }
   }

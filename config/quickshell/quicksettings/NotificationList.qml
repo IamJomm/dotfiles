@@ -50,7 +50,7 @@ Rectangle {
         contentItem: Rectangle {
           id: scrollBar
           implicitWidth: 5
-          radius: this.implicitWidth / 2
+          radius: implicitWidth / 2
           color: Theme.primary
         }
       }

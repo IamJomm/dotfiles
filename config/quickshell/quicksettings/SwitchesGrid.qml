@@ -3,8 +3,8 @@ import QtQuick
 import ".."
 
 Rectangle {
-  width: content.width + Theme.spacing * 2
-  height: content.height + Theme.spacing * 2
+  implicitWidth: content.width + Theme.spacing * 2
+  implicitHeight: content.height + Theme.spacing * 2
   radius: Theme.borderRadius
   border {
     color: Theme.secondary

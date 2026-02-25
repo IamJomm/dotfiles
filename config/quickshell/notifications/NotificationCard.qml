@@ -17,14 +17,14 @@ Rectangle {
   signal focused()
   signal focusLost()
 
-  height: content.height + Theme.spacing * 2
-  Behavior on height {
+  implicitHeight: content.height + Theme.spacing * 2
+  Behavior on implicitHeight {
     NumberAnimation {
-      duration: animationSpeed
+      duration: Theme.animationSpeed
       easing.type: Easing.OutCubic
     }
   }
-  width: content.width + Theme.spacing * 2
+  implicitWidth: content.width + Theme.spacing * 2
   clip: true
   radius: Theme.borderRadius
   border {
@@ -59,15 +59,15 @@ Rectangle {
       left: parent.left
       margins: Theme.spacing
     }
-    width: Math.min(Math.max(content.implicitWidth, minCardWidth - Theme.spacing * 2), maxCardWidth - Theme.spacing * 2)
+    width: Math.min(Math.max(implicitWidth, minCardWidth - Theme.spacing * 2), maxCardWidth - Theme.spacing * 2)
     spacing: Theme.spacing
     IconImage {
       id: icon
       readonly property real lineHeight: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2 + title.font.pixelSize + (body.contentHeight / body.lineCount - body.font.pixelSize) / 2 + body.font.pixelSize
       Layout.alignment: Qt.AlignTop
       Layout.topMargin: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2
-      height: lineHeight
-      width: lineHeight
+      implicitHeight: lineHeight
+      implicitWidth: lineHeight
     }
     ColumnLayout {
       spacing: 0
@@ -95,10 +95,10 @@ Rectangle {
       }
     }
     Rectangle{
-      visible: body.implicitWidth >= content.width - icon.width - Theme.spacing
+      visible: body.implicitWidth >= content.width - icon.implicitWidth - Theme.spacing
       Layout.alignment: Qt.AlignTop
-      height: 20
-      width: 20
+      implicitHeight: 20
+      implicitWidth: 20
       color: "transparent"
       Text {
         id: expandIcon

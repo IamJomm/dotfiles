@@ -28,8 +28,8 @@ PanelWindow {
     }
     spacing: Theme.spacing
     Item {
-      width: switchesGrid.width
-      height: switchesGrid.height
+      implicitWidth: switchesGrid.implicitWidth
+      implicitHeight: switchesGrid.implicitHeight
       SwitchesGrid {
         id: switchesGrid
         x: width + Theme.spacing
@@ -43,7 +43,7 @@ PanelWindow {
     }
     Item {
       Layout.fillWidth: true
-      height: playerCard.height
+      implicitHeight: playerCard.implicitHeight
       PlayerCard {
         id: playerCard
         cardWidth: parent.width
@@ -75,6 +75,19 @@ PanelWindow {
             easing.type: Easing.OutCubic
           }
         }
+      }
+    }
+    Item {
+      Layout.fillWidth: true
+      implicitHeight: 200
+      Rectangle {
+        anchors.fill: parent
+        radius: Theme.borderRadius
+        border {
+          color: Theme.secondary
+          width: Theme.borderWidth
+        }
+        color: Theme.background
       }
     }
     Component.onCompleted: {

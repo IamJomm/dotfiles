@@ -59,8 +59,8 @@ Scope {
         top: (screen.height - content.height) / 2
         left: (screen.width - content.width) / 2
       }
-      implicitWidth: content.width
-      implicitHeight: content.height
+      implicitWidth: content.implicitWidth
+      implicitHeight: content.implicitHeight
       exclusionMode: ExclusionMode.Ignore
       WlrLayershell.layer: WlrLayer.Overlay
       WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -81,8 +81,8 @@ Scope {
 		  }
       Rectangle {
         id: content
-        width: tilesGrid.implicitWidth + Theme.spacing * 2
-        height: tilesGrid.implicitHeight + Theme.spacing * 2
+        implicitWidth: tilesGrid.implicitWidth + Theme.spacing * 2
+        implicitHeight: tilesGrid.implicitHeight + Theme.spacing * 2
         radius: Theme.borderRadius
         border {
           color: Theme.secondary

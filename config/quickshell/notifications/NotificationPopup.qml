@@ -32,12 +32,15 @@ Scope {
   LazyLoader {
     active: root.shouldShowNotification
     PanelWindow {
-      anchors.top: true
+      anchors {
+        top: true
+        bottom: true
+      }
       margins.top: screen.height / 20
       exclusiveZone: 0
-      implicitWidth: card.width
-      implicitHeight: card.height
+      implicitWidth: card.implicitWidth
       color: "transparent"
+      mask: Region { item: card }
       NotificationCard { 
         id: card
         iconSource: root.icon

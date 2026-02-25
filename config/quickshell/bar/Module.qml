@@ -10,13 +10,19 @@ Rectangle {
 
   height: 35
   implicitWidth: content.width + 20
-  color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
+  Behavior on implicitWidth {
+    NumberAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
+  clip: true
   radius: Theme.borderRadius
   border {
     color: Theme.secondary
     width: Theme.borderWidth
   }
-
+  color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
   Text {
     id: content
     width: Math.min(implicitWidth, 400)
@@ -27,7 +33,6 @@ Rectangle {
     }
     color: Theme.primary
   }
-
   MouseArea {
     id: area
     anchors.fill: parent
