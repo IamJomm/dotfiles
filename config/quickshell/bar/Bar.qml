@@ -9,14 +9,27 @@ import "../quicksettings"
 import ".."
 
 Scope {
+  property bool shouldShowQuickSettings: false
   LazyLoader {
     id: quickSettingsLoader
-    active: false
+    active: shouldShowQuickSettings
     QuickSettings {}
+  }
+  Timer {
+    id: hideQuicksettings
+    interval: Theme.animationSpeed
+    onTriggered: shouldShowQuickSettings = false
   }
   IpcHandler {
     target: "quickSettings"
-    function toggle() { quickSettingsLoader.active = !quickSettingsLoader.active }
+    function toggle() { 
+      if(hideQuicksettings.running) return
+      if(!shouldShowQuickSettings) shouldShowQuickSettings = true
+      else {
+        quickSettingsLoader.item.contentOpacity = 0
+        hideQuicksettings.start()
+      }
+    }
   }
 
   PanelWindow {
@@ -64,7 +77,14 @@ Scope {
         contentText: "\uf0c9"
         areaHover: true
         width: 35
-        onTriggered: quickSettingsLoader.active = !quickSettingsLoader.active
+        onTriggered: {
+          if(hideQuicksettings.running) return
+          if(!shouldShowQuickSettings) shouldShowQuickSettings = true
+          else {
+            quickSettingsLoader.item.contentOpacity = 0
+            hideQuicksettings.start()
+          }
+        }
       }
     }
   }

@@ -23,6 +23,12 @@ Rectangle {
     width: Theme.borderWidth
   }
   color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
+  Behavior on color {
+    ColorAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
   Text {
     id: content
     width: Math.min(implicitWidth, 400)

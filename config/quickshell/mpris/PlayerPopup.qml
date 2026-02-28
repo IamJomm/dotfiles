@@ -12,21 +12,44 @@ Scope {
     target: Services
     function onCurrentTrackChanged() {
       root.shouldShowTrack = true
-      hideTimer.restart()
+      if(shouldShowTrack) {
+        popupLoader.item.cardOpacity = 1
+        hideWindow.stop()
+        hideAnimation.restart()
+      }
+      else root.shouldShowTrack = true
     }
   }
 
   Timer {
-    id: hideTimer
-    interval: 3000
+    id: hideWindow
+    interval: Theme.animationSpeed
     onTriggered: root.shouldShowTrack = false
   }
 
+  Timer {
+    id: hideAnimation
+    interval: 3000 - Theme.animationSpeed
+    onTriggered: {
+      popupLoader.item.cardOpacity = 0
+      hideWindow.start()
+    }
+  }
+
   LazyLoader {
+    id: popupLoader
     active: root.shouldShowTrack
     PanelWindow {
-      anchors.top: true
-      margins.top: screen.height / 20
+      property alias cardOpacity: card.opacity
+
+      anchors {
+        top: true
+        left: true
+      }
+      margins {
+        top: 30
+        left: 30
+      }
       exclusiveZone: 0
       implicitWidth: card.implicitWidth
       implicitHeight: card.implicitHeight
@@ -34,16 +57,23 @@ Scope {
       PlayerCard {
         id: card
         cardWidth: 350
-        onFocused: hideTimer.stop()
-        onFocusLost: hideTimer.start()
         opacity: 0
-        NumberAnimation on opacity {
-          id: cardAnimation
-          running: false
-          to: 1; duration: Theme.animationSpeed
-          easing.type: Easing.OutCubic
+        onFocused: {
+          hideAnimation.stop()
+          hideWindow.stop()
+          opacity = 1
         }
-        Component.onCompleted: { cardAnimation.running = true }
+        onFocusLost: hideAnimation.start()
+        Behavior on opacity {
+          NumberAnimation {
+            duration: Theme.animationSpeed
+            easing.type: Easing.OutCubic
+          }
+        }
+        Component.onCompleted: {
+          opacity = 1
+          hideAnimation.start()
+        }
       }
     }
   }

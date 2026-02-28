@@ -6,6 +6,8 @@ import ".."
 import "../mpris"
 
 PanelWindow {
+  property alias contentOpacity: content.opacity
+
   anchors {
     top: true
     bottom: true
@@ -27,6 +29,12 @@ PanelWindow {
       rightMargin: Theme.spacing
     }
     spacing: Theme.spacing
+    Behavior on opacity {
+      NumberAnimation {
+        duration: Theme.animationSpeed
+        easing.type: Easing.OutCubic
+      }
+    }
     Item {
       implicitWidth: switchesGrid.implicitWidth
       implicitHeight: switchesGrid.implicitHeight

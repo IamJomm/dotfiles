@@ -41,16 +41,29 @@ Scope {
     }
   ]
 
+  Timer {
+    id: hideWindow
+    interval: Theme.animationSpeed
+    onTriggered: root.shouldShowMenu = false
+  }
   IpcHandler {
     target: "powerMenu"
-    function toggle() {
-      root.shouldShowMenu = !root.shouldShowMenu
+    function toggle() { 
+      if(hideWindow.running) return
+      if(!root.shouldShowMenu) root.shouldShowMenu = true
+      else {
+        menuLoader.item.contentOpacity = 0
+        hideWindow.start()
+      }
     }
   }
 
   LazyLoader {
+    id: menuLoader
     active: root.shouldShowMenu
     PanelWindow {
+      property alias contentOpacity: content.opacity
+
       anchors {
         top: true
         left: true
@@ -105,6 +118,14 @@ Scope {
             }
           }
         }
+        opacity: 0
+        Behavior on opacity {
+          NumberAnimation {
+            duration: Theme.animationSpeed
+            easing.type: Easing.OutCubic
+          }
+        }
+        Component.onCompleted: opacity = 1
       }
     }
   }

@@ -18,25 +18,41 @@ Scope {
       root.icon = Services.notificationList.get(0).icon
       root.title = Services.notificationList.get(0).title
       root.body = Services.notificationList.get(0).body
-      root.shouldShowNotification = true
-      hideTimer.restart()
+      if(shouldShowNotification) {
+        popupLoader.item.cardOpacity = 1
+        hideWindow.stop()
+        hideAnimation.restart()
+      }
+      else root.shouldShowNotification = true
     }
   }
 
   Timer {
-    id: hideTimer
-    interval: 5000
+    id: hideWindow
+    interval: Theme.animationSpeed
     onTriggered: root.shouldShowNotification = false
   }
 
+  Timer {
+    id: hideAnimation
+    interval: 5000 - Theme.animationSpeed
+    onTriggered: {
+      popupLoader.item.cardOpacity = 0
+      hideWindow.start()
+    }
+  }
+
   LazyLoader {
+    id: popupLoader
     active: root.shouldShowNotification
     PanelWindow {
+      property alias cardOpacity: card.opacity
+
       anchors {
         top: true
         bottom: true
       }
-      margins.top: screen.height / 20
+      margins.top: 30
       exclusiveZone: 0
       implicitWidth: card.implicitWidth
       color: "transparent"
@@ -46,16 +62,23 @@ Scope {
         iconSource: root.icon
         titleText: root.title
         bodyText: root.body
-        onFocused: hideTimer.stop()
-        onFocusLost: hideTimer.start()
         opacity: 0
-        NumberAnimation on opacity {
-          id: cardAnimation
-          running: false
-          to: 1; duration: Theme.animationSpeed
-          easing.type: Easing.OutCubic
+        onFocused: {
+          hideAnimation.stop()
+          hideWindow.stop()
+          opacity = 1
         }
-        Component.onCompleted: { cardAnimation.running = true }
+        onFocusLost: hideAnimation.start()
+        Behavior on opacity {
+          NumberAnimation {
+            duration: Theme.animationSpeed
+            easing.type: Easing.OutCubic
+          }
+        }
+        Component.onCompleted: {
+          opacity = 1
+          hideAnimation.start()
+        }
       }
     }
   }
