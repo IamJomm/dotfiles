@@ -52,6 +52,7 @@ Scope {
       if(hideWindow.running) return
       if(!root.shouldShowMenu) root.shouldShowMenu = true
       else {
+        menuLoader.item.contentItem.focus = false
         menuLoader.item.contentOpacity = 0
         hideWindow.start()
       }
@@ -62,6 +63,8 @@ Scope {
     id: menuLoader
     active: root.shouldShowMenu
     PanelWindow {
+      id: menuWindow
+
       property alias contentOpacity: content.opacity
 
       anchors {
@@ -81,11 +84,14 @@ Scope {
       contentItem {
 		  	focus: true
 		  	Keys.onPressed: event => {
-          if (event.key == Qt.Key_Escape) root.shouldShowMenu = false
+          if (event.key == Qt.Key_Escape) {
+            menuWindow.contentItem.focus = false
+            content.opacity = 0
+            hideWindow.start()
+          }
           else for(let i = 0; i < tiles.length; i++) {
             let tile = tiles[i]
             if(event.key == tile.keybind) {
-              console.log("hello")
               tile.proc.startDetached()
               root.shouldShowMenu = false
             }

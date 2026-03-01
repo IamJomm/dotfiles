@@ -64,6 +64,7 @@ Rectangle {
           minCardWidth: listView.width - scrollBar.width - Theme.spacing
           iconSource: icon
           titleText: title
+          creationTime: time
           bodyText: body
         }
       }

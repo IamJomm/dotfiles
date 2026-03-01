@@ -18,7 +18,7 @@ Item {
   Connections {
     target: NotificationServer {}
     function onNotification(notification) {
-      notificationList.insert(0, {"icon": notification.image, "title": notification.summary, "body": notification.body})
+      notificationList.insert(0, {"icon": notification.image, "title": notification.summary, "time": Date.now(),"body": notification.body})
       newNotification()
     }
   }

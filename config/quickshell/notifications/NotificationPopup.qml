@@ -8,6 +8,7 @@ Scope {
   
   property string icon
   property string title
+  property double time
   property string body
   property bool shouldShowNotification: false
 
@@ -17,6 +18,7 @@ Scope {
       if(Settings.dnd) return
       root.icon = Services.notificationList.get(0).icon
       root.title = Services.notificationList.get(0).title
+      root.time = Services.notificationList.get(0).time
       root.body = Services.notificationList.get(0).body
       if(shouldShowNotification) {
         popupLoader.item.cardOpacity = 1
@@ -61,6 +63,7 @@ Scope {
         id: card
         iconSource: root.icon
         titleText: root.title
+        creationTime: root.time
         bodyText: root.body
         opacity: 0
         onFocused: {

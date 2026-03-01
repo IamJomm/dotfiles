@@ -2,8 +2,9 @@
 
 import Quickshell
 import "notifications"
+import "lockscreen"
+import "powermenu"
 import "mpris"
-import "powerMenu"
 import "bar"
 
 ShellRoot {

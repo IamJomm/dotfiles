@@ -10,9 +10,10 @@ Rectangle {
 
   property bool expanded: false
   property int maxCardWidth: 300
-  property int minCardWidth: 100
+  property int minCardWidth: 150
   property alias iconSource: icon.source
   property alias titleText: title.text
+  property double creationTime
   property alias bodyText: body.text
   signal focused()
   signal focusLost()
@@ -76,15 +77,36 @@ Rectangle {
     ColumnLayout {
       spacing: 0
       Layout.fillWidth: true
-      Text {
-        id: title
-        Layout.fillWidth: true
-        elide: Text.ElideRight
-        font {
-          family: Theme.font
-          pixelSize: Theme.fontSize
+      RowLayout {
+        spacing: 10
+        Text {
+          id: title
+          Layout.fillWidth: true
+          elide: Text.ElideRight
+          font {
+            family: Theme.font
+            pixelSize: Theme.fontSize
+          }
+          color: Theme.primary
         }
-        color: Theme.primary
+        Timer {
+          running: true
+          interval: 1000
+          repeat: true
+          triggeredOnStart: true
+          onTriggered: {
+            const seconds = (Date.now() - root.creationTime) / 1000
+            time.text = seconds < 60 ? `${Math.floor(seconds)}sec` : `${Math.floor(seconds / 60)}min`
+          }
+        }
+        Text {
+          id: time
+          font {
+            family: Theme.font
+            pixelSize: Theme.fontSize
+          }
+          color: Theme.primary
+        }
       }
       Text {
         id: body
