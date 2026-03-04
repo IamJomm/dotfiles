@@ -5,9 +5,7 @@ fish
 gdb
 git
 grim
-hypridle
 hyprland
-hyprlock
 hyprpaper
 kitty
 lazygit
@@ -20,10 +18,7 @@ perl-image-exiftool
 playerctl
 pyenv
 ripgrep
-rofi-lbonn-wayland-git
 slurp
-swayosd
-swaync
 sxiv
 ttf-font-awesome
 ttf-nerd-fonts-symbols

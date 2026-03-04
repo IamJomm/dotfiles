@@ -59,7 +59,7 @@ PanelWindow {
         SequentialAnimation on x {
           id: playerCardAnimation
           running: false
-          PauseAnimation { duration: Theme.animationSpeed / 3 }
+          PauseAnimation { duration: Theme.animationSpeed / 4 }
           NumberAnimation {
             to: 0; duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
@@ -77,7 +77,7 @@ PanelWindow {
         SequentialAnimation on x {
           id: notificationListAnimation
           running: false
-          PauseAnimation { duration: Theme.animationSpeed / 2 }
+          PauseAnimation { duration: Theme.animationSpeed / 3 }
           NumberAnimation {
             to: 0; duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
@@ -87,21 +87,27 @@ PanelWindow {
     }
     Item {
       Layout.fillWidth: true
-      implicitHeight: 200
-      Rectangle {
-        anchors.fill: parent
-        radius: Theme.borderRadius
-        border {
-          color: Theme.secondary
-          width: Theme.borderWidth
+      implicitHeight: 250
+      CalendarModule {
+        width: parent.width
+        height: parent.height
+        x: width + Theme.spacing
+        SequentialAnimation on x {
+          id: calendarModuleAnimation
+          running: false
+          PauseAnimation { duration: Theme.animationSpeed / 2 }
+          NumberAnimation {
+            to: 0; duration: Theme.animationSpeed
+            easing.type: Easing.OutCubic
+          }
         }
-        color: Theme.background
       }
     }
     Component.onCompleted: {
       switchesGridAnimation.running = true
       playerCardAnimation.running = true
       notificationListAnimation.running = true
+      calendarModuleAnimation.running = true
     }
   }
 }

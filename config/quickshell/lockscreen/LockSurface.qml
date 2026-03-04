@@ -94,7 +94,7 @@ Item {
           pixelSize: Theme.fontSize * 1.5
         }
         color: Theme.primary
-        text: `${Services.currentPlayer.trackTitle} - ${Services.currentPlayer.identity}`
+        text: Services.currentPlayer ? `${Services.currentPlayer.trackTitle} - ${Services.currentPlayer.identity}` : "" 
       }
       Process {
         id: upProcess
@@ -123,7 +123,7 @@ Item {
   }
   //Test button
   Button {
-    visible: true
+    visible: false
     text: "unlock me"
     onClicked: context.unlocked()
   }

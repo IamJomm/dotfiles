@@ -26,7 +26,6 @@ Scope {
     interval: Theme.animationSpeed
     onTriggered: root.shouldShowTrack = false
   }
-
   Timer {
     id: hideAnimation
     interval: 3000 - Theme.animationSpeed

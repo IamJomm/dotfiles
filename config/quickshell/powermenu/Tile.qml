@@ -10,6 +10,12 @@ Rectangle {
   implicitWidth: 200
   implicitHeight: 100
   color: area.containsMouse ? Theme.secondary : Theme.background
+  Behavior on color {
+    ColorAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
   radius: Theme.borderRadius
   border {
     color: Theme.secondary

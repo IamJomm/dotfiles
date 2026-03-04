@@ -14,4 +14,5 @@ ShellRoot {
   PowerMenu {}
   Bar {}
   Osd {}
+  Test {}
 }

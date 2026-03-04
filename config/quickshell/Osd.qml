@@ -12,20 +12,35 @@ Scope {
 	Connections {
 		target: Services
 		function onVolumeChanged() {
-			root.shouldShowOsd = true;
-			hideTimer.restart();
+      if(shouldShowOsd) {
+        osdLoader.item.osdOpacity = 1
+        hideWindow.stop()
+        hideAnimation.restart()
+      }
+      else root.shouldShowOsd = true
 		}
 	}
 
 	Timer {
-		id: hideTimer
-		interval: 1000
-		onTriggered: root.shouldShowOsd = false
+    id: hideWindow
+    interval: Theme.animationSpeed
+    onTriggered: root.shouldShowOsd = false
+  }
+  Timer {
+    id: hideAnimation
+    interval: 1000 - Theme.animationSpeed
+    onTriggered: {
+      osdLoader.item.osdOpacity = 0
+      hideWindow.start()
+    }
   }
 
 	LazyLoader {
+    id: osdLoader
 		active: root.shouldShowOsd
 		PanelWindow {
+      property alias osdOpacity: osd.opacity
+      
 			anchors.bottom: true
 			margins.bottom: screen.height / 6
 			exclusiveZone: 0
@@ -33,8 +48,9 @@ Scope {
 			implicitHeight: 35
 			color: "transparent"
       mask: Region {}
-
 			Rectangle {
+        id: osd
+
 				anchors.fill: parent
         color: Theme.background
         radius: Theme.borderRadius
@@ -42,14 +58,12 @@ Scope {
           color: Theme.secondary
           width: Theme.borderWidth
         }
-
 				RowLayout {
 					anchors {
             fill: parent
             leftMargin: Theme.spacing
             rightMargin: Theme.spacing
           }
-
           Text {
             color: Theme.primary
             font {
@@ -58,13 +72,11 @@ Scope {
             }
             text: `${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
           }
-
 					Rectangle {
 						Layout.fillWidth: true
 						implicitHeight: 10
 						radius: Theme.borderRadius
 						color: Theme.secondary
-
 						Rectangle {
 							anchors {
 								left: parent.left
@@ -74,9 +86,26 @@ Scope {
 							radius: parent.radius
               color: Theme.primary
 							implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
+              Behavior on implicitWidth {
+                NumberAnimation {
+                  duration: Theme.animationSpeed
+                  easing.type: Easing.OutCubic
+                }
+              }
 						}
 					}
 				}
+        opacity: 0
+        Behavior on opacity {
+          NumberAnimation {
+            duration: Theme.animationSpeed
+            easing.type: Easing.OutCubic
+          }
+        }
+        Component.onCompleted: {
+          opacity = 1
+          hideAnimation.start()
+        }
 			}
 		}
 	}
