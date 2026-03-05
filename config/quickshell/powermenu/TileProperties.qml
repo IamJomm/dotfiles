@@ -1,11 +1,11 @@
-import Quickshell.Io
 import QtQuick
+import Quickshell.Io
 
 QtObject {
   id: root
 
-  property string iconGlyph
   property string command
+  property string iconGlyph
   property int keybind
   property Process proc: Process {
     command: ["sh", "-c", root.command]

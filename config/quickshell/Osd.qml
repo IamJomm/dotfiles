@@ -1,112 +1,127 @@
-import Quickshell
-import Quickshell.Widgets
-import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Services.Pipewire
+import Quickshell.Widgets
 
 Scope {
-	id: root
-  
-  property bool shouldShowOsd: false
-	
-	Connections {
-		target: Services
-		function onVolumeChanged() {
-      if(shouldShowOsd) {
-        osdLoader.item.osdOpacity = 1
-        hideWindow.stop()
-        hideAnimation.restart()
-      }
-      else root.shouldShowOsd = true
-		}
-	}
+  id: root
 
-	Timer {
+  property bool shouldShowOsd: false
+
+  Connections {
+    function onVolumeChanged() {
+      if (shouldShowOsd) {
+        osdLoader.item.osdOpacity = 1;
+        hideWindow.stop();
+        hideAnimation.restart();
+      } else {
+        root.shouldShowOsd = true;
+      }
+    }
+
+    target: Services
+  }
+  Timer {
     id: hideWindow
+
     interval: Theme.animationSpeed
+
     onTriggered: root.shouldShowOsd = false
   }
   Timer {
     id: hideAnimation
+
     interval: 1000 - Theme.animationSpeed
+
     onTriggered: {
-      osdLoader.item.osdOpacity = 0
-      hideWindow.start()
+      osdLoader.item.osdOpacity = 0;
+      hideWindow.start();
     }
   }
-
-	LazyLoader {
+  LazyLoader {
     id: osdLoader
-		active: root.shouldShowOsd
-		PanelWindow {
+
+    active: root.shouldShowOsd
+
+    PanelWindow {
       property alias osdOpacity: osd.opacity
-      
-			anchors.bottom: true
-			margins.bottom: screen.height / 6
-			exclusiveZone: 0
-			implicitWidth: 250
-			implicitHeight: 35
-			color: "transparent"
+
+      anchors.bottom: true
+      color: "transparent"
+      exclusiveZone: 0
+      implicitHeight: 35
+      implicitWidth: 250
+      margins.bottom: screen.height / 6
+
       mask: Region {}
-			Rectangle {
+
+      Rectangle {
         id: osd
 
-				anchors.fill: parent
+        anchors.fill: parent
         color: Theme.background
-        radius: Theme.borderRadius
-				border {
-          color: Theme.secondary
-          width: Theme.borderWidth
-        }
-				RowLayout {
-					anchors {
-            fill: parent
-            leftMargin: Theme.spacing
-            rightMargin: Theme.spacing
-          }
-          Text {
-            color: Theme.primary
-            font {
-              pixelSize: Theme.fontSize
-              family: Theme.font
-            }
-            text: `${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
-          }
-					Rectangle {
-						Layout.fillWidth: true
-						implicitHeight: 10
-						radius: Theme.borderRadius
-						color: Theme.secondary
-						Rectangle {
-							anchors {
-								left: parent.left
-								top: parent.top
-								bottom: parent.bottom
-              }
-							radius: parent.radius
-              color: Theme.primary
-							implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
-              Behavior on implicitWidth {
-                NumberAnimation {
-                  duration: Theme.animationSpeed
-                  easing.type: Easing.OutCubic
-                }
-              }
-						}
-					}
-				}
         opacity: 0
+        radius: Theme.borderRadius
+
         Behavior on opacity {
           NumberAnimation {
             duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
           }
         }
+
         Component.onCompleted: {
-          opacity = 1
-          hideAnimation.start()
+          opacity = 1;
+          hideAnimation.start();
         }
-			}
-		}
-	}
+
+        border {
+          color: Theme.secondary
+          width: Theme.borderWidth
+        }
+        RowLayout {
+          anchors {
+            fill: parent
+            leftMargin: Theme.spacing
+            rightMargin: Theme.spacing
+          }
+          Text {
+            color: Theme.primary
+            text: `${Math.floor(Pipewire.defaultAudioSink.audio.volume * 100)}%`
+
+            font {
+              family: Theme.font
+              pixelSize: Theme.fontSize
+            }
+          }
+          Rectangle {
+            Layout.fillWidth: true
+            color: Theme.secondary
+            implicitHeight: 10
+            radius: Theme.borderRadius
+
+            Rectangle {
+              color: Theme.primary
+              implicitWidth: parent.width * (Pipewire.defaultAudioSink.audio.volume ?? 0)
+              radius: parent.radius
+
+              Behavior on implicitWidth {
+                NumberAnimation {
+                  duration: Theme.animationSpeed
+                  easing.type: Easing.OutCubic
+                }
+              }
+
+              anchors {
+                bottom: parent.bottom
+                left: parent.left
+                top: parent.top
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

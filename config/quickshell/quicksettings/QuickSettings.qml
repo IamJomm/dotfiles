@@ -1,113 +1,146 @@
-import Quickshell
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls
-import ".."
+import QtQuick.Layouts
+import Quickshell
 import "../mpris"
+import ".."
 
 PanelWindow {
   property alias contentOpacity: content.opacity
 
+  color: "transparent"
+  exclusiveZone: 0
+  implicitWidth: content.implicitWidth + Theme.spacing
+
   anchors {
-    top: true
     bottom: true
     right: true
+    top: true
   }
   margins {
-    top: Theme.spacing
     bottom: Theme.spacing
+    top: Theme.spacing
   }
-  implicitWidth: content.implicitWidth + Theme.spacing
-  exclusiveZone: 0
-  color: "transparent"
   ColumnLayout {
     id: content
-    anchors {
-      top: parent.top
-      bottom: parent.bottom
-      right: parent.right
-      rightMargin: Theme.spacing
-    }
+
     spacing: Theme.spacing
+
     Behavior on opacity {
       NumberAnimation {
         duration: Theme.animationSpeed
         easing.type: Easing.OutCubic
       }
     }
+
+    Component.onCompleted: {
+      switchesGridAnimation.running = true;
+      playerCardAnimation.running = true;
+      notificationListAnimation.running = true;
+      calendarModuleAnimation.running = true;
+    }
+
+    anchors {
+      bottom: parent.bottom
+      right: parent.right
+      rightMargin: Theme.spacing
+      top: parent.top
+    }
     Item {
-      implicitWidth: switchesGrid.implicitWidth
       implicitHeight: switchesGrid.implicitHeight
+      implicitWidth: switchesGrid.implicitWidth
+
       SwitchesGrid {
         id: switchesGrid
+
         x: width + Theme.spacing
+
         NumberAnimation on x {
           id: switchesGridAnimation
-          running: false
-          to: 0; duration: Theme.animationSpeed
+
+          duration: Theme.animationSpeed
           easing.type: Easing.OutCubic
+          running: false
+          to: 0
         }
       }
     }
     Item {
       Layout.fillWidth: true
       implicitHeight: playerCard.implicitHeight
+
       PlayerCard {
         id: playerCard
+
         cardWidth: parent.width
         x: width + Theme.spacing
+
         SequentialAnimation on x {
           id: playerCardAnimation
+
           running: false
-          PauseAnimation { duration: Theme.animationSpeed / 4 }
+
+          PauseAnimation {
+            duration: Theme.animationSpeed / 4
+          }
           NumberAnimation {
-            to: 0; duration: Theme.animationSpeed
+            duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
+            to: 0
           }
         }
       }
     }
     Item {
-      Layout.fillWidth: true
       Layout.fillHeight: true
+      Layout.fillWidth: true
+
       NotificationList {
-        width: parent.width
         height: parent.height
+        width: parent.width
         x: width + Theme.spacing
+
         SequentialAnimation on x {
           id: notificationListAnimation
+
           running: false
-          PauseAnimation { duration: Theme.animationSpeed / 3 }
+
+          PauseAnimation {
+            duration: Theme.animationSpeed / 3
+          }
           NumberAnimation {
-            to: 0; duration: Theme.animationSpeed
+            duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
+            to: 0
           }
         }
       }
     }
     Item {
       Layout.fillWidth: true
-      implicitHeight: 250
+      implicitHeight: calendarModule.implicitHeight
+
       CalendarModule {
+        id: calendarModule
+
         width: parent.width
-        height: parent.height
         x: width + Theme.spacing
+
         SequentialAnimation on x {
           id: calendarModuleAnimation
+
           running: false
-          PauseAnimation { duration: Theme.animationSpeed / 2 }
+
+          PauseAnimation {
+            duration: Theme.animationSpeed / 2
+          }
           NumberAnimation {
-            to: 0; duration: Theme.animationSpeed
+            duration: Theme.animationSpeed
             easing.type: Easing.OutCubic
+            to: 0
           }
         }
       }
-    }
-    Component.onCompleted: {
-      switchesGridAnimation.running = true
-      playerCardAnimation.running = true
-      notificationListAnimation.running = true
-      calendarModuleAnimation.running = true
     }
   }
 }

@@ -1,11 +1,11 @@
 //@ pragma UseQApplication
 
 import Quickshell
-import "notifications"
-import "lockscreen"
-import "powermenu"
-import "mpris"
 import "bar"
+import "lockscreen"
+import "mpris"
+import "notifications"
+import "powermenu"
 
 ShellRoot {
   NotificationPopup {}

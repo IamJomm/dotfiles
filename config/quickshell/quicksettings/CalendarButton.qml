@@ -7,8 +7,8 @@ Rectangle {
   signal triggered
 
   color: "transparent"
-  implicitHeight: 20
-  implicitWidth: 20
+  implicitHeight: parent.height
+  implicitWidth: this.implicitHeight
 
   Text {
     id: actionButton

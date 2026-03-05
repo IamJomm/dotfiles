@@ -1,73 +1,84 @@
-import Quickshell
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Layouts
+import Quickshell
 import "../notifications"
 import ".."
 
 Rectangle {
+  color: Theme.background
   radius: Theme.borderRadius
+
   border {
     color: Theme.secondary
     width: Theme.borderWidth
   }
-  color: Theme.background
   ColumnLayout {
     anchors.centerIn: parent
-    width: parent.width - Theme.spacing * 2
     height: parent.height - Theme.spacing * 2
     spacing: Theme.spacing
+    width: parent.width - Theme.spacing * 2
+
     ColumnLayout {
       Layout.fillWidth: true
       spacing: 0
+
       Text {
+        color: Theme.primary
+        text: "Notifications"
+
         font {
           family: Theme.font
           pixelSize: Theme.fontSize * 1.75
         }
-        color: Theme.primary
-        text: "Notifications"
-      } 
+      }
       Rectangle {
         Layout.fillWidth: true
-        height: Theme.borderWidth
         color: Theme.secondary
-      } 
+        height: Theme.borderWidth
+      }
     }
     ScrollView {
-      Layout.fillWidth: true
       Layout.fillHeight: true
-      clip: true
+      Layout.fillWidth: true
       ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+      clip: true
+
       ScrollBar.vertical: ScrollBar {
-        policy: ScrollBar.AlwaysOn
-        anchors {
-          top: parent.top
-          bottom: parent.bottom
-          right: parent.right
-        }
         padding: 0
+        policy: ScrollBar.AlwaysOn
+
         contentItem: Rectangle {
           id: scrollBar
+
+          color: Theme.primary
           implicitWidth: 5
           radius: implicitWidth / 2
-          color: Theme.primary
+        }
+
+        anchors {
+          bottom: parent.bottom
+          right: parent.right
+          top: parent.top
         }
       }
+
       ListView {
         id: listView
+
         Layout.fillWidth: true
-        spacing: Theme.spacing
         model: Services.notificationList
+        spacing: Theme.spacing
+
         delegate: NotificationCard {
+          bodyText: body
+          creationTime: time
+          iconSource: icon
           maxCardWidth: listView.width - scrollBar.width - Theme.spacing
           minCardWidth: listView.width - scrollBar.width - Theme.spacing
-          iconSource: icon
           titleText: title
-          creationTime: time
-          bodyText: body
         }
       }
-    } 
+    }
   }
 }

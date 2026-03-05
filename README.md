@@ -10,12 +10,12 @@
 ### List of Applications
 - **WM / Compositor** - Hyprland
 - **Wallpapers** - Hyprpaper
-- **Lockscreen** - Hyprlock
-- **Notifications** - SwayNotificationCenter
-- **App Launcher** - Rofi
+- **Lockscreen** - QuickShell
+- **Notifications** - QuickShell
+- **App Launcher** - QuickShell
 - **File Manager** - Yazi
 - **Terminal** - kitty
-- **Bar** - Waybar
+- **Bar** - QuickShell
 
 ## Installation and Usage
 > [!IMPORTANT]
@@ -25,8 +25,6 @@ git clone https://github.com/IamJomm/dotfiles.git && cd dotfiles
 cp -r config/* ~/.config/
 yay -S $(cat pkgs.txt)
 ```
-> [!NOTE]
-> Chafa is required for Yazi in order to generate ANSI/Unicode character art from an image and display it in the terminal, particularly when the terminal does not support image rendering.
 ## To Do
 - [ ] Refine every detail to achieve perfection
 - [x] Idk

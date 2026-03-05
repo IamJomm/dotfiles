@@ -1,46 +1,50 @@
+import QtQuick
 import Quickshell
 import Quickshell.Widgets
-import QtQuick
 import ".."
 
 Rectangle {
-  property alias iconGlyph: icon.text
   property bool active: false
-  signal activated
-  signal deactivated 
+  property alias iconGlyph: icon.text
 
-  implicitWidth: 100
-  implicitHeight: 65
-  radius: Theme.borderRadius
-  border {
-    color: Theme.secondary
-    width: Theme.borderWidth
-  }
+  signal activated
+  signal deactivated
+
   color: active ? Theme.secondary : Theme.background
+  implicitHeight: 65
+  implicitWidth: 100
+  radius: Theme.borderRadius
+
   Behavior on color {
     ColorAnimation {
       duration: Theme.animationSpeed
       easing.type: Easing.OutCubic
     }
   }
+
+  border {
+    color: Theme.secondary
+    width: Theme.borderWidth
+  }
   Text {
     id: icon
+
     anchors.centerIn: parent
-    font.pixelSize: parent.implicitHeight * 0.5
     color: active ? Theme.background : Theme.secondary
-  } 
+    font.pixelSize: parent.implicitHeight * 0.5
+  }
   MouseArea {
     anchors.fill: parent
-    hoverEnabled: true
     cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+    hoverEnabled: true
+
     onClicked: {
-      if(active){
-        deactivated()
-        active = false
-      }
-      else {
-        activated()
-        active = true
+      if (active) {
+        deactivated();
+        active = false;
+      } else {
+        activated();
+        active = true;
       }
     }
   }

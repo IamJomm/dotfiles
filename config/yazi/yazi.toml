@@ -1,0 +1,49 @@
+[opener]
+video = [
+  { desc = "MPV", run = "mpv %s", orphan = true },
+  { desc = "VLC", run = "vlc %s", orphan = true },
+  { desc = "show EXIF", run = "exiftool %s | less", block = true}
+]
+image = [
+  { desc = "SXIV", run = "sxiv %s", orphan = true},
+  { desc = "show EXIF", run = "exiftool %s | less", block = true}
+]
+edit = [
+  { desc = "Neovim", run = "nvim %s", block = true }
+]
+open = [
+	{ run = "xdg-open %s", desc = "Open" },
+]
+
+[open]
+prepend_rules = [
+	{ url = "*.txt", use = "edit" },
+	{ url = "*.qml", use = "edit" },
+	{ url = "*.conf", use = "edit" },
+	{ url = "*.toml", use = "edit" },
+	{ url = "*.ini", use = "edit" },
+	{ url = "*.list", use = "edit" },
+	{ url = "*.yaml", use = "edit" },
+	{ url = "*.cfg", use = "edit" },
+	{ url = "*.lua", use = "edit" },
+	{ url = "*.yml", use = "edit" },
+	{ url = "*.py", use = "edit" },
+	{ url = "*.sh", use = "edit" },
+	{ url = "*.cpp", use = "edit" },
+	{ url = "*.json", use = "edit" },
+	{ url = "*.css", use = "edit" },
+	{ url = "*.html", use = [ "open", "edit" ] },
+	{ url = "*.mp4", use = "video" },
+	{ url = "*.m4a", use = "video" },
+	{ url = "*.mov", use = "video" },
+	{ url = "*.avi", use = "video" },
+	{ url = "*.webm", use = "video" },
+	{ url = "*.mkv", use = "video" },
+	{ url = "*.webp", use = "image" },
+	{ url = "*.png", use = "image" },
+	{ url = "*.jpg", use = "image" },
+	{ url = "*.jpeg", use = "image" },
+]
+append_rules = [
+  { url = "*", use = "open" }
+]

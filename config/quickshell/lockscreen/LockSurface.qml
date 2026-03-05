@@ -1,11 +1,11 @@
+import Qt5Compat.GraphicalEffects
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
-import Quickshell.Wayland
 import Quickshell.Services.Mpris
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
+import Quickshell.Wayland
 import ".."
 
 Item {
@@ -14,117 +14,140 @@ Item {
   required property LockContext context
 
   anchors.fill: parent
+
   ScreencopyView {
     id: screen
+
     anchors.fill: parent
     captureSource: Quickshell.screens[0]
   }
   FastBlur {
     anchors.fill: screen
-    source: screen
     radius: 100
+    source: screen
   }
   Rectangle {
     anchors.fill: parent
     color: Theme.background
+
     ColumnLayout {
       anchors.centerIn: parent
       spacing: 20
+
       Text {
+        color: Theme.primary
+        text: Services.time
+
         font {
           family: Theme.font
           pixelSize: 40
         }
-        color: Theme.primary
-        text: Services.time
       }
       TextField {
         id: passwordField
+
         Layout.alignment: Qt.AlignHCenter
-        implicitWidth: 250
+        color: Theme.primary
+        echoMode: TextInput.Password
+        enabled: !root.context.unlockInProgress
+        focus: true
         implicitHeight: 35
+        implicitWidth: 250
+        inputMethodHints: Qt.ImhSensitiveData
         leftPadding: 20
         rightPadding: 20
-        font {
-          family: Theme.font
-          pixelSize: Theme.fontSize
-        }
-        color: Theme.primary
-        background: Rectangle{
+
+        background: Rectangle {
           anchors.fill: parent
+          color: Theme.background
           radius: Theme.borderRadius
-          border {
-            color: root.context.unlockInProgress ? Theme.secondary : Theme.primary
-            width: Theme.borderWidth
-          }
+
           Behavior on border.color {
             ColorAnimation {
               duration: Theme.animationSpeed
               easing.type: Easing.OutCubic
             }
           }
-          color: Theme.background
+
+          border {
+            color: root.context.unlockInProgress ? Theme.secondary : Theme.primary
+            width: Theme.borderWidth
+          }
         }
-        focus: true
-				enabled: !root.context.unlockInProgress
-				echoMode: TextInput.Password
-				inputMethodHints: Qt.ImhSensitiveData
-				onTextChanged: root.context.currentText = this.text;
-				onAccepted: root.context.tryUnlock();
-				Connections {
-					target: root.context
-					function onCurrentTextChanged() {
-						passwordField.text = root.context.currentText;
-					}
-				}
+
+        onAccepted: root.context.tryUnlock()
+        onTextChanged: root.context.currentText = this.text
+
+        font {
+          family: Theme.font
+          pixelSize: Theme.fontSize
+        }
+        Connections {
+          function onCurrentTextChanged() {
+            passwordField.text = root.context.currentText;
+          }
+
+          target: root.context
+        }
       }
     }
     ColumnLayout {
+      spacing: Theme.spacing
+
       anchors {
-        horizontalCenter: parent.horizontalCenter
         bottom: parent.bottom
         bottomMargin: screen.height / 6
+        horizontalCenter: parent.horizontalCenter
       }
-      spacing: Theme.spacing
       Text {
         id: trackTitle
+
         Layout.alignment: Qt.AlignHCenter
+        color: Theme.primary
+        text: Services.currentPlayer ? `${Services.currentPlayer.trackTitle} - 
+${Services.currentPlayer.identity}` : ""
+
         font {
           family: Theme.font
           pixelSize: Theme.fontSize * 1.5
         }
-        color: Theme.primary
-        text: Services.currentPlayer ? `${Services.currentPlayer.trackTitle} - ${Services.currentPlayer.identity}` : "" 
       }
       Process {
         id: upProcess
-        running: true
+
         command: ["uptime", "-p"]
+        running: true
+
         stdout: StdioCollector {
           onStreamFinished: uptime.text = this.text
         }
       }
       Timer {
-        running: true
         interval: 60000
         repeat: true
+        running: true
+
         onTriggered: upProcess.running = true
       }
       Text {
         id: uptime
+
         Layout.alignment: Qt.AlignHCenter
+        color: Theme.primary
+
         font {
           family: Theme.font
           pixelSize: Theme.fontSize
         }
-        color: Theme.primary
       }
     }
   }
+
   //Test button
   Button {
-    visible: false
     text: "unlock me"
+    visible: false
+
     onClicked: context.unlocked()
   }
 }

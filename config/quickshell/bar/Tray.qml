@@ -1,69 +1,80 @@
-import Quickshell
-import Quickshell.Widgets
-import Quickshell.Services.SystemTray
+import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
+import Quickshell
+import Quickshell.Services.SystemTray
+import Quickshell.Widgets
 import ".."
 
 Rectangle {
   id: trayModule
 
-  QsMenuAnchor {
-    id: menuAnchor
-    anchor.window: QsWindow.window
-    anchor.gravity: Edges.Bottom | Edges.Left
-  }
-
-  visible: apps.children.length > 1
+  clip: true
+  color: Theme.background
   height: 35
   implicitWidth: apps.implicitWidth
+  radius: Theme.borderRadius
+  visible: apps.children.length > 1
+
   Behavior on implicitWidth {
     NumberAnimation {
       duration: Theme.animationSpeed
       easing.type: Easing.OutCubic
     }
   }
-  clip: true
-  radius: Theme.borderRadius
+
+  QsMenuAnchor {
+    id: menuAnchor
+
+    anchor.gravity: Edges.Bottom | Edges.Left
+    anchor.window: QsWindow.window
+  }
   border {
     color: Theme.secondary
     width: Theme.borderWidth
   }
-  color: Theme.background
   RowLayout {
     id: apps
+
     spacing: 0
+
     Repeater {
       model: SystemTray.items
+
       Rectangle {
         id: app
+
+        color: "transparent"
         height: trayModule.height
         width: trayModule.height
-        color: "transparent"
+
         IconImage {
           id: icon
-          height: parent.height - 15
-          width: parent.height - 15
+
           anchors.centerIn: parent
+          height: parent.height - 15
           source: modelData.icon
-        } 
+          width: parent.height - 15
+        }
         Desaturate {
           anchors.fill: icon
-          source: icon
           desaturation: 1
-        } 
+          source: icon
+        }
         MouseArea {
           anchors.fill: parent
-          hoverEnabled: true
           cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-          onClicked: if(modelData.hasMenu) {
-            if(menuAnchor.visible) menuAnchor.close()
-            var globalCoordinares = app.mapToItem(QsWindow.parent, 0, 0)
-            menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.width, globalCoordinares.y + app.height, 0, 0)
-            menuAnchor.menu = modelData.menu
-            menuAnchor.open()
-          }
+          hoverEnabled: true
+
+          onClicked: if (modelData.hasMenu) {
+                       if (menuAnchor.visible)
+                         menuAnchor.close();
+                       var globalCoordinares = app.mapToItem(QsWindow.parent, 0, 0);
+                       menuAnchor.anchor.rect = Qt.rect(globalCoordinares.x + app.width,
+                                                        globalCoordinares.y + app.height, 0, 0);
+                       menuAnchor.menu = modelData.menu;
+                       menuAnchor.open();
+                     }
         }
       }
     }

@@ -1,60 +1,68 @@
 pragma Singleton
-
-import Quickshell
-import Quickshell.Services.Notifications
-import Quickshell.Services.Pipewire
-import Quickshell.Services.Mpris
 import QtQuick
 
+import Quickshell
+import Quickshell.Services.Mpris
+import Quickshell.Services.Notifications
+import Quickshell.Services.Pipewire
+
 Item {
-  readonly property string time: Qt.formatDateTime(clock.date, "hh:mm:ss dd/MM/yyyy")
-  property ListModel notificationList: ListModel{}
   property MprisPlayer currentPlayer
-  signal volumeChanged()
-  signal newNotification()
-  signal currentTrackChanged()
-  signal trackPositionChanged()
- 
+  property ListModel notificationList: ListModel {}
+  readonly property string time: Qt.formatDateTime(clock.date, "hh:mm:ss dd/MM/yyyy")
+
+  signal currentTrackChanged
+  signal newNotification
+  signal trackPositionChanged
+  signal volumeChanged
+
   Connections {
-    target: NotificationServer {}
     function onNotification(notification) {
-      notificationList.insert(0, {"icon": notification.image, "title": notification.summary, "time": Date.now(),"body": notification.body})
-      newNotification()
+      notificationList.insert(0, {
+                                "icon": notification.image,
+                                "title": notification.summary,
+                                "time": Date.now(),
+                                "body": notification.body
+                              });
+      newNotification();
     }
-  }
 
+    target: NotificationServer {}
+  }
   PwObjectTracker {
-		objects: [ Pipewire.defaultAudioSink ]
+    objects: [Pipewire.defaultAudioSink]
   }
   Connections {
-		target: Pipewire.defaultAudioSink?.audio
     function onVolumeChanged() {
-      volumeChanged()
-		}
-  }
+      volumeChanged();
+    }
 
+    target: Pipewire.defaultAudioSink?.audio
+  }
   Timer {
-    running: currentPlayer && currentPlayer.playbackState == MprisPlaybackState.Playing
     interval: 1000
     repeat: true
+    running: currentPlayer && currentPlayer.playbackState == MprisPlaybackState.Playing
+
     onTriggered: trackPositionChanged()
   }
-
   Repeater {
     model: Mpris.players
+
     Item {
       Connections {
-        target: modelData
-        function onTrackChanged() { 
-          currentPlayer = modelData
-          currentTrackChanged()
+        function onTrackChanged() {
+          currentPlayer = modelData;
+          currentTrackChanged();
         }
+
+        target: modelData
       }
     }
   }
-
   SystemClock {
     id: clock
+
     precision: SystemClock.Seconds
-  } 
+  }
 }
