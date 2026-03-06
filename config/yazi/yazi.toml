@@ -1,7 +1,7 @@
 [opener]
 video = [
-  { desc = "MPV", run = "mpv %s", orphan = true },
   { desc = "VLC", run = "vlc %s", orphan = true },
+  { desc = "MPV", run = "mpv %s", orphan = true },
   { desc = "show EXIF", run = "exiftool %s | less", block = true}
 ]
 image = [
