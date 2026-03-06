@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
 import Quickshell.Widgets
 
@@ -12,12 +13,11 @@ Scope {
   Connections {
     function onVolumeChanged() {
       if (shouldShowOsd) {
-        osdLoader.item.osdOpacity = 1;
+        osdLoader.item.windowOpacity = 1;
         hideWindow.stop();
         hideAnimation.restart();
-      } else {
+      } else
         root.shouldShowOsd = true;
-      }
     }
 
     target: Services
@@ -35,7 +35,7 @@ Scope {
     interval: 1000 - Theme.animationSpeed
 
     onTriggered: {
-      osdLoader.item.osdOpacity = 0;
+      osdLoader.item.windowOpacity = 0;
       hideWindow.start();
     }
   }
@@ -45,8 +45,9 @@ Scope {
     active: root.shouldShowOsd
 
     PanelWindow {
-      property alias osdOpacity: osd.opacity
+      property real windowOpacity: 0
 
+      HyprlandWindow.opacity: windowOpacity
       anchors.bottom: true
       color: "transparent"
       exclusiveZone: 0
@@ -54,27 +55,26 @@ Scope {
       implicitWidth: 250
       margins.bottom: screen.height / 6
 
-      mask: Region {}
+      Behavior on HyprlandWindow.opacity {
+        NumberAnimation {
+          duration: Theme.animationSpeed
+          easing.type: Easing.OutCubic
+        }
+      }
+      mask: Region {
+      }
+
+      Component.onCompleted: {
+        windowOpacity = 1;
+        hideAnimation.start();
+      }
 
       Rectangle {
         id: osd
 
         anchors.fill: parent
         color: Theme.background
-        opacity: 0
         radius: Theme.borderRadius
-
-        Behavior on opacity {
-          NumberAnimation {
-            duration: Theme.animationSpeed
-            easing.type: Easing.OutCubic
-          }
-        }
-
-        Component.onCompleted: {
-          opacity = 1;
-          hideAnimation.start();
-        }
 
         border {
           color: Theme.secondary

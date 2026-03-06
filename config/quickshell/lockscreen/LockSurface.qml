@@ -104,8 +104,7 @@ Item {
 
         Layout.alignment: Qt.AlignHCenter
         color: Theme.primary
-        text: Services.currentPlayer ? `${Services.currentPlayer.trackTitle} - 
-${Services.currentPlayer.identity}` : ""
+        text: Services.currentPlayer ? `${Services.currentPlayer.trackTitle} - ${Services.currentPlayer.identity}` : ""
 
         font {
           family: Theme.font

@@ -2,15 +2,24 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import "../mpris"
 import ".."
 
 PanelWindow {
-  property alias contentOpacity: content.opacity
+  property real windowOpacity: 1
 
+  HyprlandWindow.opacity: windowOpacity
   color: "transparent"
   exclusiveZone: 0
   implicitWidth: content.implicitWidth + Theme.spacing
+
+  Behavior on HyprlandWindow.opacity {
+    NumberAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
 
   anchors {
     bottom: true
@@ -25,13 +34,6 @@ PanelWindow {
     id: content
 
     spacing: Theme.spacing
-
-    Behavior on opacity {
-      NumberAnimation {
-        duration: Theme.animationSpeed
-        easing.type: Easing.OutCubic
-      }
-    }
 
     Component.onCompleted: {
       switchesGridAnimation.running = true;
@@ -96,6 +98,8 @@ PanelWindow {
       Layout.fillWidth: true
 
       NotificationList {
+        id: notificationList
+
         height: parent.height
         width: parent.width
         x: width + Theme.spacing

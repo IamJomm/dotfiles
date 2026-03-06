@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 import ".."
@@ -56,7 +57,7 @@ Scope {
         root.shouldShowMenu = true;
       else {
         menuLoader.item.contentItem.focus = false;
-        menuLoader.item.contentOpacity = 0;
+        menuLoader.item.windowOpacity = 0;
         hideWindow.start();
       }
     }
@@ -71,14 +72,24 @@ Scope {
     PanelWindow {
       id: menuWindow
 
-      property alias contentOpacity: content.opacity
+      property real windowOpacity: 0
 
+      HyprlandWindow.opacity: windowOpacity
       WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
       WlrLayershell.layer: WlrLayer.Overlay
       color: "transparent"
       exclusionMode: ExclusionMode.Ignore
       implicitHeight: content.implicitHeight
       implicitWidth: content.implicitWidth
+
+      Behavior on HyprlandWindow.opacity {
+        NumberAnimation {
+          duration: Theme.animationSpeed
+          easing.type: Easing.OutCubic
+        }
+      }
+
+      Component.onCompleted: windowOpacity = 1
 
       anchors {
         left: true
@@ -92,19 +103,19 @@ Scope {
         focus: true
 
         Keys.onPressed: event => {
-                          if (event.key == Qt.Key_Escape) {
-                            menuWindow.contentItem.focus = false;
-                            content.opacity = 0;
-                            hideWindow.start();
-                          } else
-                          for (let i = 0; i < tiles.length; i++) {
-                            let tile = tiles[i];
-                            if (event.key == tile.keybind) {
-                              tile.proc.startDetached();
-                              root.shouldShowMenu = false;
-                            }
-                          }
-                        }
+          if (event.key == Qt.Key_Escape) {
+            menuWindow.contentItem.focus = false;
+            menuWindow.windowOpacity = 0;
+            hideWindow.start();
+          } else
+            for (let i = 0; i < tiles.length; i++) {
+              let tile = tiles[i];
+              if (event.key == tile.keybind) {
+                tile.proc.startDetached();
+                root.shouldShowMenu = false;
+              }
+            }
+        }
       }
       Rectangle {
         id: content
@@ -112,17 +123,7 @@ Scope {
         color: Theme.background
         implicitHeight: tilesGrid.implicitHeight + Theme.spacing * 2
         implicitWidth: tilesGrid.implicitWidth + Theme.spacing * 2
-        opacity: 0
         radius: Theme.borderRadius
-
-        Behavior on opacity {
-          NumberAnimation {
-            duration: Theme.animationSpeed
-            easing.type: Easing.OutCubic
-          }
-        }
-
-        Component.onCompleted: opacity = 1
 
         border {
           color: Theme.secondary

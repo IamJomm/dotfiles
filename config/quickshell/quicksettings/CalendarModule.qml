@@ -12,8 +12,7 @@ Rectangle {
   property int currentMonth: currentDate.getMonth()
   property int currentYear: currentDate.getFullYear()
   readonly property var localelele: Qt.locale("en_US")
-  readonly property var months: ["January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"]
+  readonly property var months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
   color: Theme.background
   implicitHeight: content.implicitHeight + Theme.spacing * 2
@@ -55,8 +54,7 @@ Rectangle {
       year: root.currentYear
 
       delegate: Text {
-        color: root.currentDate.getMonth() == root.currentMonth && root.currentDate.getFullYear()
-               == root.currentYear && currentDay == model.day ? Theme.primary : Theme.secondary
+        color: root.currentDate.getMonth() == root.currentMonth && root.currentDate.getFullYear() == root.currentYear && currentDay == model.day ? Theme.primary : Theme.secondary
         horizontalAlignment: Text.AlignHCenter
         opacity: model.month === monthGrid.month ? 1 : 0
         text: model.day

@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Widgets
 import ".."
 
 Rectangle {
@@ -11,7 +12,7 @@ Rectangle {
   property alias bodyText: body.text
   property double creationTime
   property bool expanded: false
-  property alias iconSource: icon.source
+  property string iconSource
   property int maxCardWidth: 300
   property int minCardWidth: 150
   property alias titleText: title.text
@@ -60,31 +61,28 @@ Rectangle {
     id: content
 
     spacing: Theme.spacing
-    width: Math.min(Math.max(implicitWidth, minCardWidth - Theme.spacing * 2), maxCardWidth - Theme.spacing
-                    * 2)
+    width: Math.min(Math.max(implicitWidth, minCardWidth - Theme.spacing * 2), maxCardWidth - Theme.spacing * 2)
 
     anchors {
       left: parent.left
       margins: Theme.spacing
       top: parent.top
     }
-    Item {
+    ClippingWrapperRectangle {
       id: iconContainer
 
-      readonly property real lineHeight: (title.contentHeight / title.lineCount
-                                          - title.font.pixelSize) / 2 + title.font.pixelSize + (
-                                           body.contentHeight / body.lineCount
-                                           - body.font.pixelSize) / 2 + body.font.pixelSize
+      readonly property real lineHeight: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2 + title.font.pixelSize + (body.contentHeight / body.lineCount - body.font.pixelSize) / 2 + body.font.pixelSize
 
       Layout.alignment: Qt.AlignTop
       Layout.topMargin: (title.contentHeight / title.lineCount - title.font.pixelSize) / 2
+      color: "transparent"
       implicitHeight: lineHeight
       implicitWidth: lineHeight
+      radius: Theme.borderRadius
 
       Image {
-        id: icon
-
         anchors.fill: parent
+        source: root.iconSource ? root.iconSource : "../assets/message.png"
       }
     }
     ColumnLayout {
@@ -114,8 +112,7 @@ Rectangle {
 
           onTriggered: {
             const seconds = (Date.now() - root.creationTime) / 1000;
-            time.text = seconds < 60 ? `${Math.floor(seconds)}sec` : `${Math.floor(seconds / 60)
-                                       }min`;
+            time.text = seconds < 60 ? `${Math.floor(seconds)}sec` : `${Math.floor(seconds / 60)}min`;
           }
         }
         Text {

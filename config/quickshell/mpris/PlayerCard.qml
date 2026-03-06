@@ -1,9 +1,9 @@
-import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Mpris
+import Quickshell.Widgets
 import ".."
 
 Rectangle {
@@ -36,24 +36,15 @@ Rectangle {
     spacing: Theme.spacing
     width: parent.width - Theme.spacing * 2
 
-    Item {
+    ClippingWrapperRectangle {
+      color: "transparent"
       implicitHeight: details.implicitHeight
       implicitWidth: details.implicitHeight
+      radius: Theme.borderRadius
 
       Image {
-        id: art
-
         anchors.fill: parent
-        layer.enabled: true
         source: Services.currentPlayer ? Services.currentPlayer.trackArtUrl : ""
-
-        layer.effect: OpacityMask {
-          maskSource: Rectangle {
-            height: art.height
-            radius: Theme.borderRadius
-            width: art.width
-          }
-        }
       }
     }
     ColumnLayout {
@@ -172,7 +163,8 @@ Rectangle {
                 width: trackSlider.visualPosition * parent.width
               }
             }
-            handle: Item {}
+            handle: Item {
+            }
 
             onMoved: Services.currentPlayer.seek(value - Services.currentPlayer.position)
           }

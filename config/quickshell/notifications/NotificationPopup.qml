@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Services.Notifications
 import ".."
 
@@ -16,12 +17,13 @@ Scope {
     function onNewNotification() {
       if (Settings.dnd)
         return;
-      root.icon = Services.notificationList.get(0).icon;
-      root.title = Services.notificationList.get(0).title;
-      root.time = Services.notificationList.get(0).time;
-      root.body = Services.notificationList.get(0).body;
+      var n = Services.notificationList.get(0);
+      root.icon = n.icon;
+      root.title = n.title;
+      root.time = n.time;
+      root.body = n.body;
       if (shouldShowNotification) {
-        popupLoader.item.cardOpacity = 1;
+        popupLoader.item.windowOpacity = 1;
         hideWindow.stop();
         hideAnimation.restart();
       } else
@@ -43,7 +45,7 @@ Scope {
     interval: 5000 - Theme.animationSpeed
 
     onTriggered: {
-      popupLoader.item.cardOpacity = 0;
+      popupLoader.item.windowOpacity = 0;
       hideWindow.start();
     }
   }
@@ -53,15 +55,27 @@ Scope {
     active: root.shouldShowNotification
 
     PanelWindow {
-      property alias cardOpacity: card.opacity
+      property real windowOpacity: 0
 
+      HyprlandWindow.opacity: windowOpacity
       color: "transparent"
       exclusiveZone: 0
       implicitWidth: card.implicitWidth
       margins.top: 30
 
+      Behavior on HyprlandWindow.opacity {
+        NumberAnimation {
+          duration: Theme.animationSpeed
+          easing.type: Easing.OutCubic
+        }
+      }
       mask: Region {
         item: card
+      }
+
+      Component.onCompleted: {
+        windowOpacity = 1;
+        hideAnimation.start();
       }
 
       anchors {
@@ -74,25 +88,13 @@ Scope {
         bodyText: root.body
         creationTime: root.time
         iconSource: root.icon
-        opacity: 0
         titleText: root.title
 
-        Behavior on opacity {
-          NumberAnimation {
-            duration: Theme.animationSpeed
-            easing.type: Easing.OutCubic
-          }
-        }
-
-        Component.onCompleted: {
-          opacity = 1;
-          hideAnimation.start();
-        }
         onFocusLost: hideAnimation.start()
         onFocused: {
           hideAnimation.stop();
           hideWindow.stop();
-          opacity = 1;
+          windowOpacity = 1;
         }
       }
     }

@@ -28,14 +28,14 @@ Scope {
     configDirectory: "pam"
 
     onCompleted: result => {
-                   if (result == PamResult.Success) {
-                     root.unlocked();
-                   } else {
-                     root.currentText = "";
-                     root.showFailure = true;
-                   }
-                   root.unlockInProgress = false;
-                 }
+      if (result == PamResult.Success) {
+        root.unlocked();
+      } else {
+        root.currentText = "";
+        root.showFailure = true;
+      }
+      root.unlockInProgress = false;
+    }
     onPamMessage: {
       if (this.responseRequired) {
         this.respond(root.currentText);

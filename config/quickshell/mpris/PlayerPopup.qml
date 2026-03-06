@@ -1,5 +1,7 @@
 import QtQuick
 import Quickshell
+
+import Quickshell.Hyprland
 import Quickshell.Services.Mpris
 import ".."
 
@@ -12,7 +14,7 @@ Scope {
     function onCurrentTrackChanged() {
       root.shouldShowTrack = true;
       if (shouldShowTrack) {
-        popupLoader.item.cardOpacity = 1;
+        popupLoader.item.windowOpacity = 1;
         hideWindow.stop();
         hideAnimation.restart();
       } else
@@ -34,7 +36,7 @@ Scope {
     interval: 3000 - Theme.animationSpeed
 
     onTriggered: {
-      popupLoader.item.cardOpacity = 0;
+      popupLoader.item.windowOpacity = 0;
       hideWindow.start();
     }
   }
@@ -44,12 +46,25 @@ Scope {
     active: root.shouldShowTrack
 
     PanelWindow {
-      property alias cardOpacity: card.opacity
+      property real windowOpacity: 0
 
+      HyprlandWindow.opacity: windowOpacity
       color: "transparent"
       exclusiveZone: 0
       implicitHeight: card.implicitHeight
       implicitWidth: card.implicitWidth
+
+      Behavior on HyprlandWindow.opacity {
+        NumberAnimation {
+          duration: Theme.animationSpeed
+          easing.type: Easing.OutCubic
+        }
+      }
+
+      Component.onCompleted: {
+        windowOpacity = 1;
+        hideAnimation.start();
+      }
 
       anchors {
         left: true
@@ -63,24 +78,12 @@ Scope {
         id: card
 
         cardWidth: 350
-        opacity: 0
 
-        Behavior on opacity {
-          NumberAnimation {
-            duration: Theme.animationSpeed
-            easing.type: Easing.OutCubic
-          }
-        }
-
-        Component.onCompleted: {
-          opacity = 1;
-          hideAnimation.start();
-        }
         onFocusLost: hideAnimation.start()
         onFocused: {
           hideAnimation.stop();
           hideWindow.stop();
-          opacity = 1;
+          windowOpacity = 1;
         }
       }
     }

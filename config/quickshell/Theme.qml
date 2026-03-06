@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 
 Singleton {
-  readonly property int animationSpeed: 300
+  readonly property int animationSpeed: 250
   readonly property color background: "#cc070707"
   readonly property int borderRadius: 10
   readonly property int borderWidth: 1

@@ -19,11 +19,11 @@ Item {
   Connections {
     function onNotification(notification) {
       notificationList.insert(0, {
-                                "icon": notification.image,
-                                "title": notification.summary,
-                                "time": Date.now(),
-                                "body": notification.body
-                              });
+        "icon": notification.image,
+        "title": notification.summary,
+        "time": Date.now(),
+        "body": notification.body
+      });
       newNotification();
     }
 

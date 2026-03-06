@@ -16,7 +16,8 @@ Scope {
 
     active: shouldShowQuickSettings
 
-    QuickSettings {}
+    QuickSettings {
+    }
   }
   Timer {
     id: hideQuicksettings
@@ -32,7 +33,7 @@ Scope {
       if (!shouldShowQuickSettings)
         shouldShowQuickSettings = true;
       else {
-        quickSettingsLoader.item.contentOpacity = 0;
+        quickSettingsLoader.item.windowOpacity = 0;
         hideQuicksettings.start();
       }
     }
@@ -73,7 +74,8 @@ Scope {
       Item {
         Layout.fillWidth: true
       }
-      Tray {}
+      Tray {
+      }
       Module {
         contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
       }
@@ -91,7 +93,7 @@ Scope {
           if (!shouldShowQuickSettings)
             shouldShowQuickSettings = true;
           else {
-            quickSettingsLoader.item.contentOpacity = 0;
+            quickSettingsLoader.item.windowOpacity = 0;
             hideQuicksettings.start();
           }
         }
