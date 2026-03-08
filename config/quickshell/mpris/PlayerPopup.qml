@@ -20,6 +20,15 @@ Scope {
       } else
         root.shouldShowTrack = true;
     }
+    function onCurrentTrackStatusChanged() {
+      root.shouldShowTrack = true;
+      if (shouldShowTrack) {
+        popupLoader.item.windowOpacity = 1;
+        hideWindow.stop();
+        hideAnimation.restart();
+      } else
+        root.shouldShowTrack = true;
+    }
 
     target: Services
   }

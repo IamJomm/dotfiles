@@ -17,6 +17,7 @@ return {
 					"bash-language-server",
 					"typescript-language-server",
 					"css-lsp",
+					"qmlls",
 					--
 					"stylua",
 					"clang-format",

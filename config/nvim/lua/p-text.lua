@@ -68,6 +68,7 @@ return {
 				formatters_by_ft = {
 					lua = { "stylua" },
 					cpp = { "clang_format" },
+					qml = { "qmlformat" },
 					python = { "black" },
 					bash = { "beautysh" },
 					html = { "prettier" },
@@ -89,14 +90,19 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "lua", "cpp", "python", "bash" },
-				auto_install = true,
-				highlight = {
-					enable = true,
-				},
+			require("nvim-treesitter").setup()
+			require("nvim-treesitter").install({ "lua", "cpp", "qmljs", "python", "bash" })
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "lua", "cpp", "qmljs", "python", "bash" },
+				callback = function()
+					vim.treesitter.start()
+				end,
 			})
+			vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+			vim.wo[0][0].foldmethod = "expr"
 		end,
 	},
 	{

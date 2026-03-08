@@ -38,13 +38,16 @@ Rectangle {
 
     ClippingWrapperRectangle {
       color: "transparent"
-      implicitHeight: details.implicitHeight
-      implicitWidth: details.implicitHeight
+      implicitHeight: visible ? details.implicitHeight : 0
+      implicitWidth: visible ? details.implicitHeight / (trackCover.sourceSize.height / trackCover.sourceSize.width) : 0
       radius: Theme.borderRadius
+      visible: Services.currentPlayer && Services.currentPlayer.trackArtUrl
 
       Image {
+        id: trackCover
+
         anchors.fill: parent
-        source: Services.currentPlayer ? Services.currentPlayer.trackArtUrl : ""
+        source: visible ? Services.currentPlayer.trackArtUrl : ""
       }
     }
     ColumnLayout {
@@ -92,20 +95,15 @@ Rectangle {
             onTriggered: Services.currentPlayer.previous()
           }
           PlayerButton {
-            property bool status: true
+            property bool status: Services.currentPlayer ? Services.currentPlayer.isPlaying : false
 
-            iconGlyph: "\uf04c"
+            iconGlyph: status ? "\uf04c" : "\uf04b"
 
             onTriggered: {
-              if (status) {
+              if (status)
                 Services.currentPlayer.pause();
-                iconGlyph = "\uf04b";
-                status = false;
-              } else {
+              else
                 Services.currentPlayer.play();
-                iconGlyph = "\uf04c";
-                status = true;
-              }
             }
           }
           PlayerButton {
@@ -118,12 +116,21 @@ Rectangle {
           Layout.fillWidth: true
           spacing: Theme.spacing
 
+          Component.onCompleted: {
+            if (!Services.currentPlayer)
+              return;
+            const min = Math.floor(Services.currentPlayer.position / 60);
+            const sec = Math.floor(Services.currentPlayer.position % 60);
+            trackPosition.text = `${min}:${sec < 10 ? "0" + sec : sec}`;
+            trackSlider.value = Services.currentPlayer.position;
+          }
+
           Connections {
             function onTrackPositionChanged() {
               if (!Services.currentPlayer)
                 return;
-              var min = Math.floor(Services.currentPlayer.position / 60);
-              var sec = Math.floor(Services.currentPlayer.position % 60);
+              const min = Math.floor(Services.currentPlayer.position / 60);
+              const sec = Math.floor(Services.currentPlayer.position % 60);
               trackPosition.text = `${min}:${sec < 10 ? "0" + sec : sec}`;
               trackSlider.value = Services.currentPlayer.position;
             }
@@ -175,8 +182,8 @@ Rectangle {
             text: {
               if (!Services.currentPlayer)
                 return "0:00";
-              var min = Math.floor(Services.currentPlayer.length / 60);
-              var sec = Math.floor(Services.currentPlayer.length % 60);
+              const min = Math.floor(Services.currentPlayer.length / 60);
+              const sec = Math.floor(Services.currentPlayer.length % 60);
               return `${min}:${sec < 10 ? "0" + sec : sec}`;
             }
 

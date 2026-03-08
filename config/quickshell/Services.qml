@@ -8,10 +8,12 @@ import Quickshell.Services.Pipewire
 
 Item {
   property MprisPlayer currentPlayer
-  property ListModel notificationList: ListModel {}
+  property ListModel notificationList: ListModel {
+  }
   readonly property string time: Qt.formatDateTime(clock.date, "hh:mm:ss dd/MM/yyyy")
 
   signal currentTrackChanged
+  signal currentTrackStatusChanged
   signal newNotification
   signal trackPositionChanged
   signal volumeChanged
@@ -27,7 +29,8 @@ Item {
       newNotification();
     }
 
-    target: NotificationServer {}
+    target: NotificationServer {
+    }
   }
   PwObjectTracker {
     objects: [Pipewire.defaultAudioSink]
@@ -42,7 +45,8 @@ Item {
   Timer {
     interval: 1000
     repeat: true
-    running: currentPlayer && currentPlayer.playbackState == MprisPlaybackState.Playing
+    running: currentPlayer && currentPlayer.isPlaying
+    triggeredOnStart: true
 
     onTriggered: trackPositionChanged()
   }
@@ -51,6 +55,9 @@ Item {
 
     Item {
       Connections {
+        function onIsPlayingChanged() {
+          currentTrackStatusChanged();
+        }
         function onTrackChanged() {
           currentPlayer = modelData;
           currentTrackChanged();

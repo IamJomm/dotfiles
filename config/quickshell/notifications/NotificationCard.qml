@@ -112,7 +112,16 @@ Rectangle {
 
           onTriggered: {
             const seconds = (Date.now() - root.creationTime) / 1000;
-            time.text = seconds < 60 ? `${Math.floor(seconds)}sec` : `${Math.floor(seconds / 60)}min`;
+
+            if (seconds >= 3600) {
+              time.text = `${Math.floor(seconds / 3600)} hr`;
+              return;
+            }
+            if (seconds >= 60) {
+              time.text = `${Math.floor(seconds / 60)}min`;
+              return;
+            }
+            time.text = `${Math.floor(seconds)} sec`;
           }
         }
         Text {
