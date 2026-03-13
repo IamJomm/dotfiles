@@ -11,22 +11,29 @@ Rectangle {
 
   property alias bodyText: body.text
   property double creationTime
+  property bool dragable: false
   property bool expanded: false
   property string iconSource
-  property int maxCardWidth: 300
-  property int minCardWidth: 150
+  property alias moving: mouseArea.drag.active
   property alias titleText: title.text
 
   signal focusLost
   signal focused
+  signal swiped
 
   clip: true
   color: Theme.background
-  implicitHeight: content.height + Theme.spacing * 2
-  implicitWidth: content.width + Theme.spacing * 2
+  implicitHeight: content.implicitHeight + Theme.spacing * 2
+  implicitWidth: content.implicitWidth + Theme.spacing * 2
   radius: Theme.borderRadius
 
   Behavior on implicitHeight {
+    NumberAnimation {
+      duration: Theme.animationSpeed
+      easing.type: Easing.OutCubic
+    }
+  }
+  Behavior on x {
     NumberAnimation {
       duration: Theme.animationSpeed
       easing.type: Easing.OutCubic
@@ -38,30 +45,42 @@ Rectangle {
     width: Theme.borderWidth
   }
   MouseArea {
+    id: mouseArea
+
     anchors.fill: parent
     hoverEnabled: true
 
-    onClicked: {
-      if (root.expanded) {
-        expandIcon.text = "\uf107";
-        body.wrapMode = Text.NoWrap;
-        body.elide = Text.ElideRight;
-        root.expanded = false;
-      } else {
-        expandIcon.text = "\uf106";
-        body.wrapMode = Text.WordWrap;
-        body.elide = Text.ElideNone;
-        root.expanded = true;
-      }
-    }
+    onClicked: root.expanded = !root.expanded
     onEntered: focused()
     onExited: focusLost()
+    onReleased: {
+      if (root.x < root.width / 2)
+        root.x = 0;
+      else {
+        root.x = root.width + Theme.spacing;
+        waitSwipeAnimation.start();
+      }
+    }
+
+    Timer {
+      id: waitSwipeAnimation
+
+      interval: Theme.animationSpeed
+
+      onTriggered: swiped()
+    }
+    drag {
+      axis: Drag.XAxis
+      maximumX: root.width
+      minimumX: 0
+      target: root.dragable ? root : null
+    }
   }
   RowLayout {
     id: content
 
     spacing: Theme.spacing
-    width: Math.min(Math.max(implicitWidth, minCardWidth - Theme.spacing * 2), maxCardWidth - Theme.spacing * 2)
+    width: root.width - Theme.spacing * 2
 
     anchors {
       left: parent.left
@@ -118,7 +137,7 @@ Rectangle {
               return;
             }
             if (seconds >= 60) {
-              time.text = `${Math.floor(seconds / 60)}min`;
+              time.text = `${Math.floor(seconds / 60)} min`;
               return;
             }
             time.text = `${Math.floor(seconds)} sec`;
@@ -140,8 +159,8 @@ Rectangle {
 
         Layout.fillWidth: true
         color: Theme.primary
-        elide: Text.ElideRight
-        wrapMode: Text.NoWrap
+        elide: root.expanded ? Text.ElideNone : Text.ElideRight
+        wrapMode: root.expanded ? Text.WordWrap : Text.NoWrap
 
         font {
           family: Theme.font
@@ -162,7 +181,7 @@ Rectangle {
         anchors.centerIn: parent
         color: Theme.secondary
         font.pixelSize: Theme.fontSize
-        text: "\uf107"
+        text: root.expanded ? "\uf106" : "\uf107"
       }
     }
   }

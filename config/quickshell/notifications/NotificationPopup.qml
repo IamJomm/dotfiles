@@ -60,7 +60,7 @@ Scope {
       HyprlandWindow.opacity: windowOpacity
       color: "transparent"
       exclusiveZone: 0
-      implicitWidth: card.implicitWidth
+      implicitWidth: card.width
       margins.top: 30
 
       Behavior on HyprlandWindow.opacity {
@@ -89,6 +89,7 @@ Scope {
         creationTime: root.time
         iconSource: root.icon
         titleText: root.title
+        width: Math.min(implicitWidth, 300)
 
         onFocusLost: hideAnimation.start()
         onFocused: {
