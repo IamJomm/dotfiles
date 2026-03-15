@@ -11,5 +11,12 @@ return {
 		vim.lsp.config("bashls", { capabilities = capabilities })
 		vim.lsp.config("ts_ls", { capabilities = capabilities })
 		vim.lsp.config("cssls", { capabilities = capabilities })
+		vim.lsp.enable("lua_ls")
+		vim.lsp.enable("qmlls")
+		vim.lsp.enable("clangd")
+		vim.lsp.enable("pyright")
+		vim.lsp.enable("bashls")
+		vim.lsp.enable("ts_ls")
+		vim.lsp.enable("cssls")
 	end,
 }

@@ -1,6 +1,7 @@
 set fish_greeting
 set fish_prompt_pwd_dir_length 0
 set -gx TERM xterm-256color
+set -gx MANPAGER "nvim +Man!"
 
 alias vim 'nvim'
 alias ll 'exa -l -g --icons'

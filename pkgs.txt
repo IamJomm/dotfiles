@@ -20,6 +20,7 @@ pyenv
 ripgrep
 slurp
 sxiv
+tree-sitter-cli
 ttf-font-awesome
 ttf-nerd-fonts-symbols
 udiskie
