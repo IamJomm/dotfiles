@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Backend
@@ -44,6 +45,7 @@ Scope {
       property real windowOpacity: 0
 
       HyprlandWindow.opacity: windowOpacity
+      WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
       WlrLayershell.layer: WlrLayer.Overlay
       color: "transparent"
       exclusionMode: ExclusionMode.Ignore
@@ -67,52 +69,67 @@ Scope {
         id: appLauncherBackend
 
       }
+      Process {
+        id: runApp
+
+        command: ["sh", "-c", ""]
+      }
       Rectangle {
         anchors.fill: parent
         color: Theme.background
 
-        Grid {
-          columns: 3
+        ColumnLayout {
+          anchors.centerIn: parent
+          clip: true
+          height: 500
+          spacing: Theme.spacing
+          width: appList.width
 
-          Repeater {
-            model: appLauncherBackend.appList
+          TextField {
+            Layout.fillWidth: true
+            color: Theme.primary
+            focus: true
+            implicitHeight: 35
+            leftPadding: 20
+            rightPadding: 20
 
-            Rectangle {
+            background: Rectangle {
+              anchors.fill: parent
               color: Theme.background
-              height: content.height
-              width: content.width
+              radius: Theme.borderRadius
 
-              MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-
-                onClicked: console.log(modelData.exec)
+              border {
+                color: Theme.primary
+                width: Theme.borderWidth
               }
-              RowLayout {
-                id: content
+            }
 
-                IconImage {
-                  height: 30
-                  source: Quickshell.iconPath(modelData.icon)
-                  width: 30
-                }
-                Text {
-                  color: Theme.primary
-                  text: modelData.name
+            onTextChanged: appLauncherBackend.filterAppList(this.text)
 
-                  font {
-                    family: Theme.font
-                    pixelSize: Theme.fontSize
-                  }
-                }
-                Text {
-                  color: Theme.primary
-                  text: modelData.description
+            font {
+              family: Theme.font
+              pixelSize: Theme.fontSize
+            }
+          }
+          Grid {
+            id: appList
 
-                  font {
-                    family: Theme.font
-                    pixelSize: Theme.fontSize
-                  }
+            columns: 3
+            spacing: Theme.spacing
+
+            Repeater {
+              model: appLauncherBackend.appList
+
+              AppCard {
+                description: modelData.description
+                icon: modelData.icon
+                name: modelData.name
+
+                onTriggered: {
+                  runApp.command[2] = modelData.exec;
+                  runApp.startDetached();
+                  appLauncherLoader.item.windowOpacity = 0;
+                  hideWindow.start();
                 }
               }
             }

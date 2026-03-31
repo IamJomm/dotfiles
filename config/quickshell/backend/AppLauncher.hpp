@@ -6,7 +6,6 @@
 
 class App : public QObject {
   Q_OBJECT
-
   Q_PROPERTY(QString name READ name NOTIFY nameChanged)
   Q_PROPERTY(QString icon READ icon NOTIFY iconChanged)
   Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
@@ -16,12 +15,12 @@ class App : public QObject {
   App(QString name, QString icon, QString desc, QString exec) {
     m_name = name;
     m_icon = icon;
-    m_description = desc;
+    m_desc = desc;
     m_exec = exec;
   }
   QString name() const { return m_name; }
   QString icon() const { return m_icon; }
-  QString description() const { return m_description; }
+  QString description() const { return m_desc; }
   QString exec() const { return m_exec; }
 
  signals:
@@ -33,7 +32,7 @@ class App : public QObject {
  private:
   QString m_name;
   QString m_icon;
-  QString m_description;
+  QString m_desc;
   QString m_exec;
 };
 
@@ -44,16 +43,18 @@ class AppLauncherBackend : public QObject {
 
  public:
   AppLauncherBackend();
-  QList<App*> appList() const { return m_appList; };
+  QList<App*> appList() const { return m_filteredAppList; };
   Q_INVOKABLE void updateAppList() {
     parseAppList();
     emit appListChanged();
   }
+  Q_INVOKABLE void filterAppList(const QString& filter);
 
  signals:
   void appListChanged();
 
  private:
   QList<App*> m_appList;
+  QList<App*> m_filteredAppList;
   void parseAppList();
 };

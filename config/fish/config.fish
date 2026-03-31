@@ -1,6 +1,6 @@
 set fish_greeting
 set fish_prompt_pwd_dir_length 0
-set -gx TERM xterm-256color
+set -gx QML2_IMPORT_PATH "$HOME/.local/lib/qt6/qml"
 set -gx MANPAGER "nvim +Man!"
 
 alias vim 'nvim'

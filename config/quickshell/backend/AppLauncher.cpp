@@ -38,4 +38,13 @@ void AppLauncherBackend::parseAppList() {
         }
       }
     }
+  m_filteredAppList = m_appList;
+}
+
+void AppLauncherBackend::filterAppList(const QString& filter) {
+  m_filteredAppList.clear();
+  for (App* app : m_appList)
+    if (app->name().contains(filter, Qt::CaseInsensitive))
+      m_filteredAppList.append(app);
+  emit appListChanged();
 }
