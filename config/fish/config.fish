@@ -7,7 +7,7 @@ alias vim 'nvim'
 alias ll 'exa -l -g --icons'
 alias lla 'll -a'
 alias llt 'll --tree'
-alias update 'yay -Syu --noconfirm'
+alias update 'flatpak update -y && yay -Syu --noconfirm'
 
 fish_config theme choose "Rosé Pine"
 

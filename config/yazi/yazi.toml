@@ -1,49 +1,56 @@
 [opener]
+book = [
+  { desc = "Okular", run = "okular %s", orphan = true },
+]
 video = [
   { desc = "VLC", run = "vlc %s", orphan = true },
   { desc = "MPV", run = "mpv %s", orphan = true },
-  { desc = "show EXIF", run = "exiftool %s | less", block = true}
+  { desc = "show EXIF", run = "exiftool %s | less", block = true},
 ]
 image = [
   { desc = "SXIV", run = "sxiv %s", orphan = true},
-  { desc = "show EXIF", run = "exiftool %s | less", block = true}
+  { desc = "show EXIF", run = "exiftool %s | less", block = true},
 ]
 edit = [
-  { desc = "Neovim", run = "nvim %s", block = true }
+  { desc = "Neovim", run = "nvim %s", block = true },
 ]
 open = [
 	{ run = "xdg-open %s", desc = "Open" },
 ]
+kde = [
+  { desc = "Share file", run = "kdeconnect-cli -d $(kdeconnect-cli -a --id-only | head -n 1) --share %s"},
+]
 
 [open]
 prepend_rules = [
-	{ url = "*.txt", use = "edit" },
-	{ url = "*.qml", use = "edit" },
-	{ url = "*.conf", use = "edit" },
-	{ url = "*.toml", use = "edit" },
-	{ url = "*.ini", use = "edit" },
-	{ url = "*.list", use = "edit" },
-	{ url = "*.yaml", use = "edit" },
-	{ url = "*.cfg", use = "edit" },
-	{ url = "*.lua", use = "edit" },
-	{ url = "*.yml", use = "edit" },
-	{ url = "*.py", use = "edit" },
-	{ url = "*.sh", use = "edit" },
-	{ url = "*.cpp", use = "edit" },
-	{ url = "*.json", use = "edit" },
-	{ url = "*.css", use = "edit" },
-	{ url = "*.html", use = [ "open", "edit" ] },
-	{ url = "*.mp4", use = "video" },
-	{ url = "*.m4a", use = "video" },
-	{ url = "*.mov", use = "video" },
-	{ url = "*.avi", use = "video" },
-	{ url = "*.webm", use = "video" },
-	{ url = "*.mkv", use = "video" },
-	{ url = "*.webp", use = "image" },
-	{ url = "*.png", use = "image" },
-	{ url = "*.jpg", use = "image" },
-	{ url = "*.jpeg", use = "image" },
+  { url = "*.pdf", use = ["book", "kde"]},
+	{ url = "*.txt", use = ["edit", "kde"] },
+	{ url = "*.qml", use = ["edit", "kde"] },
+	{ url = "*.conf", use = ["edit", "kde"] },
+	{ url = "*.toml", use = ["edit", "kde"] },
+	{ url = "*.ini", use = ["edit", "kde"] },
+	{ url = "*.list", use = ["edit", "kde"] },
+	{ url = "*.yaml", use = ["edit", "kde"] },
+	{ url = "*.cfg", use = ["edit", "kde"] },
+	{ url = "*.lua", use = ["edit", "kde"] },
+	{ url = "*.yml", use = ["edit", "kde"] },
+	{ url = "*.py", use = ["edit", "kde"] },
+	{ url = "*.sh", use = ["edit", "kde"] },
+	{ url = "*.cpp", use = ["edit", "kde"] },
+	{ url = "*.json", use = ["edit", "kde"] },
+	{ url = "*.css", use = ["edit", "kde"] },
+	{ url = "*.html", use = [ "open", "edit", "kde" ] },
+	{ url = "*.mp4", use = ["video", "kde"] },
+	{ url = "*.m4a", use = ["video", "kde"] },
+	{ url = "*.mov", use = ["video", "kde"] },
+	{ url = "*.avi", use = ["video", "kde"] },
+	{ url = "*.webm", use = ["video", "kde"] },
+	{ url = "*.mkv", use = ["video", "kde"] },
+	{ url = "*.webp", use = ["image", "kde"] },
+	{ url = "*.png", use = ["image", "kde"] },
+	{ url = "*.jpg", use = ["image", "kde"] },
+	{ url = "*.jpeg", use = ["image", "kde"] },
 ]
 append_rules = [
-  { url = "*", use = "open" }
+  { url = "*", use = ["open", "kde"] },
 ]
