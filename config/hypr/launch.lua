@@ -12,5 +12,5 @@ hl.on("hyprland.start", function()
 end)
 
 hl.on("hyprland.shutdown", function()
-	os.execute("pkill obs; systemctl --user stop hyprland-session.target && sleep 0.1")
+	os.execute("pkill obs; systemctl --user stop hyprland-session.target && sleep 1.5")
 end)

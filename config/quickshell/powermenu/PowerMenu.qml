@@ -16,7 +16,7 @@ Scope {
       keybind: Qt.Key_L
     },
     TileProperties {
-      command: "hyprctl dispatch exit"
+      command: "hyprctl dispatch 'hl.dsp.exit()'"
       iconGlyph: "\uf08b"
       keybind: Qt.Key_O
     },
@@ -31,12 +31,12 @@ Scope {
       keybind: Qt.Key_H
     },
     TileProperties {
-      command: "systemctl reboot"
+      command: "hyprctl dispatch 'hl.dsp.exit()' && systemctl reboot"
       iconGlyph: "\uf01e"
       keybind: Qt.Key_R
     },
     TileProperties {
-      command: "systemctl poweroff"
+      command: "hyprctl dispatch 'hl.dsp.exit()' && systemctl poweroff"
       iconGlyph: "\uf011"
       keybind: Qt.Key_U
     }
