@@ -1,6 +1,6 @@
 pragma Singleton
-import QtQuick
 
+import QtQuick
 import Quickshell
 
 Singleton {
@@ -9,6 +9,7 @@ Singleton {
   readonly property int borderRadius: 10
   readonly property int borderWidth: 1
   readonly property string font: "Times New Roman"
+  readonly property string glyphFont: "Font Awesome 7 Free"
   readonly property int fontSize: 17
   readonly property color primary: "#f4f4f4"
   readonly property color secondary: "#cc666666"

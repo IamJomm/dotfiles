@@ -15,13 +15,18 @@ Rectangle {
 
     anchors.centerIn: parent
     color: buttonArea.containsMouse ? Theme.primary : Theme.secondary
-    font.pixelSize: parent.height
 
     Behavior on color {
       ColorAnimation {
         duration: Theme.animationSpeed
         easing.type: Easing.OutCubic
       }
+    }
+
+    font {
+      pixelSize: parent.height
+      family: Theme.glyphFont
+      weight: Font.Bold
     }
   }
   MouseArea {

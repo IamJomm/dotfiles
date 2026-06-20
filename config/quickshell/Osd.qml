@@ -61,8 +61,7 @@ Scope {
           easing.type: Easing.OutCubic
         }
       }
-      mask: Region {
-      }
+      mask: Region {}
 
       Component.onCompleted: {
         windowOpacity = 1;

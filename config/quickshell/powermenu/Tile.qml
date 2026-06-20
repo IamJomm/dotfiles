@@ -29,7 +29,12 @@ Rectangle {
 
     anchors.centerIn: parent
     color: area.containsMouse ? Theme.background : Theme.secondary
-    font.pixelSize: parent.implicitHeight / 2
+
+    font {
+      pixelSize: parent.implicitHeight / 2
+      family: Theme.glyphFont
+      weight: Font.Bold
+    }
   }
   MouseArea {
     id: area

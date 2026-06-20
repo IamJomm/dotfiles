@@ -28,8 +28,12 @@ void AppLauncherBackend::parseAppList() {
               icon = str.substr(5);
             else if (!str.find("Comment="))
               desc = str.substr(8);
-            else if (!str.find("Exec="))
+            else if (!str.find("Exec=")) {
+              int pos = 0;
+              while ((pos = str.find('%', pos)) != string::npos)
+                str.erase(pos, 2);
               exec = str.substr(5);
+            }
           }
           m_appList.append(new App(
               QString::fromStdString(name), QString::fromStdString(icon),

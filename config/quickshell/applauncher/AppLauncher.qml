@@ -12,6 +12,7 @@ import ".."
 Scope {
   id: root
 
+  readonly property int cardWidth: 350
   property bool shouldShowAppLauncher: false
 
   Timer {
@@ -28,7 +29,6 @@ Scope {
       if (!root.shouldShowAppLauncher)
         root.shouldShowAppLauncher = true;
       else {
-        //appLauncherLoader.item.contentItem.focus = false; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         appLauncherLoader.item.windowOpacity = 0;
         hideWindow.start();
       }
@@ -79,11 +79,10 @@ Scope {
         color: Theme.background
 
         ColumnLayout {
-          anchors.centerIn: parent
           clip: true
-          height: 500
+          height: gridContainer.implicitHeight
           spacing: Theme.spacing
-          width: appList.width
+          width: gridContainer.implicitWidth
 
           TextField {
             Layout.fillWidth: true
@@ -111,25 +110,37 @@ Scope {
               pixelSize: Theme.fontSize
             }
           }
-          Grid {
-            id: appList
+          Item {
+            id: gridContainer
 
-            columns: 3
-            spacing: Theme.spacing
+            clip: true
+            implicitHeight: cardWidth * appList.columns + Theme.spacing * (appList.columns - 1)
+            implicitWidth: cardWidth * appList.columns + Theme.spacing * (appList.columns - 1)
 
-            Repeater {
-              model: appLauncherBackend.appList
+            Grid {
+              id: appList
 
-              AppCard {
-                description: modelData.description
-                icon: modelData.icon
-                name: modelData.name
+              anchors.fill: parent
+              columns: 3
+              spacing: Theme.spacing
 
-                onTriggered: {
-                  runApp.command[2] = modelData.exec;
-                  runApp.startDetached();
-                  appLauncherLoader.item.windowOpacity = 0;
-                  hideWindow.start();
+              Repeater {
+                model: appLauncherBackend.appList
+
+                AppCard {
+                  id: appCard
+
+                  cardWidth: root.cardWidth
+                  description: modelData.description
+                  icon: modelData.icon
+                  name: modelData.name
+
+                  onTriggered: {
+                    runApp.command[2] = modelData.exec;
+                    runApp.startDetached();
+                    appLauncherLoader.item.windowOpacity = 0;
+                    hideWindow.start();
+                  }
                 }
               }
             }

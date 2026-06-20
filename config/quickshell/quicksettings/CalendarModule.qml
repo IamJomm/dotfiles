@@ -77,9 +77,8 @@ Rectangle {
           if (root.currentMonth == 0) {
             root.currentYear--;
             root.currentMonth = 11;
-          } else {
+          } else
             root.currentMonth--;
-          }
         }
       }
       Text {
@@ -100,9 +99,8 @@ Rectangle {
           if (root.currentMonth == 11) {
             root.currentYear++;
             root.currentMonth = 0;
-          } else {
+          } else
             root.currentMonth++;
-          }
         }
       }
     }

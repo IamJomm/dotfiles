@@ -16,8 +16,7 @@ Scope {
 
     active: shouldShowQuickSettings
 
-    QuickSettings {
-    }
+    QuickSettings {}
   }
   Timer {
     id: hideQuicksettings
@@ -74,17 +73,18 @@ Scope {
       Item {
         Layout.fillWidth: true
       }
-      Tray {
+      Tray {}
+      Module {
+        contentGlyph: "\uf025"
+        contentText: `${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
       }
       Module {
-        contentText: `\uf025  ${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%`
-      }
-      Module {
-        contentText: `\uf017  ${Services.time}`
+        contentGlyph: "\uf017"
+        contentText: `${Services.time}`
       }
       Module {
         areaHover: true
-        contentText: "\uf0c9"
+        contentGlyph: "\uf0c9"
         width: 35
 
         onTriggered: {

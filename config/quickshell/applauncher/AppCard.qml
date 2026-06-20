@@ -1,27 +1,22 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Backend
-import Quickshell.Hyprland
-import Quickshell.Io
-import Quickshell.Wayland
 import Quickshell.Widgets
 import ".."
 
 Rectangle {
   id: root
 
-  required property string description
-  required property string icon
-  required property string name
+  property alias cardWidth: root.implicitWidth
+  property string description
+  property string icon
+  property string name
 
   signal triggered
 
   color: area.containsMouse ? Theme.secondary : Theme.background
-  height: content.height + Theme.spacing * 2
+  implicitHeight: content.height + Theme.spacing * 2
   radius: Theme.borderRadius
-  width: 350
 
   Behavior on color {
     ColorAnimation {
@@ -50,9 +45,9 @@ Rectangle {
     width: parent.width - Theme.spacing * 2
 
     IconImage {
-      readonly property real lineHeight: (name.contentHeight / name.lineCount - name.font.pixelSize) / 2 + name.font.pixelSize + (description.contentHeight / description.lineCount - description.font.pixelSize) / 2 + description.font.pixelSize
+      readonly property real lineHeight: (appName.contentHeight / appName.lineCount - appName.font.pixelSize) / 2 + appName.font.pixelSize + (appDescription.contentHeight / appDescription.lineCount - appDescription.font.pixelSize) / 2 + appDescription.font.pixelSize
 
-      Layout.topMargin: (name.contentHeight / name.lineCount - name.font.pixelSize) / 2
+      Layout.topMargin: (appName.contentHeight / appName.lineCount - appName.font.pixelSize) / 2
       height: lineHeight
       source: Quickshell.iconPath(root.icon)
       width: lineHeight
@@ -61,7 +56,7 @@ Rectangle {
       Layout.fillWidth: true
 
       Text {
-        id: name
+        id: appName
 
         color: Theme.primary
         text: root.name
@@ -72,7 +67,7 @@ Rectangle {
         }
       }
       Text {
-        id: description
+        id: appDescription
 
         Layout.fillWidth: true
         color: Theme.primary

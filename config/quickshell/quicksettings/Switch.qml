@@ -31,7 +31,12 @@ Rectangle {
 
     anchors.centerIn: parent
     color: active ? Theme.background : Theme.secondary
-    font.pixelSize: parent.implicitHeight * 0.5
+
+    font {
+      pixelSize: parent.implicitHeight * 0.5
+      family: Theme.glyphFont
+      weight: Font.Bold
+    }
   }
   MouseArea {
     anchors.fill: parent

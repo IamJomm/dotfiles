@@ -1,10 +1,12 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import ".."
 
 Rectangle {
   property alias areaHover: area.hoverEnabled
   property alias contentElide: content.elide
+  property alias contentGlyph: glyph.text
   property alias contentText: content.text
 
   signal triggered
@@ -12,7 +14,7 @@ Rectangle {
   clip: true
   color: areaHover && area.containsMouse ? Theme.secondary : Theme.background
   height: 35
-  implicitWidth: content.width + 20
+  implicitWidth: container.width + 20
   radius: Theme.borderRadius
 
   Behavior on color {
@@ -32,16 +34,31 @@ Rectangle {
     color: Theme.secondary
     width: Theme.borderWidth
   }
-  Text {
-    id: content
+  RowLayout {
+    id: container
 
+    spacing: glyph.text && content.text ? Theme.spacing : 0
     anchors.centerIn: parent
-    color: Theme.primary
-    width: Math.min(implicitWidth, 400)
 
-    font {
-      family: Theme.font
-      pixelSize: Theme.fontSize
+    Text {
+      id: glyph
+
+      color: Theme.primary
+
+      font {
+        family: Theme.glyphFont
+        pixelSize: Theme.fontSize
+      }
+    }
+    Text {
+      id: content
+
+      color: Theme.primary
+
+      font {
+        family: Theme.font
+        pixelSize: Theme.fontSize
+      }
     }
   }
   MouseArea {
