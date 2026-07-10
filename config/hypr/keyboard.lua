@@ -17,27 +17,37 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs ipc call quickSettings toggle"))
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("qs ipc call lockScreen lock"))
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("qs ipc call powerMenu toggle"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("sh ~/.config/rofi/tools.sh")) --will be replaced later
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p 'Clipboard:'| cliphist decode | wl-copy")) --will be replaced later
+hl.bind(
+	mainMod .. " + V",
+	hl.dsp.exec_cmd("pkill rofi || cliphist list | rofi -dmenu -p 'Clipboard:'| cliphist decode | wl-copy")
+) --will be replaced later
 
 --Programs
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("kitty yazi"))
-hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("rofi -show drun")) --will be replaced later
+hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("pkill rofi || rofi -show drun")) --will be replaced later
 
 --Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("grim && mv ~/*_grim.png ~/Pictures/Screenshots/"))
+hl.bind("Print", hl.dsp.exec_cmd('grim ~/Pictures/Screenshots/"$(date +%c)".png'))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("grim - | wl-copy"))
-hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("grim -g '$(slurp)' && mv ~/*_grim.png ~/Pictures/Screenshots/"))
-
+hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" ~/Pictures/Screenshots/"$(date +%c)".png'))
 --Music
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { repeating = true, locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { repeating = true, locked = true })
 
 --Volume
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+	{ repeating = true, locked = true }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	{ repeating = true, locked = true }
+)
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
 
 --Brightness
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 10%+"))
@@ -77,10 +87,15 @@ hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
 
-hl.bind(mainMod .. " + left", hl.dsp.window.resize({ x = -50, y = 0 }))
-hl.bind(mainMod .. " + down", hl.dsp.window.resize({ x = 0, y = 50 }))
-hl.bind(mainMod .. " + up", hl.dsp.window.resize({ x = 0, y = -50 }))
-hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x = 50, y = 0 }))
+hl.bind("ALT + R", hl.dsp.submap("resize"))
+hl.define_submap("resize", function()
+	hl.bind("H", hl.dsp.window.resize({ x = -50, y = 0, relative = true }), { repeating = true })
+	hl.bind("J", hl.dsp.window.resize({ x = 0, y = -50, relative = true }), { repeating = true })
+	hl.bind("K", hl.dsp.window.resize({ x = 0, y = 50, relative = true }), { repeating = true })
+	hl.bind("L", hl.dsp.window.resize({ x = 50, y = 0, relative = true }), { repeating = true })
+
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
 
 --My personal
 hl.bind("CTRL + SHIFT + escape", hl.dsp.exec_cmd("kitty btop"))
@@ -98,4 +113,4 @@ hl.bind(
 	)
 )
 
-hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call appLauncher toggle"))
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("qs ipc call appLauncher toggle")) --test
