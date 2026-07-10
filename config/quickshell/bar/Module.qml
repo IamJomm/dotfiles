@@ -48,6 +48,7 @@ Rectangle {
       font {
         family: Theme.glyphFont
         pixelSize: Theme.fontSize
+        bold: true
       }
     }
     Text {

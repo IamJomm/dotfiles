@@ -35,7 +35,7 @@ Rectangle {
     font {
       pixelSize: parent.implicitHeight * 0.5
       family: Theme.glyphFont
-      weight: Font.Bold
+      bold: true
     }
   }
   MouseArea {

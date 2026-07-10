@@ -4,7 +4,7 @@ set -gx QML2_IMPORT_PATH "$HOME/.local/lib/qt6/qml"
 set -gx MANPAGER "nvim +Man!"
 
 alias vim 'nvim'
-alias ll 'exa -l -g --icons'
+alias ll 'exa -l -g --icons auto'
 alias lla 'll -a'
 alias llt 'll --tree'
 alias update 'flatpak update -y && yay -Syu --noconfirm'

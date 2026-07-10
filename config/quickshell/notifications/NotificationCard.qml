@@ -180,8 +180,13 @@ Rectangle {
 
         anchors.centerIn: parent
         color: Theme.secondary
-        font.pixelSize: Theme.fontSize
         text: root.expanded ? "\uf106" : "\uf107"
+
+        font {
+          pixelSize: Theme.fontSize
+          family: Theme.glyphFont
+          weight: Font.Bold
+        }
       }
     }
   }
