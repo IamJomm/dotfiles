@@ -1,11 +1,14 @@
 <div align="center">
-
+    
 ![](https://img.shields.io/github/stars/IamJomm/dotfiles?style=for-the-badge&color=101010)
 ![](https://img.shields.io/github/last-commit/IamJomm/dotfiles?style=for-the-badge&color=101010)
 ![](https://img.shields.io/github/repo-size/IamJomm/dotfiles?style=for-the-badge&label=Size&color=101010)
-    <img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen1.png?raw=true">
-    <img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen2.png?raw=true">
-    <img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen3.png?raw=true">
+    
+https://github.com/user-attachments/assets/9ecc5250-2324-40a9-a78d-40032ce547d3
+
+<img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen1.png?raw=true">
+<img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen2.png?raw=true">
+<img src="https://github.com/IamJomm/dotfiles/blob/hyprland/Screenshots/screen3.png?raw=true">
 </div>
 
 ### List of Applications
