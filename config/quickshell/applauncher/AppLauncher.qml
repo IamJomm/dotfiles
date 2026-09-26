@@ -1,22 +1,28 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Backend
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
-import Quickshell.Widgets
 import ".."
 
 Scope {
   id: root
 
+  readonly property int rows: 5
+  readonly property int columns: 3
   readonly property int cardWidth: 350
   property bool shouldShowAppLauncher: false
+  property int current: 0
+
+  function hideWindow() {
+    appLauncherLoader.item.windowOpacity = 0;
+    hideWindowTimer.start();
+  }
 
   Timer {
-    id: hideWindow
+    id: hideWindowTimer
 
     interval: Theme.animationSpeed
 
@@ -24,13 +30,12 @@ Scope {
   }
   IpcHandler {
     function toggle() {
-      if (hideWindow.running)
+      if (hideWindowTimer.running)
         return;
       if (!root.shouldShowAppLauncher)
         root.shouldShowAppLauncher = true;
       else {
-        appLauncherLoader.item.windowOpacity = 0;
-        hideWindow.start();
+        hideWindow();
       }
     }
 
@@ -42,13 +47,13 @@ Scope {
     active: root.shouldShowAppLauncher
 
     PanelWindow {
-      property real windowOpacity: 0
+      property real windowOpacity: 1
 
-      HyprlandWindow.opacity: windowOpacity
+      implicitWidth: content.implicitWidth
+      exclusiveZone: 0
       WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-      WlrLayershell.layer: WlrLayer.Overlay
+      HyprlandWindow.opacity: windowOpacity
       color: "transparent"
-      exclusionMode: ExclusionMode.Ignore
 
       Behavior on HyprlandWindow.opacity {
         NumberAnimation {
@@ -56,93 +61,98 @@ Scope {
           easing.type: Easing.OutCubic
         }
       }
-
-      Component.onCompleted: windowOpacity = 1
+      mask: Region {
+        item: content
+      }
 
       anchors {
-        bottom: true
-        left: true
-        right: true
         top: true
+        bottom: true
       }
       AppLauncherBackend {
         id: appLauncherBackend
-
       }
       Process {
         id: runApp
 
         command: ["sh", "-c", ""]
       }
-      Rectangle {
-        anchors.fill: parent
-        color: Theme.background
+      ColumnLayout {
+        id: content
 
-        ColumnLayout {
-          clip: true
-          height: gridContainer.implicitHeight
-          spacing: Theme.spacing
-          width: gridContainer.implicitWidth
+        spacing: Theme.spacing
 
-          TextField {
-            Layout.fillWidth: true
-            color: Theme.primary
-            focus: true
-            implicitHeight: 35
-            leftPadding: 20
-            rightPadding: 20
+        anchors {
+          bottom: parent.bottom
+          bottomMargin: Theme.spacing * 2
+        }
+        Item {
+          implicitWidth: appListContainer.implicitWidth
+          implicitHeight: appListContainer.implicitHeight
 
-            background: Rectangle {
-              anchors.fill: parent
-              color: Theme.background
-              radius: Theme.borderRadius
+          AppList {
+            id: appListContainer
 
-              border {
-                color: Theme.primary
-                width: Theme.borderWidth
-              }
+            rows: root.rows
+            columns: root.columns
+            cardWidth: root.cardWidth
+            appList: appLauncherBackend.appList
+            current: root.current
+
+            NumberAnimation on y {
+              id: appListContainerAnimation
+
+              duration: Theme.animationSpeed
+              easing.type: Easing.OutCubic
+              running: false
+              to: 0
             }
 
-            onTextChanged: appLauncherBackend.filterAppList(this.text)
-
-            font {
-              family: Theme.font
-              pixelSize: Theme.fontSize
+            onTriggered: exec => {
+              runApp.command[2] = exec;
+              runApp.startDetached();
+              hideWindow();
+            }
+            Component.onCompleted: {
+              root.current = 0;
+              y = height + searchField.height + Theme.spacing * 3;
+              appListContainerAnimation.running = true;
             }
           }
-          Item {
-            id: gridContainer
+        }
+        Item {
+          Layout.fillWidth: true
+          implicitHeight: searchField.implicitHeight
 
-            clip: true
-            implicitHeight: cardWidth * appList.columns + Theme.spacing * (appList.columns - 1)
-            implicitWidth: cardWidth * appList.columns + Theme.spacing * (appList.columns - 1)
+          SearchField {
+            id: searchField
 
-            Grid {
-              id: appList
+            filterAppList: appLauncherBackend.filterAppList
 
-              anchors.fill: parent
-              columns: 3
-              spacing: Theme.spacing
+            SequentialAnimation on y {
+              id: searchFieldAnimation
 
-              Repeater {
-                model: appLauncherBackend.appList
+              running: false
 
-                AppCard {
-                  id: appCard
-
-                  cardWidth: root.cardWidth
-                  description: modelData.description
-                  icon: modelData.icon
-                  name: modelData.name
-
-                  onTriggered: {
-                    runApp.command[2] = modelData.exec;
-                    runApp.startDetached();
-                    appLauncherLoader.item.windowOpacity = 0;
-                    hideWindow.start();
-                  }
-                }
+              PauseAnimation {
+                duration: Theme.animationSpeed / 2
               }
+              NumberAnimation {
+                duration: Theme.animationSpeed
+                easing.type: Easing.OutCubic
+                to: 0
+              }
+            }
+
+            onEscapePressed: hideWindow()
+            onEnterPressed: console.log("hello")
+            onNPressed: current++
+            onPPressed: current--
+            onFPressed: current += rows
+            onBPressed: current -= rows
+            Component.onCompleted: {
+              y = height + Theme.spacing * 2;
+              searchFieldAnimation.running = true;
             }
           }
         }

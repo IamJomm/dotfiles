@@ -1,6 +1,5 @@
 pragma Singleton
 import QtQuick
-
 import Quickshell
 import Quickshell.Services.Mpris
 import Quickshell.Services.Notifications
@@ -8,8 +7,7 @@ import Quickshell.Services.Pipewire
 
 Item {
   property MprisPlayer currentPlayer
-  property ListModel notificationList: ListModel {
-  }
+  property ListModel notificationList: ListModel {}
   readonly property string time: Qt.formatDateTime(clock.date, "hh:mm:ss dd/MM/yyyy")
 
   signal currentTrackChanged
@@ -29,8 +27,7 @@ Item {
       newNotification();
     }
 
-    target: NotificationServer {
-    }
+    target: NotificationServer {}
   }
   PwObjectTracker {
     objects: [Pipewire.defaultAudioSink]

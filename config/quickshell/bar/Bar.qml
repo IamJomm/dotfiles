@@ -11,6 +11,17 @@ import ".."
 Scope {
   property bool shouldShowQuickSettings: false
 
+  function showHideWindow() {
+    if (hideQuicksettingsTimer.running)
+      return;
+    if (!shouldShowQuickSettings)
+      shouldShowQuickSettings = true;
+    else {
+      quickSettingsLoader.item.windowOpacity = 0;
+      hideQuicksettingsTimer.start();
+    }
+  }
+
   LazyLoader {
     id: quickSettingsLoader
 
@@ -19,7 +30,7 @@ Scope {
     QuickSettings {}
   }
   Timer {
-    id: hideQuicksettings
+    id: hideQuicksettingsTimer
 
     interval: Theme.animationSpeed
 
@@ -27,14 +38,7 @@ Scope {
   }
   IpcHandler {
     function toggle() {
-      if (hideQuicksettings.running)
-        return;
-      if (!shouldShowQuickSettings)
-        shouldShowQuickSettings = true;
-      else {
-        quickSettingsLoader.item.windowOpacity = 0;
-        hideQuicksettings.start();
-      }
+      showHideWindow();
     }
 
     target: "quickSettings"
@@ -67,8 +71,9 @@ Scope {
         top: parent.top
       }
       Module {
-        contentElide: Text.ElideLeft
         contentText: Hyprland.activeToplevel ? Hyprland.activeToplevel.title : "Empty"
+        contentElide: Text.ElideLeft
+        contentMaxLength: 600
       }
       Item {
         Layout.fillWidth: true
@@ -85,17 +90,10 @@ Scope {
       Module {
         areaHover: true
         contentGlyph: "\uf0c9"
-        width: 35
+        Layout.preferredWidth: 35
 
         onTriggered: {
-          if (hideQuicksettings.running)
-            return;
-          if (!shouldShowQuickSettings)
-            shouldShowQuickSettings = true;
-          else {
-            quickSettingsLoader.item.windowOpacity = 0;
-            hideQuicksettings.start();
-          }
+          showHideWindow();
         }
       }
     }

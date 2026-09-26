@@ -3,11 +3,13 @@ set fish_prompt_pwd_dir_length 0
 set -gx QML2_IMPORT_PATH "$HOME/.local/lib/qt6/qml"
 set -gx MANPAGER "nvim +Man!"
 
-alias vim 'nvim'
 alias ll 'exa -l -g --icons auto'
 alias lla 'll -a'
 alias llt 'll --tree'
 alias update 'flatpak update -y && yay -Syu --noconfirm'
+alias reboot 'nohup bash -c \'hyprctl dispatch "hl.dsp.exit()" && systemctl reboot\''
+alias poweroff 'nohup bash -c \'hyprctl dispatch "hl.dsp.exit()" && systemctl poweroff\''
+alias shutdown 'nohup bash -c \'hyprctl dispatch "hl.dsp.exit()" && systemctl poweroff\''
 
 fish_config theme choose "Rosé Pine"
 

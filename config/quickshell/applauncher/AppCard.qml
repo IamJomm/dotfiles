@@ -11,11 +11,12 @@ Rectangle {
   property string description
   property string icon
   property string name
+  property bool active: false
 
   signal triggered
 
-  color: area.containsMouse ? Theme.secondary : Theme.background
   implicitHeight: content.height + Theme.spacing * 2
+  color: area.containsMouse || active ? Theme.secondary : Theme.background
   radius: Theme.borderRadius
 
   Behavior on color {
@@ -58,8 +59,10 @@ Rectangle {
       Text {
         id: appName
 
-        color: Theme.primary
         text: root.name
+        Layout.fillWidth: true
+        elide: Text.ElideRight
+        color: Theme.primary
 
         font {
           family: Theme.font
@@ -69,10 +72,10 @@ Rectangle {
       Text {
         id: appDescription
 
-        Layout.fillWidth: true
-        color: Theme.primary
-        elide: Text.ElideRight
         text: root.description ? root.description : "No Description"
+        Layout.fillWidth: true
+        elide: Text.ElideRight
+        color: Theme.primary
 
         font {
           family: Theme.font

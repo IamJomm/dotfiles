@@ -9,20 +9,13 @@ import "notifications"
 import "powermenu"
 
 ShellRoot {
-  Bar {
-  }
-  AppLauncher {
-  }
-  PowerMenu {
-  }
-  LockScreen {
-  }
-  NotificationPopup {
-  }
-  PlayerPopup {
-  }
-  Osd {
-  }
-  Test {
-  }
+  Wallpaper {}
+  Bar {}
+  AppLauncher {}
+  PowerMenu {}
+  LockScreen {}
+  NotificationPopup {}
+  PlayerPopup {}
+  Osd {}
+  Test {}
 }

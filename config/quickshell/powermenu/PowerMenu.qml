@@ -42,8 +42,13 @@ Scope {
     }
   ]
 
+  function hideWindow() {
+    menuLoader.item.windowOpacity = 0;
+    hideWindowTimer.start();
+  }
+
   Timer {
-    id: hideWindow
+    id: hideWindowTimer
 
     interval: Theme.animationSpeed
 
@@ -51,14 +56,12 @@ Scope {
   }
   IpcHandler {
     function toggle() {
-      if (hideWindow.running)
+      if (hideWindowTimer.running)
         return;
       if (!root.shouldShowMenu)
         root.shouldShowMenu = true;
       else {
-        menuLoader.item.contentItem.focus = false;
-        menuLoader.item.windowOpacity = 0;
-        hideWindow.start();
+        hideWindow();
       }
     }
 
@@ -104,9 +107,7 @@ Scope {
 
         Keys.onPressed: event => {
           if (event.key == Qt.Key_Escape) {
-            menuWindow.contentItem.focus = false;
-            menuWindow.windowOpacity = 0;
-            hideWindow.start();
+            hideWindow();
           } else
             for (let i = 0; i < tiles.length; i++) {
               let tile = tiles[i];

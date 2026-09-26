@@ -15,11 +15,16 @@ Item {
 
   anchors.fill: parent
 
-  ScreencopyView {
+  Image {
     id: screen
 
-    anchors.fill: parent
-    captureSource: Quickshell.screens[0]
+    source: Theme.wallpaper
+    width: implicitWidth * (height / implicitHeight)
+
+    anchors {
+      top: parent.top
+      bottom: parent.bottom
+    }
   }
   FastBlur {
     anchors.fill: screen

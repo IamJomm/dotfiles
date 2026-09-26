@@ -1,1 +1,7 @@
 config/quickshell/build/
+config/fish/completions
+config/fish/conf.d
+config/fish/fish_variables
+config/fish/functions
+config/kitty/scroll_mark.py
+config/kitty/search.py

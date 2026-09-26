@@ -5,9 +5,10 @@ import ".."
 
 Rectangle {
   property alias areaHover: area.hoverEnabled
-  property alias contentElide: content.elide
   property alias contentGlyph: glyph.text
   property alias contentText: content.text
+  property alias contentElide: content.elide
+  property int contentMaxLength: 0
 
   signal triggered
 
@@ -55,6 +56,7 @@ Rectangle {
       id: content
 
       color: Theme.primary
+      Layout.preferredWidth: contentMaxLength ? Math.min(implicitWidth, contentMaxLength) : implicitWidth
 
       font {
         family: Theme.font

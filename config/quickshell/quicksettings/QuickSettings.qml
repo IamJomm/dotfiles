@@ -35,13 +35,6 @@ PanelWindow {
 
     spacing: Theme.spacing
 
-    Component.onCompleted: {
-      switchesGridAnimation.running = true;
-      playerCardAnimation.running = true;
-      notificationListAnimation.running = true;
-      calendarModuleAnimation.running = true;
-    }
-
     anchors {
       bottom: parent.bottom
       right: parent.right
@@ -55,8 +48,6 @@ PanelWindow {
       SwitchesGrid {
         id: switchesGrid
 
-        x: width + Theme.spacing
-
         NumberAnimation on x {
           id: switchesGridAnimation
 
@@ -64,6 +55,11 @@ PanelWindow {
           easing.type: Easing.OutCubic
           running: false
           to: 0
+        }
+
+        Component.onCompleted: {
+          x = width + Theme.spacing;
+          switchesGridAnimation.running = true;
         }
       }
     }
@@ -75,7 +71,6 @@ PanelWindow {
         id: playerCard
 
         cardWidth: parent.width
-        x: width + Theme.spacing
 
         SequentialAnimation on x {
           id: playerCardAnimation
@@ -91,6 +86,11 @@ PanelWindow {
             to: 0
           }
         }
+
+        Component.onCompleted: {
+          x = width + Theme.spacing;
+          playerCardAnimation.running = true;
+        }
       }
     }
     Item {
@@ -102,7 +102,6 @@ PanelWindow {
 
         height: parent.height
         width: parent.width
-        x: width + Theme.spacing
 
         SequentialAnimation on x {
           id: notificationListAnimation
@@ -118,6 +117,11 @@ PanelWindow {
             to: 0
           }
         }
+
+        Component.onCompleted: {
+          x = width + Theme.spacing;
+          notificationListAnimation.running = true;
+        }
       }
     }
     Item {
@@ -128,7 +132,6 @@ PanelWindow {
         id: calendarModule
 
         width: parent.width
-        x: width + Theme.spacing
 
         SequentialAnimation on x {
           id: calendarModuleAnimation
@@ -143,6 +146,11 @@ PanelWindow {
             easing.type: Easing.OutCubic
             to: 0
           }
+        }
+
+        Component.onCompleted: {
+          x = width + Theme.spacing;
+          calendarModuleAnimation.running = true;
         }
       }
     }

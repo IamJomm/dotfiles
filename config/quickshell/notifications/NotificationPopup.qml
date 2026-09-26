@@ -57,11 +57,11 @@ Scope {
     PanelWindow {
       property real windowOpacity: 0
 
-      HyprlandWindow.opacity: windowOpacity
-      color: "transparent"
-      exclusiveZone: 0
       implicitWidth: card.width
       margins.top: 30
+      exclusiveZone: 0
+      HyprlandWindow.opacity: windowOpacity
+      color: "transparent"
 
       Behavior on HyprlandWindow.opacity {
         NumberAnimation {
