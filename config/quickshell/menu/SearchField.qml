@@ -4,8 +4,7 @@ import Quickshell
 import ".."
 
 TextField {
-  required property var filterAppList
-
+  signal textEdited(text: string)
   signal escapePressed
   signal enterPressed
   signal nPressed
@@ -13,11 +12,13 @@ TextField {
   signal fPressed
   signal bPressed
 
-  color: Theme.primary
-  focus: true
   implicitHeight: 35
   leftPadding: 20
   rightPadding: 20
+  color: Theme.primary
+  placeholderText: "Type to search"
+  placeholderTextColor: Theme.secondary
+  focus: true
 
   background: Rectangle {
     anchors.fill: parent
@@ -30,7 +31,7 @@ TextField {
     }
   }
 
-  onTextChanged: filterAppList(text)
+  onTextChanged: textEdited(text)
   onAccepted: enterPressed()
   Keys.onPressed: event => {
     if (event.key == Qt.Key_Escape)
@@ -62,10 +63,6 @@ TextField {
       }
   }
 
-  anchors {
-    left: parent.left
-    right: parent.right
-  }
   font {
     family: Theme.font
     pixelSize: Theme.fontSize
