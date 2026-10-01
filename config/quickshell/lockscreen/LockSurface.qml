@@ -30,10 +30,30 @@ Item {
     anchors.fill: screen
     radius: 100
     source: screen
+    opacity: 0
+
+    Behavior on opacity {
+      NumberAnimation {
+        duration: Theme.animationSpeed
+        easing.type: Easing.OutCubic
+      }
+    }
+
+    Component.onCompleted: opacity = 1
   }
   Rectangle {
     anchors.fill: parent
     color: Theme.background
+    opacity: 0
+
+    Behavior on opacity {
+      NumberAnimation {
+        duration: Theme.animationSpeed
+        easing.type: Easing.OutCubic
+      }
+    }
+
+    Component.onCompleted: opacity = 1
 
     ColumnLayout {
       anchors.centerIn: parent

@@ -45,7 +45,10 @@ Scope {
     active: root.shouldShowClipboard
 
     Item {
-      property alias windowOpacity: menu.windowOpacity
+      id: loaderContainer
+
+      property real windowOpacity: 1
+      property bool readyToLoad: false
 
       Item {
         id: clipboardBackend
@@ -90,23 +93,29 @@ Scope {
                 tabIndex = this.text.indexOf('\t', currentLine);
                 nextLine = this.text.indexOf('\n', currentLine);
               }
+              loaderContainer.readyToLoad = true;
             }
           }
         }
       }
-      Menu {
-        id: menu
+      Loader {
+        readonly property Component menu: Component {
+          Menu {
+            windowOpacity: loaderContainer.windowOpacity
+            elementList: clipboardBackend.filteredClipList
+            filterElementList: clipboardBackend.filterClipList
+            hideWindow: root.hideWindow
+            startOfCommand: "wl-copy $(cliphist decode "
+            endOfCommand: ")"
+            anchorLeft: true
+            cardWidth: root.cardWidth
+            singleLine: true
+            rows: root.rows
+            columns: root.columns
+          }
+        }
 
-        elementList: clipboardBackend.filteredClipList
-        filterElementList: clipboardBackend.filterClipList
-        hideWindow: root.hideWindow
-        startOfCommand: "wl-copy $(cliphist decode "
-        endOfCommand: ")"
-        anchorLeft: true
-        cardWidth: root.cardWidth
-        singleLine: true
-        rows: root.rows
-        columns: root.columns
+        sourceComponent: readyToLoad ? menu : undefined
       }
     }
   }

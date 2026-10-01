@@ -83,7 +83,6 @@ PanelWindow {
 
         onTriggered: exec => runCommand(exec)
         Component.onCompleted: {
-          console.log(`!!!!!!!!!!!!!!!!!!there are ${root.elementList.length} elements in the menu when starting the animation!!!!!!!!!!!!!!!!!!`);
           if (anchorLeft)
             x = -width - Theme.spacing * 2;
           else
@@ -142,7 +141,7 @@ PanelWindow {
             root.current = root.elementList.length - 1;
         }
         onBPressed: {
-          if (root.current > root.rows) {
+          if (root.current >= root.rows) {
             if (root.current % (root.rows * root.columns) < root.rows)
               page--;
             root.current -= root.rows;

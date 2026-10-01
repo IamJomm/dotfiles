@@ -17,8 +17,8 @@ Rectangle {
 
   signal triggered(exec: string)
 
-  implicitHeight: elementListGrid.implicitHeight + Theme.spacing * 2
-  implicitWidth: elementListGrid.implicitWidth + Theme.spacing * 2
+  implicitHeight: contentLoader.item.implicitHeight + Theme.spacing * 2
+  implicitWidth: contentLoader.item.implicitWidth + Theme.spacing * 2
   clip: true
   color: Theme.background
   radius: Theme.borderRadius
@@ -34,37 +34,63 @@ Rectangle {
     color: Theme.secondary
     width: Theme.borderWidth
   }
-  GridLayout {
-    id: elementListGrid
+  Loader {
+    id: contentLoader
 
-    rows: root.rows
-    columns: root.columns
-    rowSpacing: Theme.spacing
-    columnSpacing: Theme.spacing
-    flow: GridLayout.TopToBottom
-    anchors.centerIn: parent
+    readonly property Component full: Component {
+      GridLayout {
+        id: elementListGrid
 
-    Repeater {
-      id: elementCardRepeater
+        rows: root.rows
+        columns: root.columns
+        rowSpacing: Theme.spacing
+        columnSpacing: Theme.spacing
+        flow: GridLayout.TopToBottom
 
-      readonly property int elementCount: Math.min(root.elementList.length - page * root.rows * root.columns, root.rows * root.columns)
-      readonly property int actualColumns: Math.ceil(elementCount / root.rows)
+        Repeater {
+          id: elementCardRepeater
 
-      model: elementCount
+          readonly property int elementCount: Math.min(root.elementList.length - page * root.rows * root.columns, root.rows * root.columns)
+          readonly property int actualColumns: Math.ceil(elementCount / root.rows)
 
-      ElementCard {
-        required property int index
-        readonly property int actualIndex: index + page * rows * columns
+          model: elementCount
 
-        cardWidth: root.columns / elementCardRepeater.actualColumns * root.cardWidth + (root.columns - elementCardRepeater.actualColumns) * Theme.spacing / elementCardRepeater.actualColumns
-        singleLine: root.singleLine
-        name: root.elementList[actualIndex].name
-        icon: root.elementList[actualIndex].icon
-        description: root.elementList[actualIndex].description
-        active: actualIndex == root.current
+          ElementCard {
+            required property int index
+            readonly property int actualIndex: index + page * rows * columns
 
-        onTriggered: root.triggered(root.elementList[actualIndex].exec)
+            cardWidth: root.columns / elementCardRepeater.actualColumns * root.cardWidth + (root.columns - elementCardRepeater.actualColumns) * Theme.spacing / elementCardRepeater.actualColumns
+            singleLine: root.singleLine
+            name: root.elementList[actualIndex].name
+            icon: root.elementList[actualIndex].icon
+            description: root.elementList[actualIndex].description
+            active: actualIndex == root.current
+
+            onTriggered: root.triggered(root.elementList[actualIndex].exec)
+          }
+        }
       }
     }
+    readonly property Component empty: Component {
+      Item {
+        implicitWidth: root.cardWidth * root.columns + Theme.spacing * (root.columns - 1)
+        implicitHeight: 25
+
+        Text {
+          text: "Nothing found."
+          elide: Text.ElideRight
+          color: Theme.primary
+          anchors.centerIn: parent
+
+          font {
+            family: Theme.font
+            pixelSize: Theme.fontSize
+          }
+        }
+      }
+    }
+
+    anchors.centerIn: parent
+    sourceComponent: root.elementList.length ? full : empty
   }
 }
